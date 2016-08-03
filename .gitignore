@@ -92,5 +92,4 @@ ENV/
 .idea
 
 # Local DB
-*.sqllite3
-
+db.sqlite3
