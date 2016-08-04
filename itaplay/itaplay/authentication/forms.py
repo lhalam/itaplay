@@ -3,15 +3,19 @@ from django import forms
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
-    username = forms.EmailField(label="User name (e-mail):")
     password = forms.CharField(widget=forms.PasswordInput)
+    confirmPassword = forms.CharField(widget=forms.PasswordInput, label="Confirm password")
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'password')
+        fields = ('first_name', 'last_name', 'password', 'confirmPassword')
 
-class AdviserUserForm(forms.ModelForm):
-    avatar = forms.URLField(label="Avatar (URL):")
-    class Meta:
-        model = AdviserUser
-        fields = ('avatar',)
+    def clean_confirmPassword(self):
+        password1 = self.cleaned_data.get('password')
+        password2 = self.cleaned_data.get('confirmPassword')
+
+        if not password2:
+            raise forms.ValidationError("You must confirm your password")
+        if password1 != password2:
+            raise forms.ValidationError("Your passwords do not match")
+        return password2
