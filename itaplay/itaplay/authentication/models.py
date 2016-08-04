@@ -7,8 +7,11 @@ class AdviserUser(models.Model): # name of our project is Adviser
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.URLField()
 
+
 class AdviserInvitations(models.Model):
-    email=models.EmailField()
-    ID_company=models.IntegerField()
-    verification_code=models.CharField(max_length=128)
-    is_active=models.BooleanField()
+    email = models.EmailField()
+    IdCompany = models.IntegerField()
+    verificationCode = models.CharField(max_length=128)
+    isActive = models.BooleanField()
+    creationTime = models.DateTimeField(auto_now_add=True)
+    usedTime=models.DateTimeField()
