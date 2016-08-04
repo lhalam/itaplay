@@ -3,8 +3,8 @@ from django import forms
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirmPassword = forms.CharField(widget=forms.PasswordInput, label="Confirm password")
+    password = forms.CharField(widget=forms.PasswordInput, min_length=6, max_length=20)
+    confirmPassword = forms.CharField(widget=forms.PasswordInput, label="Confirm password", min_length=6, max_length=20)
 
     class Meta:
         model = User

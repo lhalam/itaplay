@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class AdviserUser(models.Model): # name of our project is Adviser
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ID_company = models.IntegerField() # will be foreign key
     avatar = models.URLField()
 
 class AdviserInvitations(models.Model):
