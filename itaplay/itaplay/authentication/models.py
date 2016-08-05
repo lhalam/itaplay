@@ -13,5 +13,5 @@ class AdviserInvitations(models.Model):
     IdCompany = models.IntegerField()
     verificationCode = models.CharField(max_length=128)
     isActive = models.BooleanField()
-    creationTime = models.DateTimeField(auto_now_add=True)
+    creationTime = models.DateTimeField()
     usedTime=models.DateTimeField()

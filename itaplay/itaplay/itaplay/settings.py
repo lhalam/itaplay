@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'utils',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -77,8 +78,10 @@ WSGI_APPLICATION = 'itaplay.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+         'ENGINE': '',
+         'NAME': '',
     }
 }
 
@@ -124,3 +127,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+#E-mail settings
+
+DEFAULT_FROM_EMAIL = 'team@blabla.com'
+SERVER_EMAIL = 'someroot@localhost'
+EMAIL_HOST = 'smtp.sendgrid.com'
+EMAIL_MAIN = 'support@blabla.com'
+EMAIL_HOST_USER = 'marcosss'
+EMAIL_HOST_PASSWORD = 're$RA8uf'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+try:
+  from local_settings import *
+except ImportError:
+  pass
