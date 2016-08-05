@@ -25,4 +25,10 @@ itaplay.config(function($routeProvider) {
 })
 .run(function($log) {
     $log.info("Starting up");
+})
+
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .dark();
+
 });
