@@ -6,9 +6,9 @@ Lv-193.UI
 <p>We are assuming that you're using bash & you have to install or clone such packages: </p>
 <ul>
     <li> Install PostgreSQL server on local machine.<br>
-        <code>sudo apt-get install postgresql postgresql-contrib</code>
-        <code>sudo apt-get install python-psycopg2</code>
-        <code>sudo apt-get install libpq-dev</code>
+        <code>sudo apt-get install postgresql postgresql-contrib</code><br>
+        <code>sudo apt-get install python-psycopg2</code><br>
+        <code>sudo apt-get install libpq-dev</code><br>
     </li>
     <li>Clone this repository to your local machine.<br>
         <code>git clone https://github.com/lhalam/itaplay.git</code>
