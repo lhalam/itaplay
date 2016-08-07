@@ -12,6 +12,6 @@ class AdviserInvitations(models.Model):
     email = models.EmailField()
     IdCompany = models.IntegerField()
     verificationCode = models.CharField(max_length=128)
-    isActive = models.BooleanField()
+    isActive = models.BooleanField(default=True)
     creationTime = models.DateTimeField()
-    usedTime=models.DateTimeField()
+    usedTime=models.DateTimeField(null=True, blank=True)

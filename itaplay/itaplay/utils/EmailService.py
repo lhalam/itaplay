@@ -18,9 +18,7 @@ class InviteLinkGenerator(object):
         newUser = AdviserInvitations(email=self.email,
                                      IdCompany=self.companyId,
                                      verificationCode=uID,
-                                     isActive=True,
-                                     creationTime=timezone.now(),
-                                     usedTime=timezone.now())
+                                     creationTime=timezone.now())
         newUser.save()
         return URL_REGISTRATION + uID
 
