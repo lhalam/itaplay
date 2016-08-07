@@ -27,8 +27,12 @@ itaplay.config(function($routeProvider) {
     $log.info("Starting up");
 })
 
+// choose colors for our theme
 .config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
-    .dark();
+    $mdThemingProvider.theme('default')
+      .primaryPalette('teal')
+      .accentPalette('blue')
+      .dark();
+
 
 });
