@@ -10,7 +10,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'password', 'confirmPassword')
 
-    def clean_confirmPassword(self):
+    def clean_confirm_password(self):
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('confirmPassword')
 

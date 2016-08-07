@@ -1,44 +1,52 @@
 from django.shortcuts import render
 
 from forms import UserForm
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 
 from . import models
 
 
-def register(request):
-    verificationCode = request.GET.get('code', u"") # maybe should move validation functionality to another function
-    if not verificationCode:
-        return HttpResponse("Invalid code")
-
+def getInvitation(verificationCode):
     if models.AdviserInvitations.objects.filter(verification_code=verificationCode).exists():
-        invitation = models.AdviserInvitations.objects.get(verification_code = verificationCode)
+        invitation = models.AdviserInvitations.objects.get(verification_code=verificationCode)
 
-        if invitation.is_active == True:
-            return HttpResponse("User already registered")
+        if not invitation.is_active:
+            raise IndexError("Invitation is already used")
     else:
-        return HttpResponse("Invalid code")
+        raise IndexError("No open invitation")
+    return invitation
 
+
+def register(request):
+    verificationCode = request.GET.get('code', u"")
+
+    if verificationCode:
+        try:
+            invitation = getInvitation(verificationCode)
+        except IndexError as e:
+            return HttpResponseBadRequest(e.message)
+    else:
+        return HttpResponseBadRequest("Invalid code")
 
     if request.method == 'POST':
         baseForm = UserForm(request.POST)
 
-        if baseForm.is_valid():
-            newBaseUser = baseForm.save(commit=False)
-            newBaseUser.username = invitation.email
-            newBaseUser.email = invitation.email
-            newBaseUser.save()
+        if not baseForm.is_valid():
+            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
 
-            newExtendedUser = models.AdviserUser()
-            newExtendedUser.user = newBaseUser
-            newExtendedUser.avatar = "default-user-logo.png" # or should make default value on DB
-            newExtendedUser.ID_company = invitation.ID_company
-            newExtendedUser.save()
+        newBaseUser = baseForm.save(commit=False)
+        newBaseUser.username = invitation.email
+        newBaseUser.email = invitation.email
+        newBaseUser.save()
 
-            invitation.is_active = True
-            invitation.save()
+        newExtendedUser = models.AdviserUser()
+        newBaseUser.setUpUser(newBaseUser, invitation)
+        newExtendedUser.save()
 
-            return HttpResponseRedirect("/")
+        invitation.is_active = False
+        invitation.save()
+
+        return HttpResponseRedirect("/")
 
     else:
         baseForm = UserForm()

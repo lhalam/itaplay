@@ -8,6 +8,11 @@ class AdviserUser(models.Model): # name of our project is Adviser
     ID_company = models.IntegerField() # will be foreign key
     avatar = models.URLField()
 
+    def setUpUser(self, baseUser, invitation):
+        self.user = baseUser
+        self.avatar = "default-user-logo.png" # or should make default value on DB
+        self.ID_company = invitation.ID_company
+
 class AdviserInvitations(models.Model):
     email=models.EmailField()
     ID_company=models.IntegerField()
