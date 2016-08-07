@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.utils import timezone
 
 from forms import UserForm
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
@@ -6,11 +7,16 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadReque
 from . import models
 
 
-def getInvitation(verificationCode):
-    if models.AdviserInvitations.objects.filter(verification_code=verificationCode).exists():
-        invitation = models.AdviserInvitations.objects.get(verification_code=verificationCode)
+def closeInvitation(invitation):
+    invitation.isActive = False
+    invitation.usedTime = timezone.now()
+    invitation.save()
 
-        if not invitation.is_active:
+def getInvitation(verificationCode):
+    if models.AdviserInvitations.objects.filter(verificationCode=verificationCode).exists():
+        invitation = models.AdviserInvitations.objects.get(verificationCode=verificationCode)
+
+        if not invitation.isActive:
             raise IndexError("Invitation is already used")
     else:
         raise IndexError("No open invitation")
@@ -43,8 +49,7 @@ def register(request):
         newBaseUser.setUpUser(newBaseUser, invitation)
         newExtendedUser.save()
 
-        invitation.is_active = False
-        invitation.save()
+        closeInvitation(invitation)
 
         return HttpResponseRedirect("/")
 
