@@ -46,7 +46,7 @@ def register(request):
         newBaseUser.save()
 
         newExtendedUser = models.AdviserUser()
-        newBaseUser.setUpUser(newBaseUser, invitation)
+        newExtendedUser.setUpUser(newBaseUser, invitation)
         newExtendedUser.save()
 
         closeInvitation(invitation)
