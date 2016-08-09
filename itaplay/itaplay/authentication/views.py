@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from forms import UserForm
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from . import models
 
@@ -52,6 +52,6 @@ def register(request):
 
         close_invitation(invitation)
 
-        return HttpResponseRedirect("/")
+        return HttpResponse(status=201)
 
     return render(request, "register.html")

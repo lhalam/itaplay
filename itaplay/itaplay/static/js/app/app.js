@@ -21,21 +21,15 @@ itaplay.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 }]);
 
-itaplay.controller("RegisterCtrl",['$scope', '$http', function ($scope, $http) {
-    $scope.registrationInfo = {
-        firstName : "John",
-        lastName: "Kul",
-        password : "password",
-        confirmPassword: "password"
-    };
-    $scope.list = [];
-    $scope.firstName = "";
+itaplay.controller("RegisterCtrl",['$scope', '$http', '$location', '$window',
+    function ($scope, $http, $location, $window) {
+
     $scope.registerUser = function() {
         console.log("Start registration");
 
         var req = {
             method: 'POST',
-            url: 'http://127.0.0.1:8000/auth/register?code=1',
+            url: $location.$$absUrl,    // can cause problems
             data: convertJSONtoDjangoFormat({
                 first_name: $scope.registrationInfo.firstName,
                 last_name: $scope.registrationInfo.lastName,
@@ -44,8 +38,12 @@ itaplay.controller("RegisterCtrl",['$scope', '$http', function ($scope, $http) {
             })
         };
         console.log(req.data);
-        $http(req);
-
+        $http(req).success(function(){
+            console.log("Successful registration");
+            $window.location.href = '/';
+        }).error(function(err){
+            alert(err);
+        });
     };
 }]);
 
