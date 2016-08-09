@@ -1,0 +1,20 @@
+
+<div ng-init="init()">
+    <table height = "60"  width="50%"   cellspacing="0"  border="1">
+        <tr>
+            <th>LOGO</th>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th>Address</th>
+            <th>Phone number</th>
+        </tr>
+        <tr ng-repeat = "company in companies">
+            <td align="center"><img src="{{company.company_logo}}" height ="55px" ></td>
+            <td align="center">{{company.company_name}}</td>
+            <td align="center">{{company.company_mail}}</td>
+            <td align="center">{{company.company_address}}</td>
+            <td align="center">{{company.company_phone}}</td>
+        </tr>
+    </table>
+    <md-button  href="#company/add_new" class="groupX right">Add new companie</md-button> 
+</div>

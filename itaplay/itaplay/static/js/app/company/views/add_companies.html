@@ -1,0 +1,13 @@
+
+<div ng-init="initadd()">    
+    <md-button href="#company/" class="groupX right">All companies</md-button> 
+    <div>Add new:</div>
+    <form name="newCompanyForm" >
+        <md-input-container><p>Logo: <input  ng-model="company.company_logo"/></p></md-input-container>
+        <md-input-container><p>Name: <input  ng-model="company.company_name"/></p></md-input-container>
+        <md-input-container><p>E-mail: <input  ng-model="company.company_mail"/></p></md-input-container>  
+        <md-input-container><p>Address: <input  ng-model="company.company_address"/></p></md-input-container>  
+        <md-input-container><p>Phone: <input  ng-model="company.company_phone"/></p></md-input-container>
+        <md-button type="submit" ng-click="save(company, newCompanyForm)">Add</md-buttom>
+    </form>
+</div>
