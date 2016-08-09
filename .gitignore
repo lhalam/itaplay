@@ -90,3 +90,6 @@ ENV/
 
 # Ignore for PyCharm settings
 .idea
+
+# Local DB
+db.sqlite3
