@@ -9,15 +9,15 @@ from . import models
 
 # rewrite using class
 def close_invitation(invitation):
-    invitation.isActive = False
-    invitation.usedTime = timezone.now()
+    invitation.is_active = False
+    invitation.used_time = timezone.now()
     invitation.save()
 
 def get_invitation(verification_code):
-    if models.AdviserInvitations.objects.filter(verificationCode=verification_code).exists():
-        invitation = models.AdviserInvitations.objects.get(verificationCode=verification_code)
+    if models.AdviserInvitations.objects.filter(verification_code=verification_code).exists():
+        invitation = models.AdviserInvitations.objects.get(verification_code=verification_code)
 
-        if not invitation.isActive:
+        if not invitation.is_active:
             raise IndexError("Invitation is already used")
     else:
         raise IndexError("No open invitation")
