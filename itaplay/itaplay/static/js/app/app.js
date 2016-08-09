@@ -12,20 +12,16 @@ itaplay.config(function($routeProvider) {
         .otherwise({redirectTo: '/test'})
 
         .when('/company/', {
-            templateUrl: '../../../static/js/app/company/views/all_companies.html',
+            templateUrl: '../../../static/js/app/company/views/all_company.html',
             controller: AllCompanyController
-            
-           
         })
        .otherwise({redirectTo: '/test'})
        
        .when('/company/add_new/', {
-            templateUrl: '../../../static/js/app/company/views/add_company.html',
-            controller: CompanyAddController
-                        
-           
+            templateUrl: '../../../static/js/app/company/views/add_companies.html',
+            controller: CompanyAddController          
         })
-        .otherwise({redirectTo: '/company/'});
+       .otherwise({redirectTo: '/company/'});
 })
 
 .run(function($log) {
@@ -37,8 +33,6 @@ itaplay.config(function($routeProvider) {
       .primaryPalette('teal')
       .accentPalette('blue')
       .dark();
-
-
 })
 
 .config(function($httpProvider){

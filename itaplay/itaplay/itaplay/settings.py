@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home',
+    'itaplay',
     'company',
+    'home',
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -64,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
