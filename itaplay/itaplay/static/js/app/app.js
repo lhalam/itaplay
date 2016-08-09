@@ -1,6 +1,6 @@
 'use strict';
 
-var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial']);
+var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload']);
 
 
 itaplay.config(function($routeProvider) {
@@ -19,7 +19,8 @@ itaplay.config(function($routeProvider) {
 
         .when('/clips', {
             templateUrl: '../../../static/js/app/test/views/clips.html',
-            
+            controller: 'ClipController'
+                                
         })
         .otherwise({redirectTo: '/test'});
 })
@@ -32,7 +33,9 @@ itaplay.config(function($routeProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
       .accentPalette('blue');
-      
-
-
 });
+
+itaplay.config(['$httpProvider', function($httpProvider) {
+$httpProvider.defaults.xsrfCookieName = 'csrftoken';
+$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}]);    

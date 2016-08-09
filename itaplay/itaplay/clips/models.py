@@ -8,4 +8,3 @@ class Clip(models.Model):
 
       
     video = models.FileField(upload_to='clips/%Y/%m/%d')
-
