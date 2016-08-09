@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+
+      <head>
+
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+          <script src='/static/js/app/authentification/controllers/login-controller.js'></script>
+      </head>
+
+   <body  ng-controller="LoginController">
+        <h1>Login to AdViser</h1>
+
+
+        <div>
+        <form name="form">
+
+            <label for="username">User name</label>
+            <input type="text" name="username" id="username">
+            <br>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+            <br>
+
+                <label class="error">{{ login_error}}</label>
+
+
+            <input class="button" type="submit" value="Log in " ng-click="LoginUser()">
+
+        </form>
+        </div>
+    </body>
+</html>
+
+
+

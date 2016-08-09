@@ -1,17 +1,44 @@
-{% extends 'index.html%}
+<!DOCTYPE html>
+<html ng-app="loginApp">
 
-{% block login %}
-    <div>
-        <form action="/auth/login/" method="post">
-            {% csrf_token %}
-            <label for="username">User name</label>
-            <input type="text" name="username" id="username'">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-            {% if login_error %}
-                <label class="error">{{ login_error}}</label>
-            {% endif %}
-            <input class="button" type="submit" value="Log in ">
+      <head>
+
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-messages.js"></script>
+          <script src='/static/js/app/authentification/controllers/login-controller.js'></script>
+
+
+
+      </head>
+
+   <body  ng-controller="LoginController">
+
+        <h1>Login to AdViser</h1>
+
+
+
+
+        <div>
+        <form name="form">
+
+            <label>User name</label>
+            <input type="text" name="username" ng-model="user_login">
+            <br>
+            <label >Password</label>
+            <input type="password" name="password" ng-model="user_password" required minlength="6" />
+
+            <br>
+            <label class="error">{{ login_error}}</label>
+            <button type="submit" value="Log in " ng-click="LoginUser(user_login,user_password,form)">Submit</button>
+
+            <div ng-messages="form.user_password.$error" role="alert">
+            <div ng-message="minlength">This field can be at minimum  6 characters long.</div>
+            </div>
         </form>
-    </div>
-{% endblock %}
+        </div>
+
+    </body>
+</html>
+
+
+
