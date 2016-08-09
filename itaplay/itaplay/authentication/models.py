@@ -3,15 +3,17 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+
+#change to underscore
 class AdviserUser(models.Model): # name of our project is Adviser
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    IdCompany = models.IntegerField() # will be foreign key
+    ID_company = models.IntegerField() # will be foreign key
     avatar = models.URLField()
 
-    def setUpUser(self, baseUser, invitation):
-        self.user = baseUser
+    def setup_user(self, base_user, invitation):
+        self.user = base_user
         self.avatar = "default-user-logo.png" # or should make default value on DB
-        self.IdCompany = invitation.IdCompany
+        self.ID_company = invitation.IdCompany
 
 
 class AdviserInvitations(models.Model):

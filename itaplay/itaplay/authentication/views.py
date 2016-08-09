@@ -7,14 +7,15 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadReque
 from . import models
 
 
-def closeInvitation(invitation):
+# rewrite using class
+def close_invitation(invitation):
     invitation.isActive = False
     invitation.usedTime = timezone.now()
     invitation.save()
 
-def getInvitation(verificationCode):
-    if models.AdviserInvitations.objects.filter(verificationCode=verificationCode).exists():
-        invitation = models.AdviserInvitations.objects.get(verificationCode=verificationCode)
+def get_invitation(verification_code):
+    if models.AdviserInvitations.objects.filter(verificationCode=verification_code).exists():
+        invitation = models.AdviserInvitations.objects.get(verificationCode=verification_code)
 
         if not invitation.isActive:
             raise IndexError("Invitation is already used")
@@ -24,38 +25,33 @@ def getInvitation(verificationCode):
 
 
 def register(request):
-    verificationCode = request.GET.get('code', u"")
+    verification_code = request.GET.get("code", "")
 
-    if verificationCode:
+    if verification_code:
         try:
-            invitation = getInvitation(verificationCode)
+            invitation = get_invitation(verification_code)
         except IndexError as e:
             return HttpResponseBadRequest(e.message)
     else:
         return HttpResponseBadRequest("Invalid code")
 
     if request.method == 'POST':
-        baseForm = UserForm(request.POST)
+        base_form = UserForm(request.POST)
 
-        if not baseForm.is_valid():
+        if not base_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
 
-        newBaseUser = baseForm.save(commit=False)
-        newBaseUser.username = invitation.email
-        newBaseUser.email = invitation.email
-        newBaseUser.save()
+        new_base_user = base_form.save(commit=False)
+        new_base_user.username = invitation.email
+        new_base_user.email = invitation.email
+        new_base_user.save()
 
-        newExtendedUser = models.AdviserUser()
-        newExtendedUser.setUpUser(newBaseUser, invitation)
-        newExtendedUser.save()
+        new_extended_user = models.AdviserUser()
+        new_extended_user.setup_user(new_base_user, invitation)
+        new_extended_user.save()
 
-        closeInvitation(invitation)
+        close_invitation(invitation)
 
         return HttpResponseRedirect("/")
 
-    else:
-        baseForm = UserForm()
-
-    return render(request, "register.html", {
-        'baseForm': baseForm
-    })
+    return render(request, "register.html")
