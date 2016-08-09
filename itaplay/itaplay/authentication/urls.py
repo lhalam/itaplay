@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = patterns('',
-    url(r'^register', views.register),
+    url(r'^register', views.RegistrationView.as_view()),
 )
