@@ -3,14 +3,22 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-class AdviserUser(models.Model):    # name of our project is Adviser
+class AdviserUser(models.Model):
+    """
+    Model of user - contain foreign key to default Django user and have additional fields
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     ID_company = models.IntegerField() # will be foreign key
-    avatar = models.URLField()
+    avatar = models.URLField(default="default-user-logo.png")
 
     def setup_user(self, base_user, invitation):
+        """
+        Function for filling additional data for this class
+        :param base_user: default Django user
+        :param invitation: invitation for user
+        :return: nothing
+        """
         self.user = base_user
-        self.avatar = "default-user-logo.png" # or should make default value on DB
         self.ID_company = invitation.id_company
 
 

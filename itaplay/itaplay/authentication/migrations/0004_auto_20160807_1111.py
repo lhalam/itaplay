@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RenameField(
             model_name='adviserinvitations',
-            old_name='ID_company',
+            old_name='id_company',
             new_name='IdCompany',
         ),
         migrations.RenameField(
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         ),
         migrations.RenameField(
             model_name='adviseruser',
-            old_name='ID_company',
+            old_name='id_company',
             new_name='IdCompany',
         ),
         migrations.AddField(

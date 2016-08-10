@@ -1,7 +1,6 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from . import views
 
 
-urlpatterns = patterns('',
-    url(r'^register', views.RegistrationView.as_view()),
-)
+urlpatterns = [url(r'^register', views.RegistrationView.as_view()),
+              ]
