@@ -16,18 +16,30 @@ def company_get(request):
     return HttpResponse(json.dumps({"company" : data}, ensure_ascii=False))
 
 def company_post(request):
-    company = Company()
-    company.company_save(json.loads(request.body))
+    company = Company(**json.loads(request.body))
+    company.save()
     name = "posted"
     return HttpResponse({"name" : name})
     
 def current_company(request, company_id):
     company = Company.objects.get(id = company_id)
-    args ={"company_logo": company.company_logo,"company_name": company.company_name,"company_mail": company.company_mail,  "company_phone": company.company_phone, "company_address": company.company_address}
+    args ={"id":company.id, 
+           "company_logo": company.company_logo,
+           "company_name": company.company_name,
+           "company_mail": company.company_mail,  
+           "company_phone": company.company_phone, 
+           "company_address": company.company_address}
     return HttpResponse(json.dumps({"current_company":args} , ensure_ascii=False))
 
 def delete_company(request):
     company = Company.objects.get(id = json.loads(request.body).get("id"))
     company.delete()
     name = "deleted"
+    return HttpResponse({"name" : name})
+
+def edit_company(request):
+    company = Company.objects.get(id = json.loads(request.body).get("id"))
+    company = Company(**json.loads(request.body))
+    company.save()
+    name = "changed"
     return HttpResponse({"name" : name})

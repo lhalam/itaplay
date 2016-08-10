@@ -36,5 +36,8 @@ function CompanyController($scope, $http, $routeParams) {
          $scope.delete_current = function(company){
       $http.post("company/delete_company/", company);
     };      
+       $scope.update = function(company){
+      $http.post("company/edit_company/", company);
+    };      
   };
 };
