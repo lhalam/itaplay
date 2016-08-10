@@ -1,0 +1,10 @@
+<div ng-init="initcomp()">
+    <ul>
+        <li><img src="{{company.company_logo}}" height ="55px"></li>
+        <li>{{company.company_name}}<br></li>
+        <li>{{company.company_mail}}<br></li>
+        <li>{{company.company_address}}<br></li>
+        <li>{{company.company_phone}}<br></li>
+    </ul>
+    <md-button type="submit" ng-click="delete_current(company)">delete</md-buttom>
+</div>

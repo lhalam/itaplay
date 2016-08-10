@@ -10,4 +10,12 @@ class Company(models.Model):
     company_mail = models.EmailField(unique=True)
     company_phone = models.CharField(max_length=50, unique=True)
     company_address = models.CharField(max_length=200, unique=True)
-    administrator = models.IntegerField() # will be foreign key
+    administrator = models.IntegerField(default=1) # will be foreign key
+    
+    def company_save(self, args):
+        company = Company(company_logo=args["company_logo"], 
+                    company_name=args["company_name"], 
+                    company_mail=args["company_mail"], 
+                    company_phone=args["company_phone"], 
+                    company_address=args["company_address"])
+        company.save()

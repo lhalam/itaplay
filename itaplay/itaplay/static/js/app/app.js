@@ -21,6 +21,12 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/company/views/add_companies.html',
             controller: CompanyAddController          
         })
+       .otherwise({redirectTo: '/company/'})
+       
+       .when('/company/id=:id/', {
+            templateUrl: '../../../static/js/app/company/views/company.html',
+            controller: CompanyController          
+        })
        .otherwise({redirectTo: '/company/'});
 })
 
