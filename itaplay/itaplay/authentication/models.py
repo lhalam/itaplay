@@ -11,10 +11,11 @@ class AdviserUser(models.Model):    # name of our project is Adviser
     def setUpUser(self, baseUser, invitation):
         self.user = baseUser
         self.avatar = "default-user-logo.png" # or should make default value on DB
-        self.IdCompany = invitation.IdCompany
+        self.IdCompany = invitation.id_company
 
 
 class AdviserInvitations(models.Model):
+    """Stores invitation data"""
     email = models.EmailField()
     id_company = models.IntegerField()
     verification_code = models.CharField(max_length=128)

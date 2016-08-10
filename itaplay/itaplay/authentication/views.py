@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.utils import timezone
 
-from forms import UserForm
+from forms import UserForm, InviteForm
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from utils.EmailService import EmailSender
 
 from . import models
 
@@ -58,4 +59,24 @@ def register(request):
 
     return render(request, "register.html", {
         'baseForm': baseForm
+    })
+
+
+def invite(request):
+    if request.method == 'POST':
+        invite_form = InviteForm(request.POST)
+        if not invite_form.is_valid():
+            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+        if models.User.objects.filter(email=invite_form.data[u'email']).exists():
+            return HttpResponseBadRequest("User with this e-mail is registered")
+        if models.AdviserInvitations.objects.filter(email=invite_form.data[u'email']).exists():
+            return HttpResponseBadRequest("User with this e-mail is already invited")
+        sender = EmailSender(invite_form.data[u'email'])
+        sender.send_invite(invite_form.data[u'id_company'])
+        return HttpResponseRedirect("/")
+    else:
+        invite_form = InviteForm()
+
+    return render(request, "invite.html", {
+        'inviteForm': invite_form
     })
