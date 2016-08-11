@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html ng-app='itaplay' ng-cloak>
+<html ng-app="itaplay" >
 <head>
-	<title>AdViser project</title>
-			 <!-- Custom style sheet -->
-		<link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+	<title>Create an account</title>
+        <!-- Custom style sheet -->
+		<link rel="stylesheet" type="text/css" href="/static/styles/register.css">
 		<!-- Angular Material style sheet -->
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
-
 </head>
+<body >
+  <h1>Invite user</h1>
 
-<body>
+  <form action="" method="post">
+      {% csrf_token %}
 
-<div class="main_wrapper">
-  <div ng-include="'/static/js/app/views/header.html'"></div>
-	<div ng-view></div>
-</div>
-<ng-include src="'/static/js/app/views/footer.html'"></ng-include>
-
-
+      {{ inviteForm.as_p }}
+      <input type="submit" value="Invite">
+  </form>
 	 <!-- Angular Material requires Angular.js Libraries -->
 <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
 <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>

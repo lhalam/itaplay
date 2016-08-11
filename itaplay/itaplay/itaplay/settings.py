@@ -15,6 +15,16 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Settings for sending e-mail
+EMAIL_SETTINGS = {'DEFAULT_FROM_EMAIL': 'team@blabla.com',
+                  'SERVER_EMAIL': 'someroot@localhost',
+                  'EMAIL_HOST': 'smtp.sendgrid.com',
+                  'EMAIL_MAIN': 'support@blabla.com',
+                  'EMAIL_HOST_USER': 'marcosss',
+                  'EMAIL_HOST_PASSWORD': 're$RA8uf',
+                  'EMAIL_PORT': 587,
+                  'EMAIL_USE_TLS': True}
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -37,13 +47,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'itaplay',
+    'authentication',
+    'utils',
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -70,14 +83,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'itaplay.wsgi.application'
 
+LOGIN_URL = '/auth/login/'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': '',
+        'NAME': '',
     }
 }
 
@@ -123,3 +138,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+# E-mail settings
+
+DEFAULT_FROM_EMAIL = EMAIL_SETTINGS['DEFAULT_FROM_EMAIL']
+SERVER_EMAIL = EMAIL_SETTINGS['SERVER_EMAIL']
+EMAIL_HOST = EMAIL_SETTINGS['EMAIL_HOST']
+EMAIL_MAIN = EMAIL_SETTINGS['EMAIL_MAIN']
+EMAIL_HOST_USER = EMAIL_SETTINGS['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
+EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
