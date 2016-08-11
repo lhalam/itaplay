@@ -93,3 +93,6 @@ ENV/
 
 # Local DB
 db.sqlite3
+
+# PyLint config
+.pylintrc
