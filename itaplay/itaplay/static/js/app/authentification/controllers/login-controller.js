@@ -1,6 +1,6 @@
 angular.module('loginApp',['ngMessages'])
 .controller('LoginController', function($scope,$http) {
-    $scope.LoginUser=function(user,password,form) {
+    $scope.LoginUser = function(user,password,form) {
         console.log($scope);
         $http({
             method: 'POST',

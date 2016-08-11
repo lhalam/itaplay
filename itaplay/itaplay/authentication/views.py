@@ -1,13 +1,16 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from forms import UserForm
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from . import models
+from django.shortcuts import render, redirect
 from django.contrib.auth.views import login
+from django.contrib import auth
+from forms import UserForm
+from . import models
 import json
 
+from django.views.generic import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 def register(request):
     verificationCode = request.GET.get('code', u"") # maybe should move validation functionality to another function
@@ -21,8 +24,6 @@ def register(request):
             return HttpResponse("User already registered")
     else:
         return HttpResponse("Invalid code")
-
-
     if request.method == 'POST':
         baseForm = UserForm(request.POST)
 
@@ -50,32 +51,36 @@ def register(request):
         'baseForm': baseForm
     })
 
-@login_required()
-def login(request):
-    if request.method == "POST":
-        username = json.loads(request.body).get('username')
-        password = json.loads(request.body).get('password')
+
+class LoginView(View):
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginView, self).dispatch(*args, **kwargs)
+
+
+    def post(self, request):
+        data = json.loads(request.body)
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+
         user = auth.authenticate(username=username, password=password)
 
         if user is not None:
             auth.login(request, user)
             return redirect('/')
+
         else:
-            return HttpResponse("incorect username or password", status = 401)
-    else:
-        return HttpResponse(status = 400)
+            return HttpResponse("incorect username or password", status=401)
+
+        #else:
+        return HttpResponse(status=400)
 
 
-@login_required()
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
-
-@login_required()
-def custom_login(request):
-    if request.method == "GET":
-        print "GET"
+    def get(self, request, *args, **kwargs):
         return render(request, 'login.html')
-    else:
-        print "not GET"
-        return login(request)
+
+
+
+
