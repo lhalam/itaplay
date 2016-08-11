@@ -9,8 +9,9 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/test/views/test.html',
             controller: TestController
         }).
-        otherwise({redirectTo: '/test'});
+
 }).
 run(function($log) {
     $log.info("Starting up");
+    console.log("start");
 });

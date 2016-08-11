@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app='itaplay'>
 <head>
-	<title></title>
+	<title>{% block title %}{% endblock %}</title>
 	<script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
 	<script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>
 	<script src='/static/js/app/app.js'></script>
@@ -9,8 +9,12 @@
 
 </head>
 <body>
-<div>ita project</div>
-<div ng-view></div>
+	{% if not user.is_authenticated %}
+	{% endif %}
+
+
+{% block content %}
+{% endblock %}
 
 </body>
 </html>
