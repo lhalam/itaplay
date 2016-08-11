@@ -1,3 +1,4 @@
+from models import AdviserInvitations
 from django import forms
 from django.contrib.auth.models import User
 
@@ -26,3 +27,11 @@ class UserForm(forms.ModelForm):
         if password1 != password2:
             raise forms.ValidationError("Your passwords do not match")
         return password2
+
+class InviteForm(forms.ModelForm):
+    email = forms.EmailField(label="Invite email")
+    company_id = forms.NumberInput()
+
+    class Meta:
+        model = AdviserInvitations
+        fields = ('email', 'id_company')

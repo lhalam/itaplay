@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block title %}Invite user{% endblock %}
+
+{% block content %}
+  <h1>Invite user</h1>
+
+  <form action="" method="post">
+      {% csrf_token %}
+
+      {{ inviteForm.as_p }}
+      <input type="submit" value="Invite">
+  </form>
+{% endblock %}

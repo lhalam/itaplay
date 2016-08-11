@@ -8,6 +8,12 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseBadRequest
 
+from forms import UserForm, InviteForm
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from utils.EmailService import EmailSender
+
+from models import User
+
 def validate_verification_code(func):
     """
     Decorator that check is verification code valid, existing and open
@@ -111,3 +117,23 @@ class RegistrationView(View):
         self.close_invitation(invitation)
 
         return HttpResponse(status=201)
+
+
+def invite(request):
+    if request.method == 'POST':
+        invite_form = InviteForm(request.POST)
+        if not invite_form.is_valid():
+            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+        if User.objects.filter(email=invite_form.data[u'email']).exists():
+            return HttpResponseBadRequest("User with this e-mail is registered")
+        if AdviserInvitations.objects.filter(email=invite_form.data[u'email']).exists():
+            return HttpResponseBadRequest("User with this e-mail is already invited")
+        sender = EmailSender(invite_form.data[u'email'])
+        sender.send_invite(invite_form.data[u'id_company'])
+        return HttpResponseRedirect("/")
+    else:
+        invite_form = InviteForm()
+
+    return render(request, "invite.html", {
+        'inviteForm': invite_form
+    })

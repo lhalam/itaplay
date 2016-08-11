@@ -23,6 +23,7 @@ class AdviserUser(models.Model):
 
 
 class AdviserInvitations(models.Model):
+    """Stores invitation data"""
     email = models.EmailField()
     id_company = models.IntegerField()
     verification_code = models.CharField(max_length=128)
