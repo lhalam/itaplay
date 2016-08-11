@@ -1,36 +1,60 @@
 <!DOCTYPE html>
-<html ng-app="itaplay" >
-<head>
-	<title>Create an account</title>
-        <!-- Custom style sheet -->
-		<link rel="stylesheet" type="text/css" href="/static/styles/register.css">
-		<!-- Angular Material style sheet -->
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
-</head>
-<body >
-  <h1>Create an account</h1>
-
-  <form  ng-submit="registerUser()" ng-controller="RegisterCtrl">
-      <p><label>First name:</label> <input ng-model="registrationInfo.firstName"></p>
-      <p><label>Last name:</label> <input ng-model="registrationInfo.lastName"></p>
-      <p><label>Password:</label> <input type="password" ng-model="registrationInfo.password"></p>
-      <p><label>Confirm password:</label> <input type="password" ng-model="registrationInfo.confirmPassword"></p>
-      <input type="submit" value="Register user" >
-
-  </form>
-
-	 <!-- Angular Material requires Angular.js Libraries -->
-<script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
-<script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-
-  <!-- Angular Material Library -->
-<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
-
-  <!-- Our custom js -->
-<script src='/static/js/app/app.js'></script>
-<script src='/static/js/app/test/controllers/test-controller.js'></script>
-</body>
+<html ng-app="itaplay">
+   <head>
+      <title>Create an account</title>
+      <!-- Custom style sheet -->
+      <link rel="stylesheet" type="text/css" href="/static/styles/register.css">
+      <!-- Angular Material style sheet -->
+      <link rel="stylesheet"
+         href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+      <!-- Angular Material requires Angular.js Libraries -->
+      <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
+      <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+      <!-- Angular Material Library -->
+      <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+      <!-- Our custom js -->
+      <script src='/static/js/app/app.js'></script>
+      <script src='/static/js/app/test/controllers/test-controller.js'></script>
+   </head>
+   <body ng-controller="RegisterCtrl">
+      <div flex="50" flex-offset="25" flex-sm="90" offset-sm="5">
+         <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
+            <span flex>
+               <div layout="column">
+                  <div layout="row">
+                     <h2>CREATE AN ACCOUNT</h2>
+                  </div>
+                  <form name="registerForm" ng-submit="registerUser()">
+                     <div layout="column">
+                        <md-input-container>
+                           <label>First name</label>
+                           <input ng-model="registrationInfo.firstName" name="firstName" required>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Last name</label>
+                           <input ng-model="registrationInfo.lastName" name="lastName" required>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Password</label>
+                           <input type="password" ng-model="registrationInfo.password" name="password" required>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Confirm password</label>
+                           <input type="password" ng-model="registrationInfo.confirmPassword" name="confirmPassword" required>
+                        </md-input-container>
+                     </div>
+                     <div layout="row">
+                        <div flex offset="33"></div>
+                        <md-button type='reset' flex>CANCEL</md-button>
+                        <md-button type="submit" flex class="md-raised md-primary">REGISTER</md-button>
+                     </div>
+                  </form>
+               </div>
+            </span>
+         </md-whiteframe>
+      </div>
+   </body>
 </html>

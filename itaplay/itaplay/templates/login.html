@@ -1,26 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="loginApp">
-
       <head>
-
           <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
           <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-messages.js"></script>
           <script src='/static/js/app/authentification/controllers/login-controller.js'></script>
-
-
-
       </head>
-
    <body  ng-controller="LoginController">
-
         <h1>Login to AdViser</h1>
-
-
-
-
         <div>
         <form name="form">
-
             <label>User name</label>
             <input type="text" name="username" ng-model="user_login">
             <br>
@@ -28,18 +16,12 @@
             <input type="password" name="password" ng-model="user_password" required minlength="6" />
             <div ng-messages="form.user_password.$error" role="alert">
             <div ng-message="minlength">This field must be at least 6 characters long.</div>
-
             <br>
             <label class="error">{{ login_error}}</label>
             <button type="submit" value="Log in " ng-click="LoginUser(user_login,user_password,form)">Submit</button>
-
-
             </div>
         </form>
         </div>
 
     </body>
 </html>
-
-
-

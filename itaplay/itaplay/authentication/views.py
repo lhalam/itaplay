@@ -1,23 +1,16 @@
 import json
 
-from authentication.models import AdviserInvitations, AdviserUser
-
 from django.utils import timezone
 from django.views.generic import View
-
-from forms import UserForm, InviteForm
+from django.shortcuts import render
+from django.contrib import auth
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+
+from authentication.models import AdviserInvitations, AdviserUser
+from authentication.forms import UserForm, InviteForm
 from utils.EmailService import EmailSender
 
-from models import User
-
-from django.core.context_processors import csrf
-from django.shortcuts import render, redirect
-from django.contrib.auth.views import login
-from django.contrib import auth
-
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 
 def validate_verification_code(func):
     """
@@ -55,7 +48,7 @@ class RegistrationView(View):
     View used for handling registration
     """
 
-    def close_invitation(self, invitation): # may be move to Invitation model
+    def close_invitation(self, invitation):  # may be move to Invitation model
         """
         Function for making invitation inactive and setting usage time
         :param invitation: object of InvitationModel
@@ -65,8 +58,7 @@ class RegistrationView(View):
         invitation.used_time = timezone.now()
         invitation.save()
 
-
-    def get_invitation(self, verification_code): # may be move to Invitation model
+    def get_invitation(self, verification_code):  # may be move to Invitation model
         """
         Function for finding invitation by verification code
         :param verification_code: verification code for user registration
@@ -81,7 +73,6 @@ class RegistrationView(View):
             raise IndexError("No open invitation")
         return invitation
 
-
     @validate_verification_code
     def get(self, request):
         """
@@ -90,7 +81,6 @@ class RegistrationView(View):
         :return: rendered registration page
         """
         return render(request, "register.html")
-
 
     @validate_verification_code
     def post(self, request):
@@ -147,11 +137,6 @@ def invite(request):
 
 class LoginView(View):
 
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(LoginView, self).dispatch(*args, **kwargs)
-
-
     def post(self, request):
         data = json.loads(request.body)
 
@@ -165,15 +150,7 @@ class LoginView(View):
             return HttpResponse(status=200)
 
         else:
-            return HttpResponse("incorect username or password", status=401)
-
-        #else:
-        return HttpResponse(status=400)
-
+            return HttpResponse("incorrect username or password", status=401)
 
     def get(self, request, *args, **kwargs):
         return render(request, 'login.html')
-
-
-
-

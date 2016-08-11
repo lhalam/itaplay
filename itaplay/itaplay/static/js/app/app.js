@@ -9,17 +9,13 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/test/views/test.html',
             controller: TestController
         })
-        .otherwise({redirectTo: '/test'})
 
         .when('/test1', {
-            templateUrl: '../../../static/js/app/test/views/test1.html',
-
+            templateUrl: '../../../static/js/app/test/views/test1.html'
         })
-        .otherwise({redirectTo: '/test'})
 
         .when('/clips', {
-            templateUrl: '../../../static/js/app/test/views/clips.html',
-
+            templateUrl: '../../../static/js/app/test/views/clips.html'
         })
         .otherwise({redirectTo: '/test'});
 })
@@ -43,8 +39,6 @@ itaplay.controller("RegisterCtrl",['$scope', '$http', '$location', '$window',
     function ($scope, $http, $location, $window) {
 
     $scope.registerUser = function() {
-        console.log("Start registration");
-
         var req = {
             method: 'POST',
             url: $location.$$absUrl,    // can cause problems
@@ -55,9 +49,7 @@ itaplay.controller("RegisterCtrl",['$scope', '$http', '$location', '$window',
                 confirm_password: $scope.registrationInfo.confirmPassword
             }
         };
-        console.log(req.data);
         $http(req).success(function(){
-            console.log("Successful registration");
             $window.location.href = '/';
         }).error(function(err){
             alert(err);

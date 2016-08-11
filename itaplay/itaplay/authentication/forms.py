@@ -19,14 +19,14 @@ class UserForm(forms.ModelForm):
         Function checks that fields password and confirm_password are equal
         :return: nothing
         """
-        password1 = self.cleaned_data.get('password')
-        password2 = self.cleaned_data.get('confirm_password')
+        password = self.cleaned_data.get('password')
+        confirm_password = self.cleaned_data.get('confirm_password')
 
-        if not password2:
+        if not confirm_password:
             raise forms.ValidationError("You must confirm your password")
-        if password1 != password2:
+        if password != confirm_password:
             raise forms.ValidationError("Your passwords do not match")
-        return password2
+        return confirm_password
 
 class InviteForm(forms.ModelForm):
     email = forms.EmailField(label="Invite email")
