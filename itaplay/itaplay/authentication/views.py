@@ -1,18 +1,23 @@
 import json
 
-from authentication.forms import UserForm
 from authentication.models import AdviserInvitations, AdviserUser
 
 from django.utils import timezone
-from django.shortcuts import render
 from django.views.generic import View
-from django.http import HttpResponse, HttpResponseBadRequest
 
 from forms import UserForm, InviteForm
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from utils.EmailService import EmailSender
 
 from models import User
+
+from django.core.context_processors import csrf
+from django.shortcuts import render, redirect
+from django.contrib.auth.views import login
+from django.contrib import auth
+
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 def validate_verification_code(func):
     """
@@ -108,6 +113,7 @@ class RegistrationView(View):
         new_base_user = base_form.save(commit=False)
         new_base_user.username = invitation.email
         new_base_user.email = invitation.email
+        new_base_user.set_password(data['password'])
         new_base_user.save()
 
         new_extended_user = AdviserUser()
@@ -137,3 +143,37 @@ def invite(request):
     return render(request, "invite.html", {
         'inviteForm': invite_form
     })
+
+
+class LoginView(View):
+
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(LoginView, self).dispatch(*args, **kwargs)
+
+
+    def post(self, request):
+        data = json.loads(request.body)
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return HttpResponse(status=200)
+
+        else:
+            return HttpResponse("incorect username or password", status=401)
+
+        #else:
+        return HttpResponse(status=400)
+
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'login.html')
+
+
+
+
