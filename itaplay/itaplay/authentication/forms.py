@@ -2,13 +2,14 @@ from models import AdviserInvitations
 from django import forms
 from django.contrib.auth.models import User
 
-class UserForm(forms.ModelForm):
+
+class UserRegistrationForm(forms.ModelForm):
     """
     Form for registration user
     """
-    password = forms.CharField(widget=forms.PasswordInput, min_length=6, max_length=20)
+    password = forms.CharField(widget=forms.PasswordInput, min_length=6, max_length=20, required=True)
     confirm_password = forms.CharField(widget=forms.PasswordInput, label="Confirm password",
-                                       min_length=6, max_length=20)
+                                       min_length=6, max_length=20, required=True)
 
     class Meta:
         model = User
@@ -22,8 +23,6 @@ class UserForm(forms.ModelForm):
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
 
-        if not confirm_password:
-            raise forms.ValidationError("You must confirm your password")
         if password != confirm_password:
             raise forms.ValidationError("Your passwords do not match")
         return confirm_password

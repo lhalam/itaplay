@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 
 from authentication.models import AdviserInvitations, AdviserUser
-from authentication.forms import UserForm, InviteForm
+from authentication.forms import UserRegistrationForm, InviteForm
 from utils.EmailService import EmailSender
 
 
@@ -30,8 +30,9 @@ def validate_verification_code(func):
         verification_code = request.GET.get("code", "")
 
         if verification_code:
-            if AdviserInvitations.objects.filter(verification_code=verification_code).exists():
-                invitation = AdviserInvitations.objects.get(verification_code=verification_code)
+            invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
+            if len(invitation_query):
+                invitation = invitation_query[0]
 
                 if not invitation.is_active:
                     return HttpResponseBadRequest("Invitation is already used")
@@ -64,8 +65,9 @@ class RegistrationView(View):
         :param verification_code: verification code for user registration
         :return: invitation object of Invitation Model
         """
-        if AdviserInvitations.objects.filter(verification_code=verification_code).exists():
-            invitation = AdviserInvitations.objects.get(verification_code=verification_code)
+        invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
+        if len(invitation_query):
+            invitation = invitation_query[0]
 
             if not invitation.is_active:
                 raise IndexError("Invitation is already used")
@@ -91,24 +93,16 @@ class RegistrationView(View):
         HttpResponseBadRequest if request contain incorrect data
         """
         verification_code = request.GET.get("code", "")
-
         invitation = self.get_invitation(verification_code)
 
         data = json.loads(request.body)
-        base_form = UserForm(data)
+        user_registration_form = UserRegistrationForm(data)
 
-        if not base_form.is_valid():
+        if not user_registration_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
 
-        new_base_user = base_form.save(commit=False)
-        new_base_user.username = invitation.email
-        new_base_user.email = invitation.email
-        new_base_user.set_password(data['password'])
-        new_base_user.save()
-
-        new_extended_user = AdviserUser()
-        new_extended_user.setup_user(new_base_user, invitation)
-        new_extended_user.save()
+        new_user = AdviserUser(user_registration_form, invitation)
+        new_user.save()
 
         self.close_invitation(invitation)
 
