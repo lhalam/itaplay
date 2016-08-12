@@ -39,11 +39,22 @@
                         </md-input-container>
                         <md-input-container>
                            <label>Password</label>
-                           <input type="password" ng-model="registrationInfo.password" name="password" required>
+                           <input type="password" ng-model="registrationInfo.password" name="password" required
+                                  md-maxlength="20" minlength="6">
+                            <div ng-messages="registerForm.password.$error" ng-show="registerForm.password.$dirty">
+                                <div ng-message="md-maxlength">Password too long!</div>
+                                <div ng-message="minlength">Password too short!</div>
+                            </div>
                         </md-input-container>
                         <md-input-container>
                            <label>Confirm password</label>
-                           <input type="password" ng-model="registrationInfo.confirmPassword" name="confirmPassword" required>
+                           <input type="password" ng-model="registrationInfo.confirmPassword" name="confirmPassword"
+                                  required md-maxlength="20" minlength="6" compare-to="registrationInfo.password">
+                            <div ng-messages="registerForm.confirmPassword.$error" ng-show="registerForm.confirmPassword.$dirty">
+                                  <div ng-message="md-maxlength">Password too long!</div>
+                                  <div ng-message="minlength">Password too short!</div>
+                                <div ng-message="compareTo">Passwords are not equal!</div>
+                            </div>
                         </md-input-container>
                      </div>
                      <div layout="row">
