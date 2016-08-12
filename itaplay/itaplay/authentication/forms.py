@@ -27,7 +27,10 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Your passwords do not match")
         return confirm_password
 
-class InviteForm(forms.ModelForm):
+class UserInvitationForm(forms.ModelForm):
+    """
+    Form for inviting users
+    """
     email = forms.EmailField(label="Invite email")
     company_id = forms.NumberInput()
 

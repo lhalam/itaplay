@@ -49,11 +49,11 @@ class EmailSender(object):
         Args:
             company_id (int): ID for company, who invite user
         Returns :
-            1 if success, 0 otherwise
+            True if success, False otherwise
         """
         plaintext = get_template('email_template.txt')
         invite_link = InviteLinkGenerator(company_id, self.email).generate_link()
         subject = "Invite to our service"
         body = plaintext.render(Context({'inviteLink': invite_link}))  # rendering our template with data
         email = EmailMessage(subject, body, to=[self.email])
-        return email.send()
+        return True if(email.send()==1) else False
