@@ -2,10 +2,9 @@ import json
 
 from authentication.models import AdviserInvitations, AdviserUser
 
-from django.utils import timezone
 from django.views.generic import View
 
-from forms import UserForm, InviteForm
+from forms import UserForm, UserInvitationForm
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from utils.EmailService import EmailSender
 
@@ -55,33 +54,6 @@ class RegistrationView(View):
     View used for handling registration
     """
 
-    def close_invitation(self, invitation): # may be move to Invitation model
-        """
-        Function for making invitation inactive and setting usage time
-        :param invitation: object of InvitationModel
-        :return: nothing
-        """
-        invitation.is_active = False
-        invitation.used_time = timezone.now()
-        invitation.save()
-
-
-    def get_invitation(self, verification_code): # may be move to Invitation model
-        """
-        Function for finding invitation by verification code
-        :param verification_code: verification code for user registration
-        :return: invitation object of Invitation Model
-        """
-        if AdviserInvitations.objects.filter(verification_code=verification_code).exists():
-            invitation = AdviserInvitations.objects.get(verification_code=verification_code)
-
-            if not invitation.is_active:
-                raise IndexError("Invitation is already used")
-        else:
-            raise IndexError("No open invitation")
-        return invitation
-
-
     @validate_verification_code
     def get(self, request):
         """
@@ -102,7 +74,7 @@ class RegistrationView(View):
         """
         verification_code = request.GET.get("code", "")
 
-        invitation = self.get_invitation(verification_code)
+        invitation = AdviserInvitations.get_invitation(verification_code)
 
         data = json.loads(request.body)
         base_form = UserForm(data)
@@ -120,29 +92,50 @@ class RegistrationView(View):
         new_extended_user.setup_user(new_base_user, invitation)
         new_extended_user.save()
 
-        self.close_invitation(invitation)
+        invitation.close_invitation()
 
         return HttpResponse(status=201)
 
 
-def invite(request):
-    if request.method == 'POST':
-        invite_form = InviteForm(request.POST)
+class InviteView(View):
+    """View that handles user invitation"""
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(InviteView, self).dispatch(*args, **kwargs)
+
+    def post(self, request):
+        """Handling GET method
+            :param request: Request to View
+            :return: HttpResponse with code 201 if user is invited or
+                     HttpResponseBadRequest if request contain incorrect data
+        """
+
+        invite_form = UserInvitationForm(request.POST)
+
         if not invite_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+
         if User.objects.filter(email=invite_form.data[u'email']).exists():
             return HttpResponseBadRequest("User with this e-mail is registered")
+
         if AdviserInvitations.objects.filter(email=invite_form.data[u'email']).exists():
             return HttpResponseBadRequest("User with this e-mail is already invited")
-        sender = EmailSender(invite_form.data[u'email'])
-        sender.send_invite(invite_form.data[u'id_company'])
-        return HttpResponseRedirect("/")
-    else:
-        invite_form = InviteForm()
 
-    return render(request, "invite.html", {
-        'inviteForm': invite_form
-    })
+        sender = EmailSender(invite_form.data[u'email'])
+        print sender.send_invite(invite_form.data[u'id_company'])
+        return HttpResponse(status=201)
+
+    def get(self, request):
+        """
+        Handling GET method
+            :param request: Request to View
+            :return: rendered inviting page
+        """
+        invite_form = UserInvitationForm()
+        return render(request, "invite.html", {
+            'inviteForm': invite_form
+        })
 
 
 class LoginView(View):
