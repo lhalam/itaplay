@@ -13,3 +13,21 @@ class Company(models.Model):
     company_address = models.CharField(max_length=200)
     administrator = models.IntegerField(default=1) # will be foreign key
     
+    def set_company(self, arg):
+        self = Company(**arg)
+        self.save()
+
+    def delete_company(self, company_id):
+        self = Company.objects.get(id = company_id)
+        self.delete()
+
+    @classmethod
+    def get_company(cls, company_id=None):
+        """
+        returns company instance by id or all instances
+        """
+        if company_id==None:
+            return cls.objects.all()
+        return cls.objects.get(id=company_id)
+
+        

@@ -1,12 +1,17 @@
 <div ng-init="initcomp()">
     <p>company id={{company.id}}</p>
+    
+  
     <ul>
-        <li><img src="{{company.company_logo}}" height ="55px"><br><md-input-container><p>Change:<input  ng-model="company.company_logo"/></p></md-input-container></li>
-        <li>{{company.company_name}}<br><md-input-container><p>Change:<input  ng-model="company.company_name"/></p></md-input-container></li>
-        <li>{{company.company_mail}}<br><md-input-container><p>Change:<input  ng-model="company.company_mail"/></p></md-input-container></li>
-        <li>{{company.company_address}}<br><md-input-container><p>Change:<input  ng-model="company.company_address"/></p></md-input-container></li>
-        <li>{{company.company_phone}}<br><md-input-container><p>Change:<input  ng-model="company.company_phone"/></p></md-input-container></li>
+        <li>Logo: <img src="{{company.company_logo}}" height ="55px"><br><md-input-container><p>Change:<input  ng-model="company.company_logo"/></p></md-input-container></li>
+        <li>Name: {{company.company_name}}<br><md-input-container><p>Change:<input  ng-model="company.company_name"/></p></md-input-container></li>
+        <li>E-mail: {{company.company_mail}}<br><md-input-container><p>Change:<input  ng-model="company.company_mail"/></p></md-input-container></li>
+        <li>Adress: {{company.company_address}}<br><md-input-container><p>Change:<input  ng-model="company.company_address"/></p></md-input-container></li>
+        <li>Phone: {{company.company_phone}}<br><md-input-container><p>Change:<input  ng-model="company.company_phone"/></p></md-input-container></li>
     </ul>
+      
+
     <div><md-button type="submit" ng-click="update(company)">make changes</md-buttom></div>
-    <div><md-button type="submit" ng-click="delete(company)">delete</md-buttom></div>
+    <div><md-button type="submit" ng-click="delete_current(company)">delete</md-buttom></div>
 </div>
+

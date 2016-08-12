@@ -1,6 +1,6 @@
 'use strict';
 
-var itaplay = angular.module('itaplay', ['ngRoute','ngMaterial']);
+var itaplay = angular.module('itaplay', ['ngRoute','ngMaterial', 'ngMessages']);
 
 
 itaplay.config(function($routeProvider) {

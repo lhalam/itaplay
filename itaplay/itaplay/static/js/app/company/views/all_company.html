@@ -3,13 +3,14 @@
 <div>
 <layout-align ng-repeat = "company in companies">
   
-      <md-button  href = "#company/id={{company.id}}">
-      <p>company id={{company.id}}</p>
-     <img src="{{company.company_logo}}" height ="150px" >
-     <h1>{{company.company_name}}</h1>
+      <md-button  href = "#company/id={{company.pk}}">
+      <p>company id={{company.pk}}</p>
+     <img src="{{company.fields.company_logo}}" height ="135px" >
+     <h1>{{company.fields.company_name}}</h1>
    </md-button >
    <md-button type="submit" ng-click="delete(company)">delete</md-buttom>
 </layout>
 </div>
   <md-button  href="#company/add_new" class="groupX right">Add new companie</md-button> 
+
 </div>
