@@ -9,7 +9,7 @@ class AdviserUser(models.Model):
     Model of user - contain foreign key to default Django user and have additional fields
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    ID_company = models.IntegerField()  # will be foreign key
+    id_company = models.IntegerField()  # TODO will be foreign key
     avatar = models.URLField(default="default-user-logo.png")
 
     def __init__(self, user_registration_form, invitation):
@@ -22,7 +22,7 @@ class AdviserUser(models.Model):
         base_user.save()
 
         self.user = base_user
-        self.ID_company = invitation.id_company
+        self.id_company = invitation.id_company
 
 
 class AdviserInvitations(models.Model):
