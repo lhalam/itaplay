@@ -1,27 +1,23 @@
+from django.core import serializers
+from django.template import RequestContext
+from django.views.generic.base import View
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.template import RequestContext
 
 from .forms import ClipForm
 from .models import Clip
-
 
 def list(request):
     if request.method=='POST':
         form = ClipForm(request.POST, request.FILES)
         if form.is_valid:
-            newclip = Clip(video = request.FILES['uploadFromPC'])
+            newclip = Clip(video = request.FILES['file'], name = request.POST['filename'])
             newclip.save()
-
-            return HttpResponseRedirect(reverse('clips.views.list'))
-
     else:
         form = ClipForm()
 
     clips = Clip.objects.all()
+    data = serializers.serialize('json', clips)
 
-    return render_to_response('list.html', {'clips': clips, 'form':form},
-        context_instance=RequestContext(request))
-        
-
+    return HttpResponse(data, content_type='application/json')

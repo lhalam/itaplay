@@ -1,6 +1,6 @@
 'use strict';
 
-var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload']);
+var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages']);
 
 
 itaplay.config(function($routeProvider) {
@@ -17,8 +17,14 @@ itaplay.config(function($routeProvider) {
         })
         .otherwise({redirectTo: '/test'})
 
+        .when('/allclips', {
+            templateUrl: '../../../static/js/app/clips/views/allclips.html',
+            controller: 'AllClipController'
+        })
+        .otherwise({redirectTo: '/test'})
+
         .when('/clips', {
-            templateUrl: '../../../static/js/app/test/views/clips.html',
+            templateUrl: '../../../static/js/app/clips/views/clips.html',
             controller: 'ClipController'
                                 
         })
