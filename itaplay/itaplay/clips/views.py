@@ -2,8 +2,9 @@ from django.core import serializers
 from django.template import RequestContext
 from django.views.generic.base import View
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+
 
 from .forms import ClipForm
 from .models import Clip
@@ -21,3 +22,24 @@ def list(request):
     data = serializers.serialize('json', clips)
 
     return HttpResponse(data, content_type='application/json')
+
+def get_clip(request, pk):
+    clip = Clip.objects.filter(pk=pk)
+    data = serializers.serialize('json',clip)
+
+    return HttpResponse(data, content_type="application/json")
+
+def clip_delete(request, pk):
+    clip = Clip.objects.filter(pk=pk)   
+    if request.method=='POST':
+        clip.delete()
+    data = serializers.serialize('json',clip)
+        
+    return HttpResponse(data, content_type='application/json')
+
+def clip_update(request, pk):
+    
+    clip = get_object_or_404(Clip, pk=pk)
+    return HttpResponse(request, {'clip': clip})
+
+

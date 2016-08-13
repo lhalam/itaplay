@@ -20,3 +20,4 @@ itaplay.controller('ClipController', ['$scope', 'Upload', '$timeout', function (
     });
     }
 }]);
+

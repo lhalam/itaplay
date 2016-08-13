@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^$', include('home.urls')),
     url(r'^clips/', include('clips.urls')),
     url(r'^admin/', admin.site.urls),
-
+   
 ]  
 
 if DEBUG:
@@ -31,3 +31,4 @@ if DEBUG:
     urlpatterns += patterns('',
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': MEDIA_ROOT}))
+
