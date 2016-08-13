@@ -1,43 +1,45 @@
-
 <div ng-init="initadd()" layout="column" layout-padding ng-cloak>    
     <md-button href="#company/" class="groupX right">All companies</md-button> 
-    <div  layout="row">
+    <div layout="row">
         <div flex=20></div>
-        <div flex=60 style="background-color: #607D8B; border-radius: 1%; marging = 50px;" layout-padding>
+        <div flex=60 style="background-color:  #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
             <div>Add new company:</div>
             <img src="{{company.company_logo}}"  height ="55px" alt="company logo">
             <form name="newCompanyForm"  layout-padding>
-                <md-content md-theme="docs-dark" style="background-color: ; border-radius: 1%; marging = 50px;" layout-padding>
-                    <md-input-container class="md-icon-float md-block" >
+                <md-content md-theme="docs-dark" style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                    <md-input-container class="md-icon-float md-block" >                        
+                        <input  ng-model="company.company_name"/>
                         <label>Name:</label>
-                        <input placeholder="Name:" ng-model="company.company_name"/>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block" >
+                        <input   ng-model="company.company_logo"/>
                         <label>Logo:</label> 
-                        <input placeholder="Logo:"  ng-model="company.company_logo"/>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block" >
+                        <input  ng-model="company.company_zipcode"/>
                         <label>Zipcode:</label>
-                        <input placeholder="Zipcode:" ng-model="company.company_zipcode"/>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
+                        <input  ng-model="company.company_mail"/> 
                         <label>E-mail:</label> 
-                        <input placeholder="E-mail:" ng-model="company.company_mail"/> 
                     </md-input-container>  
                     <md-input-container class="md-icon-float md-block" >
+                        <input  ng-model="company.company_address"/>
                         <label>Address:</label>
-                        <input placeholder="Address:" ng-model="company.company_address"/>
                     </md-input-container>  
                     <md-input-container class="md-icon-float md-block" >
+                        <input  ng-model="company.company_phone"/>
                         <label>Phone: </label>
-                        <input placeholder="Phone:" ng-model="company.company_phone"/>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block" >
+                        <input  ng-model="company.administrator"/>
                         <label>Admin: </label>
-                        <input placeholder="Admin:" ng-model="company.administrator"/>
-                    </md-input-container>
-                    <md-button  class="md-primary md-raised"  type="submit" ng-click="save(company)">Add</md-buttom>
+                    </md-input-container>                    
                 </md-content>
+                <div layout="row">
+                    <div flex="100"></div>
+                    <md-button  class="md-primary md-raised"  type="submit" ng-click="save(company)">Add</md-buttom>
+                </div>
             </form>
         </div>
         <div flex=20></div>
