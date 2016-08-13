@@ -1,10 +1,7 @@
 from django import forms
+from models import Company
 
 class CompanyForm(forms.Form):
-    company_zipcode = forms.CharField(max_length=20, default="")
-    company_logo = forms.URLField(default="")
-    company_name = forms.CharField(max_length=200, unique=True)
-    company_mail = forms.EmailField(unique=True)
-    company_phone = forms.CharField(max_length=50, unique=True)
-    company_address = forms.CharField(max_length=200)
-    administrator = forms.IntegerField(default=1)
+        class Meta:
+            model = Company
+            fields = ('id','company_zipcode', 'company_logo', 'company_name', "company_mail", 'company_phone',  'company_address', 'administrator')

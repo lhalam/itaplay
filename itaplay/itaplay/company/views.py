@@ -1,5 +1,6 @@
 import json
 from models import Company
+from forms import CompanyForm
 from django.core import serializers
 from django.core.context_processors import csrf
 
@@ -23,13 +24,15 @@ class CompanyView(View):
 
     def post(self, request):
         company = Company()
+        data = json.loads(request.body)
+        company_form = CompanyForm(data)
+        if not company_form.is_valid():
+            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
         company.set_company(json.loads(request.body)) 
-        data = serializers.serialize("json", Company.get_company())
-        return HttpResponse(data)
+        return HttpResponse(status=201)
+      
 
 class DeleteCompany(DeleteView):
     model = Company
-    success_url = "/company/"
+    success_url = "/company/company_view"
            
-
-

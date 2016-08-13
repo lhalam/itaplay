@@ -29,5 +29,4 @@ class Company(models.Model):
         if company_id==None:
             return cls.objects.all()
         return cls.objects.get(id=company_id)
-
-        
+ 
