@@ -18,7 +18,7 @@ function AllCompanyController($scope, $http) {
 
 function CompanyAddController($scope, $http) {
   $scope.initadd = function(){
-    $scope.save = function (company, newCompanyForm){
+    $scope.save = function (company){
       $http.post("company/company_view/", company);
     };        
   };
@@ -41,3 +41,4 @@ function CompanyController($scope, $http, $routeParams) {
     };      
   };
 };
+

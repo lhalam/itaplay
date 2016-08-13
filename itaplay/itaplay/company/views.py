@@ -24,11 +24,12 @@ class CompanyView(View):
     def post(self, request):
         company = Company()
         company.set_company(json.loads(request.body)) 
-        name = "sent"
-        return HttpResponseRedirect(json.dumps({"name" : name}))
+        data = serializers.serialize("json", Company.get_company())
+        return HttpResponse(data)
 
 class DeleteCompany(DeleteView):
     model = Company
+    success_url = "/company/"
            
 
 
