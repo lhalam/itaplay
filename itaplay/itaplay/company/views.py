@@ -34,5 +34,5 @@ class CompanyView(View):
 
 class DeleteCompany(DeleteView):
     model = Company
-    success_url = "/company/company_view"
+    success_url = "/company"
            
