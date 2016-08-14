@@ -98,8 +98,8 @@ class InviteView(View):
             :return: HttpResponse with code 201 if user is invited or
                      HttpResponseBadRequest if request contain incorrect data
         """
-
-        invite_form = UserInvitationForm(request.POST)
+        data = json.loads(request.body)
+        invite_form = UserInvitationForm(data)
 
         if not invite_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
@@ -121,9 +121,7 @@ class InviteView(View):
             :return: rendered inviting page
         """
         invite_form = UserInvitationForm()
-        return render(request, "invite.html", {
-            'inviteForm': invite_form
-        })
+        return render(request, "invite.html")
 
 
 class LoginView(View):

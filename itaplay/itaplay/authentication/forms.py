@@ -31,8 +31,8 @@ class UserInvitationForm(forms.ModelForm):
     """
     Form for inviting users
     """
-    email = forms.EmailField(label="Invite email")
-    company_id = forms.NumberInput()
+    email = forms.EmailField(widget=forms.EmailInput)
+    id_company = forms.NumberInput()
 
     class Meta:
         model = AdviserInvitations
