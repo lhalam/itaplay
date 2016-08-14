@@ -19,6 +19,7 @@ $scope.delete = function(object) {
                 data: {pk: object.pk}, 
                 headers: {"Content-Type": "application/json"}
         }).then(function(res) {
+        	$scope.data.splice(object,1);
             console.log(res.data);
         }, function(error) {
             console.log(error);
