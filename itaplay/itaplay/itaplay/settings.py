@@ -23,7 +23,8 @@ EMAIL_SETTINGS = {'DEFAULT_FROM_EMAIL': 'team@blabla.com',
                   'EMAIL_HOST_USER': 'marcosss',
                   'EMAIL_HOST_PASSWORD': 're$RA8uf',
                   'EMAIL_PORT': 587,
-                  'EMAIL_USE_TLS': True}
+                  'EMAIL_USE_TLS': True,
+                  'URL_REGISTRATION': "http://127.0.0.1:8000/auth/register?code="}
 
 
 # Quick-start development settings - unsuitable for production
