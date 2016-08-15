@@ -4,8 +4,7 @@ from django.template import Context
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 from authentication.models import AdviserInvitations
-
-URL_REGISTRATION = "http://127.0.0.1:8000/auth/register?code="
+from itaplay.settings import EMAIL_SETTINGS
 
 
 class InviteLinkGenerator(object):
@@ -31,7 +30,7 @@ class InviteLinkGenerator(object):
                                       verification_code=u_id,
                                       creation_time=timezone.now())
         new_user.save()
-        return URL_REGISTRATION + u_id
+        return EMAIL_SETTINGS['URL_REGISTRATION'] + u_id
 
 
 class EmailSender(object):

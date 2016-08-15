@@ -1,16 +1,16 @@
 import json
 
-from django.views.generic import View
-from django.shortcuts import render
 from django.contrib import auth
+from django.shortcuts import render
+from django.views.generic import View
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
-from django.utils.decorators import method_decorator
 
+from utils.EmailService import EmailSender
 from authentication.models import AdviserInvitations, AdviserUser
 from authentication.forms import UserRegistrationForm, UserInvitationForm
-from utils.EmailService import EmailSender
 
 
 def validate_verification_code(func):
@@ -98,20 +98,19 @@ class InviteView(View):
             :return: HttpResponse with code 201 if user is invited or
                      HttpResponseBadRequest if request contain incorrect data
         """
-        data = json.loads(request.body)
-        invite_form = UserInvitationForm(data)
+        invite_form = UserInvitationForm(json.loads(request.body))
 
         if not invite_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
 
-        if User.objects.filter(email=invite_form.data[u'email']).exists():
+        if AdviserUser.objects.filter(user__email=invite_form.data[u'email']).exists():
             return HttpResponseBadRequest("User with this e-mail is registered")
 
         if AdviserInvitations.objects.filter(email=invite_form.data[u'email']).exists():
             return HttpResponseBadRequest("User with this e-mail is already invited")
 
         sender = EmailSender(invite_form.data[u'email'])
-        print sender.send_invite(invite_form.data[u'id_company'])
+        sender.send_invite(invite_form.data[u'id_company'])
         return HttpResponse(status=201)
 
     def get(self, request):
