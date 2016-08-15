@@ -24,6 +24,7 @@ class AdviserUser(models.Model):
 
         self.user = base_user
         self.id_company = invitation.id_company
+        self.save()
 
 
 class AdviserInvitations(models.Model):
@@ -52,8 +53,8 @@ class AdviserInvitations(models.Model):
         :return: invitation object of Invitation Model
         """
         invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
-        if len(invitation_query):
-            invitation = invitation_query[0]
+        if invitation_query.exists():
+            invitation = invitation_query.first()
             if not invitation.is_active:
                 raise IndexError("Invitation is already used")
         else:

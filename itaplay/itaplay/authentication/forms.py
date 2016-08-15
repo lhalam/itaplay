@@ -7,6 +7,8 @@ class UserRegistrationForm(forms.ModelForm):
     """
     Form for registration user
     """
+    first_name = forms.CharField(max_length=255, required=True)
+    last_name = forms.CharField(max_length=255, required=True)
     password = forms.CharField(widget=forms.PasswordInput, min_length=6, max_length=20, required=True)
     confirm_password = forms.CharField(widget=forms.PasswordInput, label="Confirm password",
                                        min_length=6, max_length=20, required=True)

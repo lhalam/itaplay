@@ -71,14 +71,12 @@ class RegistrationView(View):
 
         invitation = AdviserInvitations.get_invitation(verification_code)
 
-        data = json.loads(request.body)
-        user_registration_form = UserRegistrationForm(data)
+        user_registration_form = UserRegistrationForm(json.loads(request.body))
 
         if not user_registration_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
 
         new_user = AdviserUser(user_registration_form, invitation)
-        new_user.save()
 
         invitation.close_invitation()
 
