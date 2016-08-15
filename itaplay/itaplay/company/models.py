@@ -30,8 +30,7 @@ class Company(models.Model):
         :param company_id: primary key for searched company.
         :return: nothing.
         """
-        self = Company.objects.get(id = company_id)
-        self.delete()
+        Company.objects.get(id = company_id).delete()
 
     @classmethod
     def get_company(cls, company_id=None):
