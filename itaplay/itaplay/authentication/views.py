@@ -3,10 +3,9 @@ import json
 from django.contrib import auth
 from django.shortcuts import render
 from django.views.generic import View
-from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from utils.EmailService import EmailSender
 from authentication.models import AdviserInvitations, AdviserUser
@@ -32,8 +31,8 @@ def validate_verification_code(func):
 
         if verification_code:
             invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
-            if len(invitation_query):
-                invitation = invitation_query[0]
+            if invitation_query.exists():
+                invitation = invitation_query.first()
 
                 if not invitation.is_active:
                     return HttpResponseBadRequest("Invitation is already used")
@@ -117,7 +116,6 @@ class InviteView(View):
             :param request: Request to View
             :return: rendered inviting page
         """
-        invite_form = UserInvitationForm()
         return render(request, "invite.html")
 
 
