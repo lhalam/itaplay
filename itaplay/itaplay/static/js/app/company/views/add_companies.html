@@ -1,5 +1,5 @@
-<div ng-init="initadd()" layout="column" layout-padding ng-cloak>    
-    <md-button href="#company/" class="groupX right">All companies</md-button> 
+<div ng-init="init()" layout="column" layout-padding ng-cloak>    
+    <md-button href="/#/company/" class="groupX right">All companies</md-button> 
     <div layout="row">
         <div flex=20></div>
         <div flex=60 style="background-color:  #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
@@ -8,25 +8,32 @@
             <form name="newCompanyForm"  layout-padding>
                 <md-content md-theme="docs-dark" style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
                     <md-input-container class="md-icon-float md-block" >                        
-                        <label>Name:<input  ng-model="company.company_name"/></label>
+                       <input  ng-model="company.company_name"/>
+                       <label>Name:</label>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block" >
-                        <label>Logo:<input   ng-model="company.company_logo"/></label> 
+                       <input   ng-model="company.company_logo"/>
+                       <label>Logo:</label> 
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block" >
-                        <label>Zipcode:<input  ng-model="company.company_zipcode"/></label>
+                       <input  ng-model="company.company_zipcode"/>
+                       <label>Zipcode:</label>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>E-mail:<input  ng-model="company.company_mail"/></label> 
+                       <input  ng-model="company.company_mail"/> 
+                       <label>E-mail:</label> 
                     </md-input-container>  
                     <md-input-container class="md-icon-float md-block" >
-                        <label>Address:<input  ng-model="company.company_address"/></label>
+                       <input  ng-model="company.company_address"/>
+                       <label>Address:</label>
                     </md-input-container>  
                     <md-input-container class="md-icon-float md-block" >
-                        <label>Phone:<input  ng-model="company.company_phone"/></label>
+                        <input  ng-model="company.company_phone"/>
+                        <label>Phone:</label>
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block" >
-                        <label>Admin:<input  ng-model="company.administrator"/></label>
+                        <input  ng-model="company.administrator"/>
+                        <label>Admin:</label>
                     </md-input-container>                    
                 </md-content>
                 <div layout="row">

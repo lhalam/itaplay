@@ -10,7 +10,7 @@ function AllCompanyController($scope, $http, $location) {
         $scope.data = "Something went wrong";
     });
     $scope.delete = function(company){
-        $http.delete("company/delete_company/"+company.pk, {"pk": company.pk}).then(function (company) {
+        $http.delete("company/delete_company/"+company.pk, {"company_id": company.pk}).then(function (company) {
           $location.path('/#/company');
         },function (company) {
             $location.path('/#/company');
@@ -20,7 +20,7 @@ function AllCompanyController($scope, $http, $location) {
 };
 
 function CompanyAddController($scope, $http,  $location) {
-  $scope.initadd = function(){
+  $scope.init = function(){
     $scope.save = function (company){
       $http.post("company/company_view/", company).success(function (company) {
         $location.path('/#/company');
@@ -29,17 +29,17 @@ function CompanyAddController($scope, $http,  $location) {
   };
 };
 
-function CompanyController($scope, $http, $routeParams,  $location) {
-  var id = $routeParams.id;
-  $scope.initcomp = function(){
+function CompanyController($scope, $http, $routeParams, $location) {
+  var id = $routeParams.company_id;
+  $scope.init = function(){
     $http.get("company/current_company_view/"+id).then(function (response) {
       $scope.company = response.data.company;
     }, function(response) {
           console.log(response);
           $scope.data = "Something went wrong";
       });
-      $scope.delete_current = function(company){
-        $http.delete("company/delete_company/"+id, {"pk":id}).then(function (company) {
+      $scope.deleteCurrent = function(company){
+        $http.delete("company/delete_company/"+id, {"company_id":id}).then(function (company) {
           $location.path('/#/company');
         }, function (company) {
             $location.path('/#/company');
@@ -49,7 +49,7 @@ function CompanyController($scope, $http, $routeParams,  $location) {
         $http.post("company/company_view/", company).success(function (company) {
           $location.path('/#/company');
         });
-      };      
+      };    
   };
 };
 
