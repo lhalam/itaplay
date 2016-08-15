@@ -40,7 +40,7 @@ class Company(models.Model):
         :param company_id: primary key for searched company.
         :return: company object by id, or list of all company objects if param is 'None'.
         """
-        if company_id==None:
+        if not company_id:
             return cls.objects.all()
         return cls.objects.get(id=company_id)
  

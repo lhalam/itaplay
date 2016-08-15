@@ -12,8 +12,6 @@ function AllCompanyController($scope, $http, $location) {
     $scope.delete = function(company){
         $http.delete("company/delete_company/"+company.pk, {"company_id": company.pk}).then(function (company) {
           $location.path('/#/company');
-        },function (company) {
-            $location.path('/#/company');
         }); 
      };      
   };
@@ -41,8 +39,6 @@ function CompanyController($scope, $http, $routeParams, $location) {
       $scope.deleteCurrent = function(company){
         $http.delete("company/delete_company/"+id, {"company_id":id}).then(function (company) {
           $location.path('/#/company');
-        }, function (company) {
-            $location.path('/#/company');
         });
       };      
       $scope.update = function(company){

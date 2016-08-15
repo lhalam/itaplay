@@ -17,19 +17,19 @@ class CompanyView(View):
     """
     View used for handling company account.
     """
-    def get(self, request, pk=None):
+    def get(self, request, company_id=None):
         """
         Handling GET method.
         :args
             request: Request to View.
-            pk: id of company to by returned.
+            company_id: id of company to be returned.
         :return: HttpResponse with company fields and values by id. 
-        If pk is 'None' returns all companies with their fields and values
+        If company_id is 'None' returns all companies with their fields and values.
         """
-        if pk==None:
+        if not company_id:
             data = serializers.serialize("json", Company.get_company())
             return HttpResponse(data)
-        company = Company.get_company(pk)
+        company = Company.get_company(company_id)
         company = model_to_dict(company)
         return HttpResponse(json.dumps({"company":company}))
 
@@ -38,22 +38,28 @@ class CompanyView(View):
         Handling POST method.
         :param request: Request to View.
         :return: HttpResponse with code 201 if company is added or
-        HttpResponseBadRequest if request contain incorrect data
+        HttpResponseBadRequest if request contain incorrect data.
         """
         company = Company()
         data = json.loads(request.body)
         company_form = CompanyForm(data)
         if not company_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
-        company.set_company(json.loads(request.body)) 
+        company.set_company(data) 
         return HttpResponse(status=201)
-      
 
-class DeleteCompany(DeleteView):
-    """
-    Class for deleteing company object, based on DeleteView class. 
-    Deletes company by id and redirects to the success URL.
-    """
-    model = Company
-    success_url = "/company"
+    def delete(self, request, company_id):
+        """
+        Handling DELETE method.
+        args
+            request: Request to View.
+            company_id: id of company to be deleted.
+        :return: HttpResponse with code 201 if company is deleted.
+        """
+        company = Company()
+        company.delete_company(company_id)
+        return HttpResponse(status=201)
+
+
+
            
