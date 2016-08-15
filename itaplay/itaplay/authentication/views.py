@@ -165,15 +165,25 @@ class LoginView(View):
             return HttpResponse(status=200)
 
         else:
-            return HttpResponse("incorect username or password", status=401)
+            return HttpResponseBadRequest("incorrect username or password", status=401)
 
         #else:
-        return HttpResponse(status=400)
+        return HttpResponseBadRequest(status=400)
 
 
     def get(self, request, *args, **kwargs):
         return render(request, 'login.html')
 
+class LogoutView(View):
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LogoutView, self).dispatch(*args, **kwargs)
+
+
+    def get(self, request, format=None):
+        auth.logout(request)
+        return redirect('/')
 
 
 

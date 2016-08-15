@@ -28,6 +28,7 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("Your passwords do not match")
         return password2
 
+
 class InviteForm(forms.ModelForm):
     email = forms.EmailField(label="Invite email")
     company_id = forms.NumberInput()
@@ -35,3 +36,8 @@ class InviteForm(forms.ModelForm):
     class Meta:
         model = AdviserInvitations
         fields = ('email', 'id_company')
+
+
+class LoginForm(forms.ModelForm):
+    email = forms.EmailField()
+    password = forms.CharField(min_length=6)
