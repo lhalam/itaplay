@@ -4,7 +4,9 @@ from django.db import models
 
 
 class Company(models.Model):
-    """account for company"""
+    """
+    Model of company.
+    """
     company_zipcode = models.CharField(max_length=20, default="")
     company_logo = models.URLField(default="")
     company_name = models.CharField(max_length=200, unique=True)
@@ -14,17 +16,29 @@ class Company(models.Model):
     administrator = models.IntegerField(default=1) # will be foreign key
     
     def set_company(self, arg):
+        """
+        Method for seting company from database.
+        :param arg: dict with company fields and values.
+        :return: nothing.
+        """
         self = Company(**arg)
         self.save()
 
     def delete_company(self, company_id):
+        """
+        Method for deleteing company from database.
+        :param company_id: primary key for searched company.
+        :return: nothing.
+        """
         self = Company.objects.get(id = company_id)
         self.delete()
 
     @classmethod
     def get_company(cls, company_id=None):
         """
-        returns company instance by id or all instances
+        Classmethod for getting companies from database.
+        :param company_id: primary key for searched company.
+        :return: company object by id, or list of all company objects if param is 'None'.
         """
         if company_id==None:
             return cls.objects.all()

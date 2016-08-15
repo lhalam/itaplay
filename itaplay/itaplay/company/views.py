@@ -14,7 +14,18 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 
 class CompanyView(View):
+    """
+    View used for handling company account.
+    """
     def get(self, request, pk=None):
+        """
+        Handling GET method.
+        :args
+            request: Request to View.
+            pk: id of company to by returned.
+        :return: HttpResponse with company fields and values by id. 
+        If pk is 'None' returns all companies with their fields and values
+        """
         if pk==None:
             data = serializers.serialize("json", Company.get_company())
             return HttpResponse(data)
@@ -23,6 +34,12 @@ class CompanyView(View):
         return HttpResponse(json.dumps({"company":company}))
 
     def post(self, request):
+        """
+        Handling POST method.
+        :param request: Request to View.
+        :return: HttpResponse with code 201 if company is added or
+        HttpResponseBadRequest if request contain incorrect data
+        """
         company = Company()
         data = json.loads(request.body)
         company_form = CompanyForm(data)
@@ -33,6 +50,10 @@ class CompanyView(View):
       
 
 class DeleteCompany(DeleteView):
+    """
+    Class for deleteing company object, based on DeleteView class. 
+    Deletes company by id and redirects to the success URL.
+    """
     model = Company
     success_url = "/company"
            
