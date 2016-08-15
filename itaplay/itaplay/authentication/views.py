@@ -76,7 +76,7 @@ class RegistrationView(View):
         if not user_registration_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
 
-        new_user = AdviserUser(user_registration_form, invitation)
+        AdviserUser.create_user(user_registration_form, invitation)
 
         invitation.close_invitation()
 
