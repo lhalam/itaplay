@@ -10,6 +10,7 @@ body {
 }
 
 footer {
+  z-index: 1;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -56,7 +57,7 @@ input:focus     { outline:none; }
 
 /* LABEL ======================================= */
 label          {
-  color:#999; 
+  color:#999999; 
   font-size:18px;
   font-weight:normal;
   position:absolute;
