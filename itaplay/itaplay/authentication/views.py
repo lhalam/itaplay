@@ -119,7 +119,6 @@ class InviteView(View):
             :param request: Request to View
             :return: rendered inviting page
         """
-        invite_form = UserInvitationForm()
         return render(request, "invite.html")
 
 
