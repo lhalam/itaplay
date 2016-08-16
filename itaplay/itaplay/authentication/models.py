@@ -4,32 +4,41 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+from company.models import Company
+
 
 class AdviserUser(models.Model):
     """
     Model of user - contain foreign key to default Django user and have additional fields
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    id_company = models.IntegerField()  # TODO will be foreign key
+    id_company = models.ForeignKey(Company, on_delete=models.CASCADE)
     avatar = models.URLField(default="default-user-logo.png")
 
-    def __init__(self, user_registration_form, invitation):
-        super(AdviserUser, self).__init__()
-
+    @staticmethod
+    def create_user(user_registration_form, invitation):
+        """
+        Function, that create new user
+        :param user_registration_form: valid instance of UserRegistrationForm
+        :param invitation: user invitation
+        :return: nothing
+        """
         base_user = user_registration_form.save(commit=False)
         base_user.username = invitation.email
         base_user.email = invitation.email
         base_user.set_password(user_registration_form.data['password'])
         base_user.save()
 
-        self.user = base_user
-        self.id_company = invitation.id_company
+        user = AdviserUser()
+        user.user = base_user
+        user.id_company = invitation.id_company
+        user.save()
 
 
 class AdviserInvitations(models.Model):
     """Stores invitation data"""
     email = models.EmailField()
-    id_company = models.IntegerField()  # TODO: wil be foreign key
+    id_company = models.ForeignKey(Company, on_delete=models.CASCADE)
     verification_code = models.CharField(max_length=128)
     is_active = models.BooleanField(default=True)
     creation_time = models.DateTimeField()
@@ -52,8 +61,8 @@ class AdviserInvitations(models.Model):
         :return: invitation object of Invitation Model
         """
         invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
-        if len(invitation_query):
-            invitation = invitation_query[0]
+        if invitation_query.exists():
+            invitation = invitation_query.first()
             if not invitation.is_active:
                 raise IndexError("Invitation is already used")
         else:

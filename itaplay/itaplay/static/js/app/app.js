@@ -2,9 +2,9 @@
 
 var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
-
 itaplay.config(function($routeProvider) {
     $routeProvider
+
     	.when('/test', {
             templateUrl: '../../../static/js/app/test/views/test.html',
             controller: TestController
@@ -17,7 +17,25 @@ itaplay.config(function($routeProvider) {
         .when('/clips', {
             templateUrl: '../../../static/js/app/test/views/clips.html'
         })
-        .otherwise({redirectTo: '/test'});
+        .otherwise({redirectTo: '/test'})
+
+        .when('/company/', {
+            templateUrl: '../../../static/js/app/company/views/all_company.html',
+            controller: AllCompanyController
+        })
+       .otherwise({redirectTo: '/test'})
+       
+       .when('/company/add_new/', {
+            templateUrl: '../../../static/js/app/company/views/add_companies.html',
+            controller: CompanyAddController          
+        })
+       .otherwise({redirectTo: '/company/'})
+       
+       .when('/company/id=:company_id/', {
+            templateUrl: '../../../static/js/app/company/views/company.html',
+            controller: CompanyController          
+        })
+       .otherwise({redirectTo: '/company/'});
 })
 .run(function($log) {
     $log.info("Starting up");
@@ -34,49 +52,3 @@ itaplay.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
-
-itaplay.controller("RegisterCtrl",['$scope', '$http', '$location', '$window', '$mdDialog',
-    function ($scope, $http, $location, $window, $mdDialog) {
-
-    $scope.registerUser = function() {
-        var req = {
-            method: 'POST',
-            url: $location.$$absUrl,    // can cause problems
-            data: {
-                first_name: $scope.registrationInfo.firstName,
-                last_name: $scope.registrationInfo.lastName,
-                password: $scope.registrationInfo.password,
-                confirm_password: $scope.registrationInfo.confirmPassword
-            }
-        };
-        $http(req).success(function(){
-            $window.location.href = '/';
-        }).error(function(err){
-            $mdDialog.show(
-                $mdDialog.alert()
-                    .clickOutsideToClose(true)
-                    .title('Error in form')
-                    .textContent(err)
-                    .ok('Ok')
-            );
-        });
-    };
-}]);
-
-itaplay.directive("compareTo", function(){
-    return {
-        require: 'ngModel',
-        scope: {
-            otherModelValue: "=compareTo"
-        },
-        link: function (scope, element, attributes, ngModel) {
-            ngModel.$validators.compareTo = function (modelValue) {
-                return modelValue == scope.otherModelValue;
-            };
-
-            scope.$watch("otherModelValue", function () {
-                ngModel.$validate();
-            })
-        }
-    }
-});

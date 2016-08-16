@@ -1,12 +1,11 @@
 import json
 
 from django.contrib import auth
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from utils.EmailService import EmailSender
 from authentication.models import AdviserInvitations, AdviserUser
@@ -32,8 +31,8 @@ def validate_verification_code(func):
 
         if verification_code:
             invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
-            if len(invitation_query):
-                invitation = invitation_query[0]
+            if invitation_query.exists():
+                invitation = invitation_query.first()
 
                 if not invitation.is_active:
                     return HttpResponseBadRequest("Invitation is already used")
@@ -71,14 +70,12 @@ class RegistrationView(View):
 
         invitation = AdviserInvitations.get_invitation(verification_code)
 
-        data = json.loads(request.body)
-        user_registration_form = UserRegistrationForm(data)
+        user_registration_form = UserRegistrationForm(json.loads(request.body))
 
         if not user_registration_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
 
-        new_user = AdviserUser(user_registration_form, invitation)
-        new_user.save()
+        AdviserUser.create_user(user_registration_form, invitation)
 
         invitation.close_invitation()
 
@@ -137,11 +134,21 @@ class LoginView(View):
             return HttpResponse(status=200)
 
         else:
-            return HttpResponse("incorect username or password", status=401)
+            return HttpResponseBadRequest("incorrect username or password", status=401)
 
         #else:
-        return HttpResponse(status=400)
-
+        return HttpResponseBadRequest(status=400)
 
     def get(self, request, *args, **kwargs):
         return render(request, 'login.html')
+
+
+class LogoutView(View):
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LogoutView, self).dispatch(*args, **kwargs)
+
+    def get(self, request, format=None):
+        auth.logout(request)
+        return redirect('/')

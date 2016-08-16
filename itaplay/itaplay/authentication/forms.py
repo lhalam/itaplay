@@ -1,4 +1,4 @@
-from models import AdviserInvitations
+from authentication.models import AdviserInvitations
 from django import forms
 from django.contrib.auth.models import User
 
@@ -7,7 +7,10 @@ class UserRegistrationForm(forms.ModelForm):
     """
     Form for registration user
     """
-    password = forms.CharField(widget=forms.PasswordInput, min_length=6, max_length=20, required=True)
+    first_name = forms.CharField(max_length=255, required=True)
+    last_name = forms.CharField(max_length=255, required=True)
+    password = forms.CharField(widget=forms.PasswordInput, min_length=6, max_length=20,
+                               required=True)
     confirm_password = forms.CharField(widget=forms.PasswordInput, label="Confirm password",
                                        min_length=6, max_length=20, required=True)
 
@@ -27,6 +30,7 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Your passwords do not match")
         return confirm_password
 
+
 class UserInvitationForm(forms.ModelForm):
     """
     Form for inviting users
@@ -37,3 +41,12 @@ class UserInvitationForm(forms.ModelForm):
     class Meta:
         model = AdviserInvitations
         fields = ('email', 'id_company')
+
+
+class LoginForm(forms.ModelForm):
+    email = forms.EmailField()
+    password = forms.CharField(min_length=6)
+
+    class Meta:
+        model = User
+        fields = ('email', 'password')
