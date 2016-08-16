@@ -1,15 +1,24 @@
-<div>this is all clips</div>
-  <div ng-controller="AllClipController">
-
-	<md-button class="md-raised md-warn" href="#/clips" class="groupX right">Add new clip</md-button> 
-	  <div ng-repeat="item in data">
-	    <h3>{{item.fields.name}}</h3>
-	      <img ng-src="media/{{ item.fields.video }}" class="all_clips" />
-	      <p>{{ item.fields.pk }}</p>
-	      <p>{{ item.id }}</p>
-    <md-button ng-click="remove(item)">remove</md-button>
-    <md-button ng-click="delete(item)">delete</md-button>
-
-  </div>
+<div ng-controller="AllClipController">
+   <div layout="row">
+      <div flex="15">
+         <md-button class="md-raised md-warn" href="#/clips" class="groupX right">Add new clip</md-button>
+      </div>
+   </div>
+   <div layout="column" layout-align="center center">
+      <div ng-repeat="item in data" class="clips_wrapper">
+         <div layout="row">
+            <div flex="30">
+               <p class="clip_name">{{item.fields.name}}</p>
+            </div>
+            <div flex="30">
+               <img ng-src="media/{{ item.fields.video }}" class="all_clips"/>
+            </div>
+            <div flex="30">
+               <md-button ng-click="delete(item)">delete</md-button>
+               <md-button  class="md-accent" class="md-card-image" href = "#clip/pk={{item.pk}}">details</md-button>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
 

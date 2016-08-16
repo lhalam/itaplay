@@ -1,7 +1,10 @@
 from django import forms
+from models import Clip
 
 class ClipForm(forms.Form):
 
-    name_file = forms.CharField(max_length=128)
-    clip_file = forms.FileField(label='Select a file')
+	class Meta:
+            model = Clip
+            fields = ('name', 'video')
+
     

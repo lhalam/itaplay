@@ -174,5 +174,23 @@ form .progress {
 
 /* add clip form ending stylings ------------------------------- */
 
+.clips_wrapper {
+  border-bottom: 2px solid rgb(0,150,136);
+  border-radius: 2px;
+  padding: 5px;
+  margin: 5px;
+}
 
+.clips_wrapper:hover {
+  
+  opacity: 0.6;
+}
 
+.clip_name {
+  text-align: center;
+}
+
+.image_current_clip {
+  width: 640px;
+  height: 480px;
+}

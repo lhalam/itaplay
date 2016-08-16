@@ -2,18 +2,20 @@ from django.core import serializers
 from django.template import RequestContext
 from django.views.generic.base import View
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, render_to_response, redirect, get_object_or_404
+from django.shortcuts import render, render_to_response, redirect, \
+    get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 
+from forms import ClipForm
+from models import Clip
 
-from .forms import ClipForm
-from .models import Clip
 
 def list(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         form = ClipForm(request.POST, request.FILES)
         if form.is_valid:
-            newclip = Clip(video = request.FILES['file'], name = request.POST['filename'])
+            newclip = Clip(video=request.FILES['file'],
+                           name=request.POST['filename'])
             newclip.save()
     else:
         form = ClipForm()
@@ -23,23 +25,19 @@ def list(request):
 
     return HttpResponse(data, content_type='application/json')
 
+
 def get_clip(request, pk):
     clip = Clip.objects.filter(pk=pk)
-    data = serializers.serialize('json',clip)
+    data = serializers.serialize('json', clip)
 
-    return HttpResponse(data, content_type="application/json")
-
-def clip_delete(request, pk):
-    clip = Clip.objects.filter(pk=pk)   
-    if request.method=='POST':
-        clip.delete()
-    data = serializers.serialize('json',clip)
-        
     return HttpResponse(data, content_type='application/json')
 
-def clip_update(request, pk):
-    
-    clip = get_object_or_404(Clip, pk=pk)
-    return HttpResponse(request, {'clip': clip})
 
+def clip_delete(request, pk):
+    clip = Clip.objects.filter(pk=pk)
+    if request.method == 'DELETE':
+        clip.delete()
+    data = serializers.serialize('json', clip)
+
+    return HttpResponse(data, content_type='application/json')
 

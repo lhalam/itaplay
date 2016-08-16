@@ -23,8 +23,14 @@ itaplay.config(function($routeProvider) {
         })
         .otherwise({redirectTo: '/test'})
 
+        .when('/clip/pk=:pk/', {
+            templateUrl: '../../../static/js/app/clips/views/current_clip.html',
+            controller: 'CurrentClipController'
+        })
+        .otherwise({redirectTo: '/test'})
+
         .when('/clips', {
-            templateUrl: '../../../static/js/app/clips/views/clips.html',
+            templateUrl: '../../../static/js/app/clips/views/add_clip.html',
             controller: 'ClipController'
                                 
         })
