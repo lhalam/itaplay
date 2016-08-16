@@ -90,3 +90,9 @@ ENV/
 
 # Ignore for PyCharm settings
 .idea
+
+# Local DB
+db.sqlite3
+
+# PyLint config
+.pylintrc
