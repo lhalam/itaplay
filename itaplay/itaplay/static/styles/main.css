@@ -10,6 +10,7 @@ body {
 }
 
 footer {
+  z-index: 1;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -40,6 +41,7 @@ footer {
 
 
 /* search form starting stylings ------------------------------- */
+
 .group        {
   position:relative;
   margin-bottom:5px;
