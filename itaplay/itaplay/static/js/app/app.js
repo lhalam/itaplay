@@ -1,15 +1,10 @@
 'use strict';
 
-<<<<<<< HEAD
 var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngMessages']);
-=======
-var itaplay = angular.module('itaplay', ['ngRoute','ngMaterial', 'ngMessages']);
->>>>>>> LVPYT-17_Create_account_for_companies
-
 
 itaplay.config(function($routeProvider) {
     $routeProvider
-<<<<<<< HEAD
+
     	.when('/test', {
             templateUrl: '../../../static/js/app/test/views/test.html',
             controller: TestController
