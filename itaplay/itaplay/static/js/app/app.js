@@ -1,10 +1,15 @@
 'use strict';
 
+<<<<<<< HEAD
 var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngMessages']);
+=======
+var itaplay = angular.module('itaplay', ['ngRoute','ngMaterial', 'ngMessages']);
+>>>>>>> LVPYT-17_Create_account_for_companies
 
 
 itaplay.config(function($routeProvider) {
     $routeProvider
+<<<<<<< HEAD
     	.when('/test', {
             templateUrl: '../../../static/js/app/test/views/test.html',
             controller: TestController
@@ -17,7 +22,25 @@ itaplay.config(function($routeProvider) {
         .when('/clips', {
             templateUrl: '../../../static/js/app/test/views/clips.html'
         })
-        .otherwise({redirectTo: '/test'});
+        .otherwise({redirectTo: '/test'})
+
+        .when('/company/', {
+            templateUrl: '../../../static/js/app/company/views/all_company.html',
+            controller: AllCompanyController
+        })
+       .otherwise({redirectTo: '/test'})
+       
+       .when('/company/add_new/', {
+            templateUrl: '../../../static/js/app/company/views/add_companies.html',
+            controller: CompanyAddController          
+        })
+       .otherwise({redirectTo: '/company/'})
+       
+       .when('/company/id=:company_id/', {
+            templateUrl: '../../../static/js/app/company/views/company.html',
+            controller: CompanyController          
+        })
+       .otherwise({redirectTo: '/company/'});
 })
 .run(function($log) {
     $log.info("Starting up");

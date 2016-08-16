@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'itaplay',
     'authentication',
     'utils',
+    'company',
+    'home',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -61,6 +63,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'itaplay.urls'
@@ -75,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -149,6 +153,7 @@ EMAIL_HOST_USER = EMAIL_SETTINGS['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
 EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
+
 
 try:
     from local_settings import *
