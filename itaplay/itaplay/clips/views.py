@@ -27,17 +27,18 @@ def list(request):
 
 
 def get_clip(request, pk):
-    clip = Clip.objects.filter(pk=pk)
+    clip = Clip()
+    clip = clip.get_clip(pk)
+
     data = serializers.serialize('json', clip)
 
     return HttpResponse(data, content_type='application/json')
 
 
 def clip_delete(request, pk):
-    clip = Clip.objects.filter(pk=pk)
+    clip = Clip()
     if request.method == 'DELETE':
-        clip.delete()
-    data = serializers.serialize('json', clip)
-
-    return HttpResponse(data, content_type='application/json')
+        clip.delete_clip(pk)
+    
+    return HttpResponse(status=201)
 
