@@ -10,15 +10,7 @@ from forms import ClipForm
 from models import Clip
 
 
-def list(request):
-    if request.method == 'POST':
-        form = ClipForm(request.POST, request.FILES)
-        if form.is_valid:
-            newclip = Clip(video=request.FILES['file'],
-                           name=request.POST['filename'])
-            newclip.save()
-    else:
-        form = ClipForm()
+def list(request):    
 
     clips = Clip.objects.all()
     data = serializers.serialize('json', clips)
@@ -27,6 +19,7 @@ def list(request):
 
 
 def get_clip(request, pk):
+
     clip = Clip()
     clip = clip.get_clip(pk)
 
@@ -36,9 +29,23 @@ def get_clip(request, pk):
 
 
 def clip_delete(request, pk):
+
     clip = Clip()
     if request.method == 'DELETE':
         clip.delete_clip(pk)
     
+    return HttpResponse(status=201)
+
+def post(request):
+
+    if request.method == 'POST':
+        form = ClipForm(request.POST, request.FILES)
+        if form.is_valid:
+            newclip = Clip(video=request.FILES['file'],
+                           name=request.POST['filename'])
+            newclip.save()
+    else:
+        form = ClipForm()
+
     return HttpResponse(status=201)
 

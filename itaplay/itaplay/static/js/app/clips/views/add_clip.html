@@ -15,7 +15,7 @@
         </md-content>
         <md-button class="md-raised md-warn" ng-disabled="!myForm.$valid" 
           ng-click="uploadPic(picFile)">Submit</md-button>
-        <md-button class="md-raised md-primary" type="file" ngf-select ng-model="picFile" name="file"    accept="image/*" ngf-max-size="200MB" required ngf-model-invalid="errorFile">select clip 
+        <md-button class="md-raised md-primary" type="file" ngf-select ng-model="picFile" name="file"    accept="image/*, video/*" ngf-max-size="200MB" required ngf-model-invalid="errorFile">select clip 
           <i ng-show="myForm.file.$error.maxSize">File too large 
           {{errorFile.size / 1000000|number:1}}MB: max 200M</i>
         </md-button>

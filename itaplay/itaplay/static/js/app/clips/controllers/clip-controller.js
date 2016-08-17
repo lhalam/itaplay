@@ -2,7 +2,7 @@
 itaplay.controller('ClipController', ['$scope', 'Upload', '$timeout', function($scope, Upload, $timeout) {
     $scope.uploadPic = function(file) {
         file.upload = Upload.upload({
-            url: '/clips/clips/',
+            url: '/clips/add_clip/',
             data: {
                 filename: $scope.filename,
                 file: file
