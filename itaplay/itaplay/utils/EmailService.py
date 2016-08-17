@@ -4,6 +4,7 @@ from django.template import Context
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 from authentication.models import AdviserInvitations
+from company.models import Company
 from itaplay.settings import EMAIL_SETTINGS
 
 
@@ -26,7 +27,7 @@ class InviteLinkGenerator(object):
         """
         u_id = uuid.uuid4().hex     # u_id stores random generated hash
         new_user = AdviserInvitations(email=self.email,
-                                      id_company=self.company_id,
+                                      id_company=Company.get_company(self.company_id),
                                       verification_code=u_id,
                                       creation_time=timezone.now())
         new_user.save()
