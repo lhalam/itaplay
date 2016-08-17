@@ -1,5 +1,6 @@
 import json
 from models import Company
+from authentication.models import AdviserUser
 from forms import CompanyForm
 from django.core import serializers
 from django.core.context_processors import csrf
@@ -28,9 +29,11 @@ class CompanyView(View):
         """
         if not company_id:
             data = serializers.serialize("json", Company.get_company())
+            print data
             return HttpResponse(data)
         company = Company.get_company(company_id)
         company = model_to_dict(company)
+        print company
         return HttpResponse(json.dumps({"company":company}))
 
     def post(self, request):
@@ -42,6 +45,7 @@ class CompanyView(View):
         """
         company = Company()
         data = json.loads(request.body)
+        data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
         company_form = CompanyForm(data)
         if not company_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
