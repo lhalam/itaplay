@@ -20,7 +20,7 @@ from .settings import MEDIA_ROOT, DEBUG
 
 
 urlpatterns = [
-    url(r'^$', include('home.urls')),
+    url(r'^', include('home.urls')),
     url(r'^clips/', include('clips.urls')),
     url(r'^admin/', admin.site.urls),
    

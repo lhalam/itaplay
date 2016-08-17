@@ -26,5 +26,6 @@ class Clip(models.Model):
         
         """
         return Clip.objects.filter(pk = pk)
+        
 
         

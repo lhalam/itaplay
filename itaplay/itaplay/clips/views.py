@@ -44,8 +44,10 @@ def post(request):
             newclip = Clip(video=request.FILES['file'],
                            name=request.POST['filename'])
             newclip.save()
+            return HttpResponse(status=201)
     else:
         form = ClipForm()
 
     return HttpResponse(status=201)
+
 
