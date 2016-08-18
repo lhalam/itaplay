@@ -16,7 +16,7 @@ class Clip(models.Model):
     def delete_clip(self, pk):
         """
         Method for deleteing clip from database.
-        :param pk: primary key for searched company.
+        :param pk: primary key for searched clip.
         :return: nothing.
         """
         Clip.objects.filter(pk = pk).delete()
