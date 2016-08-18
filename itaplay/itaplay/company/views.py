@@ -24,11 +24,9 @@ class CompanyView(View):
         """
         if not company_id:
             data = serializers.serialize("json", Company.get_company())
-            print data
             return HttpResponse(data)
         company = Company.get_company(company_id)
         company = model_to_dict(company)
-        print company
         return HttpResponse(json.dumps({"company":company}))
 
     def post(self, request):
