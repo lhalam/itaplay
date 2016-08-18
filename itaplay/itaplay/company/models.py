@@ -42,4 +42,3 @@ class Company(models.Model):
         if not company_id:
             return cls.objects.all()
         return cls.objects.get(id=company_id)
- 
