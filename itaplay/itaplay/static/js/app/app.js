@@ -28,17 +28,17 @@ itaplay.config(function($routeProvider) {
 
         .when('/company/', {
             templateUrl: '../../../static/js/app/company/views/all_company.html',
-            controller: 'AllCompanyController'
+            controller: AllCompanyController
         })
 
         .when('/company/add_new/', {
             templateUrl: '../../../static/js/app/company/views/add_companies.html',
-            controller: 'CompanyAddController'
+            controller: CompanyAddController
         })
 
         .when('/company/id=:company_id/', {
             templateUrl: '../../../static/js/app/company/views/company.html',
-            controller: 'CompanyController'
+            controller: CompanyController
         })
 
         .otherwise({redirectTo: '/users'});
