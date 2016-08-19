@@ -39,6 +39,11 @@ class InviteForm(forms.ModelForm):
 
 
 class LoginForm(forms.ModelForm):
+
+    """
+    Check password length
+    """
+    
     email = forms.EmailField()
     password = forms.CharField(min_length=6)
 

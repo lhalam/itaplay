@@ -147,9 +147,16 @@ def invite(request):
 
 class LoginView(View):
 
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(LoginView, self).dispatch(*args, **kwargs)
+    """
+    Handle post method:
+        Takes json file from login.html,parsed it and check if user is exists
+        if it does we return status 200.
+        Else give HttpResponseBadRequest with 401 status
+
+    Handle get method:
+        which redirect to login.html
+
+    """
 
 
     def post(self, request):
@@ -167,14 +174,19 @@ class LoginView(View):
         else:
             return HttpResponseBadRequest("incorrect username or password", status=401)
 
-        #else:
-        return HttpResponseBadRequest(status=400)
+
 
 
     def get(self, request, *args, **kwargs):
         return render(request, 'login.html')
 
 class LogoutView(View):
+
+    """
+    Handle dispatch method with login_required decorator.
+    Handle get method which log us out and redirect to login.html
+
+    """
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
