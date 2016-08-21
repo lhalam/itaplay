@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'utils',
     'company',
     'home',
+    'clips',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -63,7 +64,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'itaplay.urls'
@@ -143,6 +143,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # E-mail settings
 
 DEFAULT_FROM_EMAIL = EMAIL_SETTINGS['DEFAULT_FROM_EMAIL']
@@ -153,7 +156,6 @@ EMAIL_HOST_USER = EMAIL_SETTINGS['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
 EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
-
 
 try:
     from local_settings import *
