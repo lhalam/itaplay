@@ -10,9 +10,9 @@ function AllCompanyController($scope, $http, $location) {
         $scope.data = "Something went wrong";
     });
     $scope.delete = function(company){
-        $http.delete("company/delete_company/"+company.pk, {"company_id": company.pk}).then(function (company) {
-          $location.path('/#/company');
-        }); 
+        $http.delete("company/delete_company/"+company.pk, {"company_id": company.pk}).then(function (response) {
+         $scope.companies = response.data;
+        });
      };      
   };
 };
@@ -21,7 +21,7 @@ function CompanyAddController($scope, $http,  $location) {
   $scope.init = function(){
     $scope.save = function (company){
       $http.post("company/company_view/", company).success(function (company) {
-        $location.path('/#/company');
+        $location.path('/company');
       });
     };        
   };
@@ -38,12 +38,12 @@ function CompanyController($scope, $http, $routeParams, $location) {
       });
       $scope.deleteCurrent = function(company){
         $http.delete("company/delete_company/"+id, {"company_id":id}).then(function (company) {
-          $location.path('/#/company');
+          $location.path('/company');
         });
       };      
       $scope.update = function(company){
         $http.post("company/company_view/", company).success(function (company) {
-          $location.path('/#/company');
+          $location.path('/company');
         });
       };    
   };

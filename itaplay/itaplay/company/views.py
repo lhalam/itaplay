@@ -55,7 +55,9 @@ class CompanyView(View):
         """
         company = Company()
         company.delete_company(company_id)
-        return HttpResponse(status=201)
+        data = serializers.serialize("json", Company.get_company())
+        return HttpResponse(data)
+      
 
 
 
