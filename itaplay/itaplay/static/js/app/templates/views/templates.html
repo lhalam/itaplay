@@ -13,12 +13,12 @@
         </thead>
         <tbody ng-repeat="item in data">
             <tr>
-                <td>{{item.fields.template_name}}</td>
-                <td><textarea readonly="" rows="10" cols="80" style="border:none;">
+                <td ><a href="#/temlate/pk={{item.pk}}">{{item.fields.template_name}}</a></td>
+                <td><textarea readodnly="" rows="10" cols="80" style="border:none;">
                     {{item.fields.template_content}}
                 </textarea></td>
                 <td><md-button>Edit</md-button></td>
-                <td><md-button>Delete</md-button></td>
+                <td><md-button ng-click="delete(item)">Delete</md-button></td>
             </tr>        
         </tbody>
     </table>

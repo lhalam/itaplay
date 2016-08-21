@@ -26,3 +26,12 @@ def xml_templates_add(request):
 
     # print 'add template'
     return HttpResponse(200)
+
+
+def xml_template_delete(request, pk):
+    # xml_template = XmlTemplate()
+    if request.method == 'DELETE':
+        XmlTemplate.objects.filter(pk=pk).delete()
+        print request.body
+    print('delete template')
+    return HttpResponse(200)
