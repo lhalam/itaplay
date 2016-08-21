@@ -38,7 +38,8 @@ itaplay.config(function($routeProvider) {
        .otherwise({redirectTo: '/company/'})
 
         .when('/templates', {
-            templateUrl: '../../../static/js/app/templates/views/templates.html'
+            templateUrl: '../../../static/js/app/templates/views/templates.html',
+            controller: 'TemplatesListController'
         })
 
         .when('/templates-add', {
@@ -62,9 +63,3 @@ itaplay.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
-
-itaplay.directive("w3TestDirective", function() {
-    return {
-        template : "<h1>Made by a directive!</h1>"
-    };
-});

@@ -1,5 +1,5 @@
+<div ng-controller="TemplatesListController">
 <h2>All templates</h2>
-<div w3-test-directive></div>
 <md-button class="md-raised md-warn" ng-href="#/templates-add" class="groupX right">Add template</md-button> 
 <div>
     <table>
@@ -11,63 +11,16 @@
                 <th>Delete</th>               
             </tr>
         </thead>
-        <tbody>
+        <tbody ng-repeat="item in data">
             <tr>
-                <td>template1</td>
+                <td>{{item.fields.template_name}}</td>
                 <td><textarea readonly="" rows="10" cols="80" style="border:none;">
-                    <?xml version="1.0" encoding="UTF-8" ?>
-<project name="template1" height="100" width="100">
-    <area id="1" left="10" top="10"  width="30" height="30">
-    </area>
-    <area id="2" left="50" top="70"  width="30" height="20">
-    </area>
-    <area id="3" left="60" top="10"  width="30" height="50">
-    </area>
-    <area id="4" left="10" top="50"  width="10" height="20">
-    </area> 
-</project>
+                    {{item.fields.template_content}}
                 </textarea></td>
                 <td><md-button>Edit</md-button></td>
                 <td><md-button>Delete</md-button></td>
-            </tr>
-
-            <tr>
-                <td>template2</td>
-                <td><textarea readonly="" rows="10" cols="80" style="border:none;">
-                    <?xml version="1.0" encoding="UTF-8" ?>
-<project name="template2" height="100" width="100">
-    <area id="1" left="20" top="50"  width="30" height="40">
-    </area>
-    <area id="2" left="65" top="60"  width="30" height="30">
-    </area>
-    <area id="3" left="65" top="10"  width="25" height="40">
-    </area>
-    <area id="4" left="40" top="5"  width="20" height="10">
-    </area> 
-</project>  
-                </textarea></td>
-                <td><md-button>Edit</md-button></td>
-                <td><md-button>Delete</md-button></td>
-            </tr>
-
-            <tr>
-                <td>template3</td>
-                <td><textarea readonly="" rows="10" cols="80" style="border:none;">
-                    <?xml version="1.0" encoding="UTF-8" ?>
-<project name="template3" height="100" width="100">
-    <area id="1" left="45" top="5"  width="45" height="45">
-    </area>
-    <area id="2" left="10" top="50"  width="30" height="40">
-    </area>
-    <area id="3" left="43" top="60"  width="50" height="40">
-    </area>
-    <area id="4" left="5" top="10"  width="30" height="30">
-    </area> 
-</project>  
-                </textarea></td>
-                <td><md-button>Edit</md-button></td>
-                <td><md-button>Delete</md-button></td>
-            </tr>
+            </tr>        
         </tbody>
     </table>
+</div>
 </div>

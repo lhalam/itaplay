@@ -1,9 +1,12 @@
 itaplay.controller('AddTemplateController', ['$scope', 'Upload', '$timeout', 
   function ($scope, Upload, $timeout) {
+    // to do format
     $scope.uploadXml = function(file) {
     file.upload = Upload.upload({
-      url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-      data: {templateName: $scope.templateName, file: file},
+      url: '/templates/add/',
+      data: {templateName: $scope.templateName
+        , file: file
+      },
     });
 
     file.upload.then(function (response) {

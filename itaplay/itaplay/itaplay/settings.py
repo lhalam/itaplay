@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'utils',
     'company',
     'home',
+    'xml_templates',
 ]
 
 MIDDLEWARE_CLASSES = [

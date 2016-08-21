@@ -17,7 +17,8 @@
       <div ng-message="required"><p>*required</p></div>
       </div>
       <span ng-show="myForm.file.$error.pattern">Only allowed formats is .xml</span>
-      <button ng-click="xmlFile = null" ng-show="xmlFile">Remove</button>
+      <button ng-click="xmlFile = null" ng-show="xmlFile">Remove File</button>
+      <button ng-click="xmlFile = null; templateName = null">Clear All Fields</button>
       <br>
       <button ng-disabled="!myForm.$valid" 
               ng-click="uploadXml(xmlFile)">Submit</button>
