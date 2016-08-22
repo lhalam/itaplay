@@ -27,19 +27,19 @@ def validate_verification_code(func):
         :param kwargs:
         :return: BadRequest when verification code is incorrect or function in other case
         """
-        verification_code = request.GET.get("code", "")
+        verification_code = request.GET.get("code")
 
-        if verification_code:
-            invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
-            if invitation_query.exists():
-                invitation = invitation_query.first()
-
-                if not invitation.is_active:
-                    return HttpResponseBadRequest("Invitation is already used")
-            else:
-                return HttpResponseBadRequest("No open invitation")
-        else:
+        if not verification_code:
             return HttpResponseBadRequest("Invalid code")
+
+        invitation_query = AdviserInvitations.objects.filter(verification_code=verification_code)
+        if not invitation_query.exists():
+            return HttpResponseBadRequest("No open invitation")
+
+        invitation = invitation_query.first()
+        if not invitation.is_active:
+            return HttpResponseBadRequest("Invitation is already used")
+
         return func(self, request, *args, **kwargs)
     return wrapper
 
