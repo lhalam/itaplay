@@ -2,10 +2,10 @@ function CurrentTemplateController($scope,
     $http, $routeParams, $location) {
 
     $scope.init = function(){
-    var pk = $routeParams.pk;
+    $scope.pk = $routeParams.pk;
     $http({
         method : "GET",
-        url : '/templates/current/' + pk
+        url : '/templates/current/' + $scope.pk
     }).then(function mySuccess(response) {
         $scope.data = response.data;
     }, function myError(response) {
@@ -16,7 +16,7 @@ function CurrentTemplateController($scope,
     $scope.deleteCurrent = function () {
         $http({
             method : "DELETE",
-            url : '/templates/delete/' + pk
+            url : '/templates/delete/' + $scope.pk
         }).then(function mySuccess(response) {
             $location.path('/#/templates');
         });
