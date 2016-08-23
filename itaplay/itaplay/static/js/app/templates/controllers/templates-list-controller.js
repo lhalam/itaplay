@@ -1,29 +1,26 @@
 itaplay.controller('TemplatesListController',  function($scope, $http){
-    
-    var api_url = '/templates/all/';
-    $http.get(api_url)
-    .then(function(response){
+ 
+
+    $http({
+        method : "GET",
+        url : '/templates/all/'
+    }).then(function mySucces(response) {
         $scope.data = response.data;
     });
 
-    $scope.delete = function(object) {
-
+    $scope.delete = function (object) {
         $http({
-            url: '/templates/delete/' + object.pk,
-            method: 'DELETE',
+            method : "DELETE",
+            url : '/templates/delete/' + object.pk,
             data: {
                 pk: object.pk
-            },
-            headers: {
-                "Content-Type": "application/json"
             }
-        }).then(function(res) {
+        }).then(function mySucces(response) {
             var index = $scope.data.indexOf(object)
             $scope.data.splice(index, 1);
-            console.log(res.data);
-        }, function(error) {
+            console.debug(response.data)
+        }, function myError(response) {
             console.log(error);
         });
-    };
-
+    }
 });
