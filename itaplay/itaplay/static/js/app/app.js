@@ -56,7 +56,7 @@ itaplay.config(function($routeProvider) {
 
         .when('/template/pk=:pk', {
             templateUrl: '../../../static/js/app/templates/views/current_template.html',
-            controller: 'CurrentTemplateController'
+            controller: CurrentTemplateController
         })
         .otherwise({redirectTo: '/templates/'})
     

@@ -1,7 +1,7 @@
-itaplay.controller('CurrentTemplateController', function ($scope,
+function CurrentTemplateController($scope,
     $http, $routeParams, $location) {
 
-
+    $scope.init = function(){
     var pk = $routeParams.pk;
     $http({
         method : "GET",
@@ -9,8 +9,9 @@ itaplay.controller('CurrentTemplateController', function ($scope,
     }).then(function mySuccess(response) {
         $scope.data = response.data;
     }, function myError(response) {
-        $scope.data = response.statusText;
+        $scope.error_msg = response.statusText;
     });
+};
 
     $scope.deleteCurrent = function () {
         $http({
@@ -20,4 +21,4 @@ itaplay.controller('CurrentTemplateController', function ($scope,
             $location.path('/#/templates');
         });
     };
-});
+};
