@@ -1,16 +1,17 @@
-itaplay.controller('AddTemplateController', ['$scope', 'Upload', '$timeout', 
-  function ($scope, Upload, $timeout) {
-    // to do format
+itaplay.controller('AddTemplateController', ['$scope', 'Upload', '$timeout', '$location', 
+    function ($scope, Upload, $timeout, $location) {
+
     $scope.uploadXml = function(file) {
     file.upload = Upload.upload({
-      url: '/templates/add/',
-      data: {templateName: $scope.templateName
+        url: '/templates/add/',
+        data: {templateName: $scope.templateName
         , file: file
-      },
+    }}).then(function(template){
+        $location.path('/#/templates');
     });
 
     file.upload.then(function (response) {
-      $timeout(function () {
+        $timeout(function () {
         file.result = response.data;
       });
     }, function (response) {

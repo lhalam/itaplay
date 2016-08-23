@@ -1,26 +1,16 @@
-<div ng-controller="TemplatesListController">
-<h2>All templates</h2>
-<md-button class="md-raised md-warn" ng-href="#/templates-add" class="groupX right">Add template</md-button> 
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>Template name</th> 
-                <th>Template content</th>
-                <th>Edit</th>
-                <th>Delete</th>               
-            </tr>
-        </thead>
-        <tbody ng-repeat="item in data">
-            <tr>
-                <td ><a href="#/temlate/pk={{item.pk}}">{{item.fields.template_name}}</a></td>
-                <td><textarea readodnly="" rows="10" cols="80" style="border:none;">
-                    {{item.fields.template_content}}
-                </textarea></td>
-                <td><md-button>Edit</md-button></td>
-                <td><md-button ng-click="delete(item)">Delete</md-button></td>
-            </tr>        
-        </tbody>
-    </table>
-</div>
+<div ng-controller="TemplatesListController" layout="column">
+    <div>
+        <md-button href="#/templates-add">Add template</md-button>
+    </div>
+    <div layout="row" ng-repeat="item in data" id="templates_list" layout-align="center center">
+        <div flex="15">
+            <a href="#/template/pk={{item.pk}}">{{ item.fields.template_name }}</a>
+        </div>
+        <div flex>
+            <pre lang="xml">{{ item.fields.template_content}}</pre>
+        </div>
+        <div flex="10">
+            <md-button ng-click="delete(item)">Delete</md-button>
+        </div>        
+    </div>
 </div>

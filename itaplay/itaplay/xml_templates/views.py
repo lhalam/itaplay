@@ -1,37 +1,69 @@
-import json
 from django.core import serializers
-from django.shortcuts import render
+from django.views.generic.base import View
 from .models import XmlTemplate
 from django.http import HttpResponse
 
 
-# Create your views here.
+# class TemplateView(View):
+#     """
+#     View for handing template
+#     """
+
+#     def get(self, request, template_id=None):
+#         # xml_templates = XmlTemplate.get_xml_templates_list()
+#         # data = serializers.serialize('json', xml_templates)
+#         xml_templates = XmlTemplate.get_xml_templates_list()
+#         data = serializers.serialize('json', xml_templates)
+#         return HttpResponse(data, content_type='application/json')
+
+
+
 def xml_templates_list(request):
-    xml_templates = XmlTemplate.objects.all()
+    """
+    Handling GET method.
+    param request: Request to View.
+    return list of the companies
+    """
+    xml_templates = XmlTemplate.get_xml_templates_list()
     data = serializers.serialize('json', xml_templates)
     return HttpResponse(data, content_type='application/json')
 
-
 def xml_templates_add(request):
+    """
+    Handling POST method.
+    param request: Request to View.
+    return HttpResponse with code 201 if company is added
+    """
     if request.method == 'POST':
-        # print request.body
         template_name = request.POST.get('templateName')
-        # print template_name
         xml_file = request.FILES['file'].read()
-        # print xml_file
-        xml_template_obj = XmlTemplate(template_name=template_name,
-            template_content = xml_file)
-        # print xml_template_obj
-        xml_template_obj.save()
-
-    # print 'add template'
-    return HttpResponse(200)
+        obj = XmlTemplate()
+        obj.set_xml_template(template_name, xml_file)
+        obj.save()
+    return HttpResponse(201)
 
 
 def xml_template_delete(request, pk):
-    # xml_template = XmlTemplate()
+    """
+    Handling DELETE method.
+    args
+        request: Request to View.
+        pk: id of deleted template.
+    return HttpResponse with code 201 if template is deleted.
+    """
     if request.method == 'DELETE':
-        XmlTemplate.objects.filter(pk=pk).delete()
-        print request.body
-    print('delete template')
-    return HttpResponse(200)
+        XmlTemplate.delete_xml_template(pk=pk)
+    return HttpResponse(201)
+
+
+def xml_template_current(request, pk):
+    """
+    Handling GET method.
+    args
+        request: Request to View.
+        pk: id of returned template.
+    return template with given id of the companies
+    """
+    xml_template = XmlTemplate.get_by_id(pk=pk)
+    data = serializers.serialize('json', xml_template)
+    return HttpResponse(data, content_type='application/json')
