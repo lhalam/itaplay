@@ -1,13 +1,13 @@
-itaplay.controller('TemplatesListController',  function($scope, $http){
+function TemplatesListController($scope, $http){
  
-
+    $scope.init = function(){
     $http({
         method : "GET",
         url : '/templates/all/'
     }).then(function mySucces(response) {
         $scope.data = response.data;
     });
-
+};
     $scope.delete = function (object) {
         $http({
             method : "DELETE",
@@ -23,4 +23,4 @@ itaplay.controller('TemplatesListController',  function($scope, $http){
             console.log(error);
         });
     }
-});
+};

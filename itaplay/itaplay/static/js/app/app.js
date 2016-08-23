@@ -39,12 +39,12 @@ itaplay.config(function($routeProvider) {
 
         .when('/templates', {
             templateUrl: '../../../static/js/app/templates/views/templates.html',
-            controller: 'TemplatesListController'
+            controller: TemplatesListController
         })
 
         .when('/templates-add', {
             templateUrl: '../../../static/js/app/templates/views/templates_add.html',
-            controller: 'AddTemplateController'
+            controller: AddTemplateController
         })
         .otherwise({redirectTo: '/templates/'})
         

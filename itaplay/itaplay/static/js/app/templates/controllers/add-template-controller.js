@@ -1,6 +1,6 @@
-itaplay.controller('AddTemplateController', ['$scope', 'Upload', '$timeout', '$location', 
-    function ($scope, Upload, $timeout, $location) {
+function AddTemplateController($scope, Upload, $timeout, $location) {
 
+    $scope.init = function(){
     $scope.uploadXml = function(file) {
     file.upload = Upload.upload({
         url: '/templates/add/',
@@ -22,4 +22,5 @@ itaplay.controller('AddTemplateController', ['$scope', 'Upload', '$timeout', '$l
       file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     });
     }
-}]);
+};
+};

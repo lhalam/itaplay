@@ -1,4 +1,4 @@
-<div ng-controller="AddTemplateController">
+<div ng-init="init()">
   <form name="myForm">
     <fieldset>
       <legend>Upload template</legend>
@@ -30,6 +30,8 @@
       <span ng-show="xmlFile.result">Upload Successful</span>
       <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
     </fieldset>
+    <span ng-if ="error_msg"> error_msg.text</span>
+
     <br>
   </form>
 </div>
