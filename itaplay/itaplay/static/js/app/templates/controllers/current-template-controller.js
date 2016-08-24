@@ -8,6 +8,7 @@ function CurrentTemplateController($scope,
         }).then(function mySuccess(response) {
             $scope.data = response.data;
         }, function myError(response) {
+            console.log(response);
             $scope.error_msg = response.statusText;
         });
     };

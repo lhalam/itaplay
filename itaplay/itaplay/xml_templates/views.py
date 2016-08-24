@@ -2,7 +2,8 @@ from django.core import serializers
 from django.views.generic.base import View
 from .models import XmlTemplate
 from django.http import HttpResponse
-
+from django.forms.models import model_to_dict
+import json
 
 # class TemplateView(View):
 #     """
@@ -27,11 +28,19 @@ class TemplateView(View):
         """
         if not pk:
             xml_templates = XmlTemplate.get_all()
-            data = serializers.serialize('json', xml_templates)
-            return HttpResponse(data, content_type='application/json')
+            print xml_templates
+            data2 = [model_to_dict(i) for i in xml_templates]
+            print data2
+            # data = serializers.serialize('json', xml_templates)
+            # return HttpResponse(data, content_type='application/json')
+            return HttpResponse(json.dumps(data2))
         xml_template = XmlTemplate.get_by_id(pk=pk)
-        data = serializers.serialize('json', xml_template)
-        return HttpResponse(data, content_type='application/json')
+        print xml_template
+        data2 = model_to_dict(xml_template)
+        print data2
+        return HttpResponse(json.dumps(data2))
+        # data = serializers.serialize('json', xml_template)
+        # return HttpResponse(data, content_type='application/json')
 
     def post(self, request):
         """

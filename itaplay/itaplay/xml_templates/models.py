@@ -31,7 +31,7 @@ class XmlTemplate(models.Model):
 
     @classmethod
     def get_by_id(cls, pk):
-        return cls.objects.filter(pk=pk)
+        return cls.objects.get(pk=pk)
 
     @classmethod
     def delete(cls, pk):

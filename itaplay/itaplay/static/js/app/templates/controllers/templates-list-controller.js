@@ -11,10 +11,10 @@ function TemplatesListController($scope, $http){
     $scope.delete = function (object) {
         $http({
             method : "DELETE",
-            url : '/templates/delete/' + object.pk,
-            data: {
-                pk: object.pk
-            }
+            url : '/templates/delete/' + object.pk
+            // data: {
+            //     pk: object.pk
+            // }
         }).then(function mySucces(response) {
             var index = $scope.data.indexOf(object)
             $scope.data.splice(index, 1);
