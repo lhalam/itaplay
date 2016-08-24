@@ -21,13 +21,12 @@ class XmlTemplate(models.Model):
     def __unicode__(self):
         return u"%s" % (self.template_name)
 
-    # @classmethod
-    def set_xml_template(self, template_name, xml_file):
+    def set(self, template_name, xml_file):
         self.template_name = template_name
         self.template_content = xml_file
 
     @classmethod
-    def get_xml_templates_list(cls):
+    def get_all(cls):
         return cls.objects.all()
 
     @classmethod
@@ -35,5 +34,5 @@ class XmlTemplate(models.Model):
         return cls.objects.filter(pk=pk)
 
     @classmethod
-    def delete_xml_template(cls, pk):
+    def delete(cls, pk):
         return cls.objects.filter(pk=pk).delete()

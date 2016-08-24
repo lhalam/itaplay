@@ -26,7 +26,7 @@ class TemplateView(View):
         return list of the companies
         """
         if not pk:
-            xml_templates = XmlTemplate.get_xml_templates_list()
+            xml_templates = XmlTemplate.get_all()
             data = serializers.serialize('json', xml_templates)
             return HttpResponse(data, content_type='application/json')
         xml_template = XmlTemplate.get_by_id(pk=pk)
@@ -43,7 +43,7 @@ class TemplateView(View):
             template_name = request.POST.get('templateName')
             xml_file = request.FILES['file'].read()
             obj = XmlTemplate()
-            obj.set_xml_template(template_name, xml_file)
+            obj.set(template_name, xml_file)
             obj.save()
         return HttpResponse(201)
 
@@ -56,5 +56,5 @@ class TemplateView(View):
         return HttpResponse with code 201 if template is deleted.
         """
         if request.method == 'DELETE':
-            XmlTemplate.delete_xml_template(pk=pk)
+            XmlTemplate.delete(pk=pk)
         return HttpResponse(201)
