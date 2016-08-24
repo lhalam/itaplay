@@ -57,7 +57,7 @@ class TemplateView(View):
             obj.save()
         return HttpResponse(201)
 
-    def delete(self, request, pk):
+    def delete(self, request, template_id):
         """
         Handling DELETE method.
         args
@@ -69,6 +69,6 @@ class TemplateView(View):
         if request.method == 'DELETE':
             print request
             print 'in delete'
-            XmlTemplate.delete(pk=pk)
+            XmlTemplate.delete(template_id)
         print 'delete template'
         return HttpResponse(201)

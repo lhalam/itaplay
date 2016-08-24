@@ -47,21 +47,12 @@ itaplay.config(function($routeProvider) {
             controller: AddTemplateController
         })
         .otherwise({redirectTo: '/templates/'})
-        
-        .when('/template/edit/pk=:pk', {
-            templateUrl: '../../../static/js/app/templates/views/templates_edit.html',
-            controller: 'EditTemplateController'
-        })
-        .otherwise({redirectTo: '/templates/'})    
 
-        .when('/template/pk=:pk', {
+        .when('/template/id=:template_id', {
             templateUrl: '../../../static/js/app/templates/views/current_template.html',
             controller: CurrentTemplateController
         })
-        .otherwise({redirectTo: '/templates/'})
-    
-
-;
+        .otherwise({redirectTo: '/templates/'});
 })
 .run(function($log) {
     $log.info("Starting up");

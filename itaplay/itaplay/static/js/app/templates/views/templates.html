@@ -4,7 +4,7 @@
     </div>
     <div layout="row" ng-repeat="item in data" id="templates_list" layout-align="center center">
         <div flex="15">
-            <a href="#/template/pk={{item.id}}">{{ item.template_name }}</a>
+            <a href="#/template/id={{item.id}}">{{ item.template_name }}</a>
         </div>
         <div flex>
             <pre lang="xml">{{ item.template_content}}</pre>
