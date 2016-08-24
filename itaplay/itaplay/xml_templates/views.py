@@ -17,16 +17,17 @@ import json
 #         data = serializers.serialize('json', xml_templates)
 #         return HttpResponse(data, content_type='application/json')
 
+
 class TemplateView(View):
 
-    def get(self, request, pk=None):
+    def get(self, request, template_id=None):
         # def xml_templates_list(self, request):
         """
         Handling GET method.
         param request: Request to View.
         return list of the companies
         """
-        if not pk:
+        if not template_id:
             xml_templates = XmlTemplate.get_all()
             print xml_templates
             data2 = [model_to_dict(i) for i in xml_templates]
@@ -34,7 +35,7 @@ class TemplateView(View):
             # data = serializers.serialize('json', xml_templates)
             # return HttpResponse(data, content_type='application/json')
             return HttpResponse(json.dumps(data2))
-        xml_template = XmlTemplate.get_by_id(pk=pk)
+        xml_template = XmlTemplate.get_by_id(template_id)
         print xml_template
         data2 = model_to_dict(xml_template)
         print data2
@@ -64,6 +65,10 @@ class TemplateView(View):
             pk: id of deleted template.
         return HttpResponse with code 201 if template is deleted.
         """
+
         if request.method == 'DELETE':
+            print request
+            print 'in delete'
             XmlTemplate.delete(pk=pk)
+        print 'delete template'
         return HttpResponse(201)

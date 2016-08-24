@@ -11,7 +11,7 @@ function TemplatesListController($scope, $http){
     $scope.delete = function (object) {
         $http({
             method : "DELETE",
-            url : '/templates/delete/' + object.pk
+            url : '/templates/delete/' + object.id
             // data: {
             //     pk: object.pk
             // }

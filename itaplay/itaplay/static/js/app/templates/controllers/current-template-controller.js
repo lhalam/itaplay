@@ -13,10 +13,10 @@ function CurrentTemplateController($scope,
         });
     };
 
-    $scope.deleteCurrent = function() {
+    $scope.deleteCurrent = function(template) {
         $http({
             method: "DELETE",
-            url: '/templates/delete/' + $scope.pk
+            url: '/templates/delete/' + template.id
         }).then(function mySuccess(response) {
             $location.path('/#/templates');
         });

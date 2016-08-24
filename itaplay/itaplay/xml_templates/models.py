@@ -35,4 +35,4 @@ class XmlTemplate(models.Model):
 
     @classmethod
     def delete(cls, pk):
-        return cls.objects.filter(pk=pk).delete()
+        cls.objects.filter(pk=pk).delete()
