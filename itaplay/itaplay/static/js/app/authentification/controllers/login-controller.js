@@ -9,6 +9,7 @@ angular.module('loginApp',['ngMaterial', 'ngMessages'])
         }).then(function successCallback(response) {
             $window.location.href = '/';
             },
-                function errorCallback(response) {});
+                function errorCallback(response) {
+                });
     }
 });
