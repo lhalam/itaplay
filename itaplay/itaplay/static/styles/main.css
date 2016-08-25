@@ -1,3 +1,5 @@
+/* starting footer end of page ------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
@@ -23,6 +25,7 @@ footer {
   margin-bottom: 60px;
 }
 
+/* ending footer end of page ------------------------------- */
 
 .footer_text {
   font-size: 16px;
@@ -136,7 +139,64 @@ input:focus ~ .highlight {
 
 /* search form ending stylings ------------------------------- */
 
+
 /* Templates ===== */
 #templates_list{
   border-bottom: 1px solid black;
+
+
+/* add clip form starting stylings ------------------------------- */
+
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 45px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: rgb(255,87,34);
+    width: 0;
+}
+
+.all_clips {
+  width: 100px;
+  height: 100px;
+}
+
+
+/* add clip form ending stylings ------------------------------- */
+
+.clips_wrapper {
+  border-bottom: 2px solid rgb(0,150,136);
+  border-radius: 2px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.clips_wrapper:hover {
+  
+  opacity: 0.6;
+}
+
+.clip_name {
+  text-align: center;
+}
+
+.image_current_clip {
+  width: 640px;
+  height: 480px;
+>>>>>>> origin/dev
 }

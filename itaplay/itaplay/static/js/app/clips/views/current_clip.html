@@ -1,0 +1,19 @@
+<div  ng-init="init()" layout="column" layout-padding ng-cloak>
+<div layout="column" layout-align="center center">
+   <div class="bottom-sheet-demo inset" layout="row" layout-sm="column">
+      <div>
+         <md-button flex="100"  class="md-primary md-raised" href="/#/allclips">
+         back</md-buttom>
+      </div>
+      <div flex=100></div>
+      <div>
+         <md-button flex="100"  class="md-warn" type="submit" ng-click="deleteCurrent(clip)">
+         delete clip</md-buttom>
+      </div>
+   </div>
+   <h1>{{ data[0].fields.name }}</h1>
+   <br>
+   <img ng-src="media/{{ data[0].fields.video }}" class="image_current_clip" />
+   <br>
+</div>
+

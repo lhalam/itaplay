@@ -2,40 +2,46 @@
 
 var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages']);
 
+
 itaplay.config(function($routeProvider) {
     $routeProvider
-
-    	.when('/test', {
-            templateUrl: '../../../static/js/app/test/views/test.html',
-            controller: TestController
+    	.when('/users', {
+            templateUrl: '../../../static/js/app/main/views/users.html'
+        })
+        .when('/allclips', {
+            templateUrl: '../../../static/js/app/clips/views/allclips.html',
+            controller: 'AllClipController'
+        })
+        .when('/projects', {
+            templateUrl: '../../../static/js/app/main/views/projects.html'
         })
 
-        .when('/test1', {
-            templateUrl: '../../../static/js/app/test/views/test1.html'
+        .when('/clip/pk=:pk/', {
+            templateUrl: '../../../static/js/app/clips/views/current_clip.html',
+            controller: 'CurrentClipController'
         })
-
         .when('/clips', {
-            templateUrl: '../../../static/js/app/test/views/clips.html'
+            templateUrl: '../../../static/js/app/clips/views/add_clip.html',
+            controller: 'ClipController'
+
         })
-        .otherwise({redirectTo: '/test'})
 
         .when('/company/', {
             templateUrl: '../../../static/js/app/company/views/all_company.html',
             controller: AllCompanyController
         })
-       .otherwise({redirectTo: '/test'})
-       
-       .when('/company/add_new/', {
+
+        .when('/company/add_new/', {
             templateUrl: '../../../static/js/app/company/views/add_companies.html',
-            controller: CompanyAddController          
+            controller: CompanyAddController
         })
-       .otherwise({redirectTo: '/company/'})
-       
-       .when('/company/id=:company_id/', {
+
+        .when('/company/id=:company_id/', {
             templateUrl: '../../../static/js/app/company/views/company.html',
-            controller: CompanyController          
+            controller: CompanyController
         })
-       .otherwise({redirectTo: '/company/'})
+
+
 
         .when('/templates', {
             templateUrl: '../../../static/js/app/templates/views/templates.html',
@@ -46,20 +52,24 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/templates/views/templates_add.html',
             controller: AddTemplateController
         })
-        .otherwise({redirectTo: '/templates/'})
+
 
         .when('/template/id=:template_id', {
             templateUrl: '../../../static/js/app/templates/views/current_template.html',
             controller: CurrentTemplateController
         })
-        .otherwise({redirectTo: '/templates/'});
+
+
+
+        .otherwise({redirectTo: '/users'});
+
 })
 .run(function($log) {
     $log.info("Starting up");
-})
+});
 
 // choose colors for our theme
-.config(function($mdThemingProvider) {
+itaplay.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
       .accentPalette('blue');
