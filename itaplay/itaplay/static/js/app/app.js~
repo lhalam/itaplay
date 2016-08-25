@@ -56,10 +56,10 @@ itaplay.config(function($routeProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
       .accentPalette('blue')
+      .dark();
 })
 
 .config(function($httpProvider){
 $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 });
-

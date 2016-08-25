@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'itaplay',
     'company',
     'home',
-    'player',
+    'player.apps.PlayerConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
