@@ -16,7 +16,6 @@ function TemplatesListController($scope, $http) {
         }).then(function success(response) {
             var index = $scope.data.indexOf(object)
             $scope.data.splice(index, 1);
-            console.debug(response.data)
         }, function error(response) {});
     };
 };
