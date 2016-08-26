@@ -18,15 +18,10 @@ class Player(models.Model):
     
     @classmethod    
     def delete_by_id(cls, player_id):
-        # player = cls.objects.get(id)
-        # if player:
-        #     player.delete()
         cls.objects.filter(pk=player_id).delete()
+    
     @classmethod
     def get_all(cls):
-        """
-        return all players
-        """
         return cls.objects.all()
 
     @classmethod

@@ -3,7 +3,7 @@ function AllPlayerController($scope, $http, $location) {
 
 
   $scope.init = function(){
-    
+
     $http.get("player/player_view/").then(function (response) {
       $scope.players = response.data;
      }, function(response) {
@@ -13,7 +13,7 @@ function AllPlayerController($scope, $http, $location) {
   };
 
       $scope.delete = function(player){
-        $http.delete("player/delete_player/"+player.id, {"id": player.id}).then(function (player) {
+        $http.delete("player/delete_player/"+player.id, {"id": player.id}).then(function (player) {   
           $location.path('/#/player');
         },function (player) {
             $location.path('/#/player');
@@ -23,11 +23,9 @@ function AllPlayerController($scope, $http, $location) {
      $scope.changeStatus = function(player){
         player.status = !player.status;
         $http.put("player/player_view/", player).success(function (data) {
-          // $location.path('/#/player');
         });  
        };  
 };   
-
 
 function PlayerAddController($scope, $http,  $location) {
   $scope.initadd = function(){

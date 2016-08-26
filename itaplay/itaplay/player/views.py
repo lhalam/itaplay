@@ -14,18 +14,27 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 
 class PlayerView(View):
+<<<<<<< HEAD
     def get(self, request, player_id=None):
         if player_id==None:
             data = [model_to_dict(i) for i in Player.get_all()]
             return HttpResponse(json.dumps(data))
         player = Player.get_by_id(player_id)
         print player
+=======
+    def get(self, request, pk=None):
+        if pk==None:
+            data = serializers.serialize("json", Player.get_player())
+            return HttpResponse(data)
+        player = Player.get_player(pk)
+>>>>>>> b7483cff5998e842cf7de479c956518d64b88890
         player = model_to_dict(player)
         return HttpResponse(json.dumps({"player":player}))
 
     def post(self, request):
         player = Player()
         data = json.loads(request.body)
+<<<<<<< HEAD
 
         # print data
         # if "pk" in data:
@@ -75,4 +84,15 @@ class PlayerView(View):
 
 
     # success_url = "/player"
-           
+=======
+        player_form = PlayerForm(data)
+        if not player_form.is_valid():
+            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+        player.set_player(json.loads(request.body)) 
+        return HttpResponse(status=201)
+      
+
+class DeletePlayer(DeleteView):
+    model = Player
+    success_url = "/player"
+              
