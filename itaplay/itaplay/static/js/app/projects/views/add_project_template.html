@@ -1,0 +1,43 @@
+<div layout="column" layout-padding ng-cloak>
+    <div layout="row">
+        <div flex=20></div>
+        <div flex=60 style="background-color:  #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
+            <div>Add new project template:</div>
+            <form name="newProjectTemplateForm">
+                <md-content style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                    <md-select placeholder="Select template" ng-model="template" style="min-width: 200px;">
+                        <md-option ng-value="template" ng-repeat="template in templates">{{template.name}}</md-option>
+                    </md-select>
+                </md-content>
+                <div layout="column" layout-gt-sm="row" >
+                    <div flex>
+                        <md-content style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                            <md-select placeholder="Select area" ng-model="area" style="min-width: 200px;">
+                                <md-option ng-value="area" ng-repeat="area in areas">{{area.name}}</md-option>
+                            </md-select>
+                        </md-content>
+                    </div>
+                    <div flex>
+                        <md-content style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                            <md-select placeholder="Select clip" ng-model="clip" style="min-width: 200px;">
+                                <md-option ng-value="clip" ng-repeat="clip in clips">{{clip.name}}</md-option>
+                            </md-select>
+                        </md-content>
+                    </div>
+                </div>
+                <div layout="row" layout-padding>
+                    You have selected:
+                    <ul>
+                        <li>clip1 for area1</li>
+                    </ul>
+                </div>
+                <div layout="row">
+                    <div flex="100"></div>
+                    <md-button  class="md-primary md-raised"  type="submit" ng-click="save(company)">Add</md-buttom>
+                </div>
+            </form>
+        </div>
+        <div flex=20></div>
+    </div>
+</div>
+
