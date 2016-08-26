@@ -14,36 +14,18 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 
 class PlayerView(View):
-<<<<<<< HEAD
     def get(self, request, player_id=None):
         if player_id==None:
             data = [model_to_dict(i) for i in Player.get_all()]
             return HttpResponse(json.dumps(data))
         player = Player.get_by_id(player_id)
         print player
-=======
-    def get(self, request, pk=None):
-        if pk==None:
-            data = serializers.serialize("json", Player.get_player())
-            return HttpResponse(data)
-        player = Player.get_player(pk)
->>>>>>> b7483cff5998e842cf7de479c956518d64b88890
         player = model_to_dict(player)
         return HttpResponse(json.dumps({"player":player}))
 
     def post(self, request):
         player = Player()
         data = json.loads(request.body)
-<<<<<<< HEAD
-
-        # print data
-        # if "pk" in data:
-        #     # pl={}
-        #     # pl["id"]= data["pk"]
-        #     # data["id"] = data.pop("pk")
-        #     data["id"] = data.pop("pk", None)
-        #     data.pop("model", None)
-        #     # data=dict(pl.items()+data["fields"].items())
 
         data_adapt = {}
         if data.get("fields"):
@@ -51,8 +33,6 @@ class PlayerView(View):
             data_adapt["id"] = data["pk"]
         else:
             data_adapt = data
-        # update_status = data if not data.get("fields") else data.get("fields") #.update({"id": data["pk"]})
-        # print data_adapt
 
         player_form = PlayerForm(data_adapt)
         if not player_form.is_valid():
@@ -74,25 +54,4 @@ class PlayerView(View):
         Player.delete_by_id(player_id)
         return HttpResponse(201)     
 
-# class DeletePlayer(DeleteView):
-#     pass
-    ####################################
-    # model = Player.get(request.get("id"))
-    # model.delete()
-    ####################################
-    # Player.delete_by_id(request.get("id"))
-
-
-    # success_url = "/player"
-=======
-        player_form = PlayerForm(data)
-        if not player_form.is_valid():
-            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
-        player.set_player(json.loads(request.body)) 
-        return HttpResponse(status=201)
-      
-
-class DeletePlayer(DeleteView):
-    model = Player
-    success_url = "/player"
               
