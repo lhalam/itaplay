@@ -1,4 +1,4 @@
-<div ng-controller="AllClipController">
+<div ng-init="init()">
    <div layout="row">
       <div flex="15">
          <md-button class="md-raised md-warn" href="#/clips" class="groupX right">Add new clip</md-button>
@@ -11,11 +11,15 @@
                <p class="clip_name">{{item.fields.name}}</p>
             </div>
             <div flex="30">
-               <img ng-src="media/{{ item.fields.video }}" class="all_clips"/>
+              <object data="{{urlAmazon}}{{ item.fields.video }}" type="image/png" class="all_clips" autoplay="false">
+               </object>     
             </div>
             <div flex="30">
+               <md-button  class="md-accent" class="md-card-image" href = "#clip/pk={{item.pk}}">
+               details</md-button>
+               <md-button  class="md-accent" class="md-card-image" href = "#editclip/pk={{item.pk}}">
+               edit</md-button>
                <md-button ng-click="delete(item)">delete</md-button>
-               <md-button  class="md-accent" class="md-card-image" href = "#clip/pk={{item.pk}}">details</md-button>
             </div>
          </div>
       </div>

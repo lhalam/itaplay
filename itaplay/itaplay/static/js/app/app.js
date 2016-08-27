@@ -11,7 +11,7 @@ itaplay.config(function($routeProvider) {
         })
         .when('/allclips', {
             templateUrl: '../../../static/js/app/clips/views/allclips.html',
-            controller: 'AllClipController'
+            controller: AllClipController
         })
         .when('/test1', {
             templateUrl: '../../../static/js/app/test/views/test1.html',
@@ -20,7 +20,11 @@ itaplay.config(function($routeProvider) {
         
         .when('/clip/pk=:pk/', {
             templateUrl: '../../../static/js/app/clips/views/current_clip.html',
-            controller: 'CurrentClipController'
+            controller: CurrentClipController
+        })
+        .when('/editclip/pk=:pk/', {
+            templateUrl: '../../../static/js/app/clips/views/edit_clip.html',
+            
         })
         .when('/clips', {
             templateUrl: '../../../static/js/app/clips/views/add_clip.html',
@@ -43,7 +47,4 @@ itaplay.config(function($routeProvider) {
 itaplay.config(['$httpProvider', function($httpProvider) {
 $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-}]);
-
-
-
+}])

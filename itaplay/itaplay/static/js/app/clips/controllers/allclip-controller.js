@@ -1,10 +1,11 @@
-itaplay.controller('AllClipController', function($scope, $http) {
-
+function AllClipController($scope, $http) {
+    $scope.init = function() {
 
     var api_url = '/clips/clips/';
     $http.get(api_url)
         .then(function(response) {
             $scope.data = response.data;
+            $scope.urlAmazon = "https://s3-eu-west-1.amazonaws.com/itaplayadviserireland/"
         });
 
 
@@ -30,5 +31,5 @@ itaplay.controller('AllClipController', function($scope, $http) {
         });
     };
 
-
-});
+};
+};

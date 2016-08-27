@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 class Clip(models.Model):
     """
@@ -10,7 +11,7 @@ class Clip(models.Model):
     """
     
     name = models.CharField(max_length=128, null=True, blank=True)  
-    video = models.FileField(upload_to='clips/%Y/%m/%d', blank=True, null=True)
+    video = models.FileField(upload_to='itaplayadviser', blank=True, null=True)
     
 
     def delete_clip(self, pk):
@@ -44,6 +45,10 @@ class Clip(models.Model):
         
         """
         return Clip.objects.all()
-        
 
-        
+# signal allows ud delete media files from AWS S3 bucket
+@receiver(models.signals.pre_delete, sender=Clip)
+def remove_file_from_s3(sender, instance, **kwargs):
+    instance.video.delete(save=False)
+
+

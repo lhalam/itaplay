@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tastypie',
+    'storages',
     'clips',
 ]
 
@@ -126,11 +126,25 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# Boto 3
+# import boto3
+# s3 = boto3.resource('s3')
 try:
     from local_settings import *
 except ImportError:
     pass
-    
+
+# configs for AWS S3    
+
+AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
+MEDIAFILES_LOCATION = 'media'
+
+from storages.backends.s3boto import S3BotoStorage
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+

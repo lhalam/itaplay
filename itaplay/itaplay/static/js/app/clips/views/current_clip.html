@@ -13,7 +13,6 @@
    </div>
    <h1>{{ data[0].fields.name }}</h1>
    <br>
-   <img ng-src="media/{{ data[0].fields.video }}" class="image_current_clip" />
-   <br>
+   <iframe  ng-src="{{trustSrc(clipUrl.src)}}" class="image_current_clip"></iframe>
 </div>
 
