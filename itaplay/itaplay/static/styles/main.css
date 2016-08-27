@@ -140,6 +140,11 @@ input:focus ~ .highlight {
 /* search form ending stylings ------------------------------- */
 
 
+/* Templates ===== */
+#templates_list{
+  border-bottom: 1px solid black;
+
+
 /* add clip form starting stylings ------------------------------- */
 
 .thumb {
@@ -193,4 +198,5 @@ form .progress {
 .image_current_clip {
   width: 640px;
   height: 480px;
+>>>>>>> origin/dev
 }

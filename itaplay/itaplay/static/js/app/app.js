@@ -42,10 +42,28 @@ itaplay.config(function($routeProvider) {
         })
 
         .when('/projects/add_project_template/', {
-            templateUrl: '../../../static/js/app/projects/views/add_project_template.html'
+            templateUrl: '../../../static/js/app/projects/views/add_project_template.html',
+            controller: AddProjectTemplateController
+        })
+
+        .when('/templates', {
+            templateUrl: '../../../static/js/app/templates/views/templates.html',
+            controller: TemplatesListController
+        })
+
+        .when('/templates-add', {
+            templateUrl: '../../../static/js/app/templates/views/templates_add.html',
+            controller: AddTemplateController
+        })
+
+
+        .when('/template/id=:template_id', {
+            templateUrl: '../../../static/js/app/templates/views/current_template.html',
+            controller: CurrentTemplateController
         })
 
         .otherwise({redirectTo: '/users'});
+
 })
 .run(function($log) {
     $log.info("Starting up");
