@@ -95,17 +95,8 @@ WSGI_APPLICATION = 'itaplay.wsgi.application'
 
 DATABASES = {
     'default': {
-<<<<<<< HEAD
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'test_database', 
-        'USER': 'roman',
-        'PASSWORD': 'ro135rj',
-        'HOST': 'localhost',
-        'PORT': ''
-=======
         'ENGINE': '',
         'NAME': '',
->>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
     }
 }
 
@@ -152,8 +143,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-<<<<<<< HEAD
-=======
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -168,7 +157,6 @@ EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
 EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
 
->>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
 try:
     from local_settings import *
 except ImportError:
