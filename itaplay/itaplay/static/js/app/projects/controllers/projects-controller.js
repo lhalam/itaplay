@@ -37,15 +37,17 @@ function AddProjectTemplateController($scope, $http, $location) {
             $scope.areas[i]['id'] = DOM_areas[i].id;
             $scope.areas[i]['clip_id'] = "";
         }
+        $scope.clip = "";
+        $scope.area = "";
     };
 
     $scope.assignClip = function() {
         $scope.areas[$scope.areas.indexOf($scope.area)]['clip_id'] = $scope.clip.pk;
-  };
+    };
 
     $scope.chooseClip = function() {
         $scope.clip = $scope.findClipByID($scope.areas[$scope.areas.indexOf($scope.area)]['clip_id'])
-  };
+    };
 
     $scope.findClipByID = function (id) {
         for(var i=0;i<$scope.clips.length;i++)
@@ -53,4 +55,25 @@ function AddProjectTemplateController($scope, $http, $location) {
             if($scope.clips[i].pk === id) return $scope.clips[i];
         }
     };
+
+    $scope.save = function (areas){
+        if(!validate(areas)) return;
+        data = {"template_id": $scope.template.id,
+                "areas": $scope.areas};
+        $http.post("projects/add_project_template/", data).success(function () {
+          $location.path('/projects');
+        });
+    };
+
+    var validate = function (areas) {
+        if(areas==undefined){alert("You need to select template first!"); return false;}
+        for(var i=0;i<areas.length;i++)
+        {
+            if(areas[i]['id']==""||areas[i]['clip_id']=="") {
+                alert("All areas must have clips!");
+                return false;
+            }
+        }
+        return true;
+    }
 }
