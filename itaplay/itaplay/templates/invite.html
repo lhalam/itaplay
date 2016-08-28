@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="inviteApp">
+   <head>
+      <title>Invite user</title>
+      <!-- Custom style sheet -->
+      <link rel="stylesheet" type="text/css" href="/static/styles/register.css">
+      <!-- Angular Material style sheet -->
+      <link rel="stylesheet"
+         href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+      <!-- Angular Material requires Angular.js Libraries -->
+      <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
+      <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+      <!-- Angular Material Library -->
+      <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+      <!-- Our custom js -->
+      <script src='/static/js/app/authentification/controllers/invite-controller.js'></script>
+   </head>
+   <body ng-controller="InviteCtrl">
+      <div flex="50" flex-offset="25" flex-sm="90" offset-sm="5">
+         <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
+            <span flex>
+               <div layout="column">
+                  <div layout="row">
+                     <h2>Invite user</h2>
+                  </div>
+                  <form name="inviteForm" ng-submit="inviteUser()">
+                     <div layout="column">
+                        <md-input-container>
+                           <label>E-mail</label>
+                           <input type="email" ng-model="inviteInfo.email" name="email" required>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Company ID</label>
+                           <input type="number" ng-model="inviteInfo.id_company" name="id_company" required>
+                        </md-input-container>
+                     </div>
+                     <div layout="row">
+                        <div flex offset="33"></div>
+                        <md-button type='reset' flex>Cancel</md-button>
+                        <md-button type="submit" flex class="md-raised md-primary">Invite</md-button>
+                     </div>
+                  </form>
+               </div>
+            </span>
+         </md-whiteframe>
+      </div>
+   </body>
+</html>

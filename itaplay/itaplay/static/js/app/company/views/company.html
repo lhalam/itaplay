@@ -1,5 +1,5 @@
-<div ng-init="initcomp()" layout="column" layout-padding ng-cloak>
-    <p>company id={{company.id}}</p>
+<div ng-init="init()" layout="column" layout-padding ng-cloak>
+    <md-button href="/#/company/" class="groupX right">All companies</md-button> 
     <div  layout="row">
         <div flex=20></div>
         <div flex=60 style="background-color: #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
@@ -38,7 +38,7 @@
                 <div class="bottom-sheet-demo inset" layout="row" layout-sm="column">
                     <div><md-button flex="100"  class="md-primary md-raised" type="submit" ng-click="update(company)">make changes</md-buttom></div>
                     <div flex=100></div>
-                    <div><md-button flex="100"  class="md-warn" type="submit" ng-click="delete_current(company)">delete</md-buttom></div>
+                    <div><md-button flex="100"  class="md-warn" type="submit" ng-click="deleteCurrent(company)">delete</md-buttom></div>
                 </div>
             </form>
         </div>

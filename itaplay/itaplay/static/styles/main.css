@@ -1,3 +1,5 @@
+/* starting footer end of page ------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
@@ -10,6 +12,7 @@ body {
 }
 
 footer {
+  z-index: 1;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -22,6 +25,7 @@ footer {
   margin-bottom: 60px;
 }
 
+/* ending footer end of page ------------------------------- */
 
 .footer_text {
   font-size: 16px;
@@ -40,9 +44,10 @@ footer {
 
 
 /* search form starting stylings ------------------------------- */
-.group        { 
-  position:relative; 
-  margin-bottom:5px; 
+
+.group        {
+  position:relative;
+  margin-bottom:5px;
 }
 input         {
   font-size:18px;
@@ -56,15 +61,15 @@ input:focus     { outline:none; }
 
 /* LABEL ======================================= */
 label          {
-  color:#999; 
+  color:#999;
   font-size:18px;
   font-weight:normal;
   position:absolute;
   pointer-events:none;
   left:5px;
   top:10px;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;
 }
 
@@ -79,20 +84,20 @@ input:focus ~ label, input:valid ~ label    {
 .bar  { position:relative; display:block; width:300px; }
 .bar:before, .bar:after   {
   content:'';
-  height:2px; 
+  height:2px;
   width:0;
-  bottom:1px; 
+  bottom:1px;
   position:absolute;
-  background:rgb(255,64,129); 
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
+  background:rgb(255,64,129);
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;
 }
 .bar:before {
   left:50%;
 }
 .bar:after {
-  right:50%; 
+  right:50%;
 }
 
 /* active state */
@@ -103,9 +108,9 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 /* HIGHLIGHTER ================================== */
 .highlight {
   position:absolute;
-  height:60%; 
-  width:100px; 
-  top:25%; 
+  height:60%;
+  width:100px;
+  top:25%;
   left:0;
   pointer-events:none;
   opacity:0.5;
@@ -132,3 +137,60 @@ input:focus ~ .highlight {
   to  { width:0; background:transparent; }
 }
 
+/* search form ending stylings ------------------------------- */
+
+
+/* add clip form starting stylings ------------------------------- */
+
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 45px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: rgb(255,87,34);
+    width: 0;
+}
+
+.all_clips {
+  width: 100px;
+  height: 100px;
+}
+
+
+/* add clip form ending stylings ------------------------------- */
+
+.clips_wrapper {
+  border-bottom: 2px solid rgb(0,150,136);
+  border-radius: 2px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.clips_wrapper:hover {
+  
+  opacity: 0.6;
+}
+
+.clip_name {
+  text-align: center;
+}
+
+.image_current_clip {
+  width: 640px;
+  height: 480px;
+}

@@ -1,0 +1,74 @@
+<<<<<<< HEAD
+=======
+<!DOCTYPE html>
+<html ng-app="registerApp">
+   <head>
+      <title>Create an account</title>
+      <!-- Custom style sheet -->
+      <link rel="stylesheet" type="text/css" href="/static/styles/register.css">
+      <!-- Angular Material style sheet -->
+      <link rel="stylesheet"
+         href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+      <!-- Angular Material requires Angular.js Libraries -->
+      <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
+      <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+      <!-- Angular Material Library -->
+      <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+      <!-- Our custom js -->
+      <script src='/static/js/app/app.js'></script>
+      <script src='/static/js/app/authentification/controllers/registration-controller.js'></script>
+   </head>
+   <body ng-controller="RegisterCtrl">
+      <div flex="50" flex-offset="25" flex-sm="90" offset-sm="5">
+         <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
+            <span flex>
+               <div layout="column">
+                  <div layout="row">
+                     <h2>CREATE AN ACCOUNT</h2>
+                  </div>
+                  <form name="registerForm" ng-submit="registerUser()">
+                     <div layout="column">
+                        <md-input-container>
+                           <label>First name</label>
+                           <input ng-model="registrationInfo.firstName" name="firstName" required>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Last name</label>
+                           <input ng-model="registrationInfo.lastName" name="lastName" required>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Password</label>
+                           <input type="password" ng-model="registrationInfo.password" name="password" required
+                                  md-maxlength="20" minlength="6">
+                            <div ng-messages="registerForm.password.$error" ng-show="registerForm.password.$dirty">
+                                <div ng-message="md-maxlength">Password too long!</div>
+                                <div ng-message="minlength">Password too short!</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                           <label>Confirm password</label>
+                           <input type="password" ng-model="registrationInfo.confirmPassword" name="confirmPassword"
+                                  required md-maxlength="20" minlength="6" compare-to="registrationInfo.password">
+                            <div ng-messages="registerForm.confirmPassword.$error" ng-show="registerForm.confirmPassword.$dirty">
+                                  <div ng-message="md-maxlength">Password too long!</div>
+                                  <div ng-message="minlength">Password too short!</div>
+                                <div ng-message="compareTo">Passwords are not equal!</div>
+                            </div>
+                        </md-input-container>
+                     </div>
+                     <div layout="row">
+                        <div flex offset="33"></div>
+                        <md-button type='reset' flex>CANCEL</md-button>
+                        <md-button type="submit" flex class="md-raised md-primary">REGISTER</md-button>
+                     </div>
+                  </form>
+               </div>
+            </span>
+         </md-whiteframe>
+      </div>
+   </body>
+</html>
+>>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
