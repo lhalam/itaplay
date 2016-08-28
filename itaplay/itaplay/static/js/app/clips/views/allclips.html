@@ -5,24 +5,24 @@
       </div>
    </div>
    <div layout="column" layout-align="center center">
-      <div ng-repeat="item in data" class="clips_wrapper">
+      <div ng-repeat="clip in clips" class="clips_wrapper">
          <div layout="row">
             <div flex="30">
-               <p class="clip_name">{{item.fields.name}}</p>
+               <p class="clip_name">{{clip.fields.name}}</p>
             </div>
             <div flex="30">
-              <object data="{{urlAmazon}}{{ item.fields.video }}" type="image/png" class="all_clips" autoplay="false">
-               </object>     
+              <object data="{{urlAmazon}}{{ clip.fields.video }}" type="image/jpeg"  class="all_clips">
+               </object>
+
             </div>
             <div flex="30">
-               <md-button  class="md-accent" class="md-card-image" href = "#clip/pk={{item.pk}}">
+               <md-button  class="md-accent" class="md-card-image" href = "#clip/id={{clip.pk}}">
                details</md-button>
-               <md-button  class="md-accent" class="md-card-image" href = "#editclip/pk={{item.pk}}">
+               <md-button  class="md-accent" class="md-card-image" href = "#editclip/id={{clip.pk}}">
                edit</md-button>
-               <md-button ng-click="delete(item)">delete</md-button>
+               <md-button ng-click="delete(clip)">delete</md-button>
             </div>
          </div>
       </div>
    </div>
 </div>
-

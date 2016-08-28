@@ -6,13 +6,9 @@
          back</md-buttom>
       </div>
       <div flex=100></div>
-      <div>
-         <md-button flex="100"  class="md-warn" type="submit" ng-click="deleteCurrent(clip)">
-         delete clip</md-buttom>
-      </div>
    </div>
    <h1>{{ data[0].fields.name }}</h1>
    <br>
-   <iframe  ng-src="{{trustSrc(clipUrl.src)}}" class="image_current_clip"></iframe>
+   <iframe ng-src="{{trustSrc(clipUrl.src)}}" class="image_current_clip" type="image/jpeg"></iframe>
 </div>
 

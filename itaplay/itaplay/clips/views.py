@@ -29,24 +29,24 @@ class ClipView(View):
     
     :return: HttpResponse with code 201 if clip is deleted.
     """
-    def delete(self, request, pk):
+    def delete(self, request, clip_id):
         clip = Clip()
-        clip.delete_clip(pk)
+        clip.delete_clip(clip_id)
         return HttpResponse(status=201)
     """
     Handling GET method for all clips.
     
     :return: all clips
     """  
-    def get(self, request, pk=None):
-        if not pk:
+    def get(self, request, clip_id=None):
+        if not clip_id:
             clips = Clip()
             clips = clips.get_all_clips()
             data = serializers.serialize('json', clips)
             return HttpResponse(data, content_type='application/json')
 
         clip = Clip()
-        clip = clip.get_clip(pk)
+        clip = clip.get_clip(clip_id)
         data = serializers.serialize('json', clip)
         return HttpResponse(data, content_type='application/json')
 

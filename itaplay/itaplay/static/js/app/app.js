@@ -18,11 +18,11 @@ itaplay.config(function($routeProvider) {
             
         })
         
-        .when('/clip/pk=:pk/', {
+        .when('/clip/id=:clip_id/', {
             templateUrl: '../../../static/js/app/clips/views/current_clip.html',
             controller: CurrentClipController
         })
-        .when('/editclip/pk=:pk/', {
+        .when('/editclip/id=:clip_id/', {
             templateUrl: '../../../static/js/app/clips/views/edit_clip.html',
             
         })
@@ -48,3 +48,14 @@ itaplay.config(['$httpProvider', function($httpProvider) {
 $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }])
+
+// itaplay.directive('fallbackSrc', function () {
+//   var fallbackSrc = {
+//     link: function postLink(scope, iElement, iAttrs) {
+//       iElement.bind('error', function() {
+//         angular.element(this).attr("src", iAttrs.fallbackSrc);
+//       });
+//     }
+//    }
+//    return fallbackSrc;
+// });
