@@ -10,7 +10,8 @@ class Clip(models.Model):
     Model of clip.
     """
     
-    name = models.CharField(max_length=128, null=True, blank=True)  
+    name = models.CharField(max_length=128, null=True, blank=True)
+    description = models.CharField(max_length=512, null=True, blank=True)  
     video = models.FileField(upload_to='itaplayadviser', blank=True, null=True)
     
 

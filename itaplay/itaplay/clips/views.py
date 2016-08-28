@@ -20,7 +20,8 @@ class ClipView(View):
         form = ClipForm(request.POST, request.FILES)
         if form.is_valid:
             newclip = Clip(video=request.FILES['file'],
-                           name=request.POST['filename'])
+                           name=request.POST['filename'],
+                           description=request.POST['description'])
             newclip.save_clip()
             return HttpResponse(status=201)
 
