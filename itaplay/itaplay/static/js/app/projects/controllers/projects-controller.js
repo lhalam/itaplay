@@ -2,6 +2,7 @@
 function AddProjectTemplateController($scope, $http, $location) {
     var search_text = "";
     var selected_template;
+    $scope.zoomValue = 4.5;
 
     $scope.init = function() {
         $http.get("/templates/all/").then(function (response) {
@@ -36,6 +37,10 @@ function AddProjectTemplateController($scope, $http, $location) {
             for (var i = 0; i < DOM_areas.length; i++) {
                 $scope.areas[i] = {};
                 $scope.areas[i]['id'] = DOM_areas[i].id;
+                $scope.areas[i]['height'] = DOM_areas[i].attributes.height.nodeValue;
+                $scope.areas[i]['width'] = DOM_areas[i].attributes.width.nodeValue;
+                $scope.areas[i]['top'] = DOM_areas[i].attributes.top.nodeValue;
+                $scope.areas[i]['left'] = DOM_areas[i].attributes.left.nodeValue;
                 $scope.areas[i]['clip_id'] = "";
             }
             $scope.clip = "";
