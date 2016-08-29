@@ -26,7 +26,7 @@ class AdviserProjectView(View):
         for area in root.findall('area'):
             area_id = int(area.get('id'))-1
             clipTag = ET.SubElement(area, 'clip')
-            clipTag.set('clip_id',str(data['areas'][area_id]['clip_id']))
+            clipTag.set('id',str(data['areas'][area_id]['clip_id']))
             clip = Clip.objects.get(pk = data['areas'][area_id]['clip_id'])
             clipTag.set('src',str(clip.video))
             clipTag.text = clip.name

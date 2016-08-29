@@ -1,5 +1,7 @@
 
 function AddProjectTemplateController($scope, $http, $location) {
+    var search_text = "";
+    var selected_template;
 
     $scope.init = function() {
         $http.get("/templates/all/").then(function (response) {
@@ -17,28 +19,28 @@ function AddProjectTemplateController($scope, $http, $location) {
         });
     };
 
-    $scope.parseTemplate = function () {
-        if (window.DOMParser)
-        {
-            parser = new DOMParser();
-            xmlDoc = parser.parseFromString($scope.template.template_content, "text/xml");
+    $scope.parseTemplate = function (selected_template) {
+        if(selected_template) {
+            if (window.DOMParser) {
+                parser = new DOMParser();
+                xmlDoc = parser.parseFromString(selected_template.template_content, "text/xml");
+            }
+            else // Internet Explorer
+            {
+                xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                xmlDoc.async = false;
+                xmlDoc.loadXML(selected_template.template_content);
+            }
+            $scope.areas = [];
+            DOM_areas = xmlDoc.getElementsByTagName("area");
+            for (var i = 0; i < DOM_areas.length; i++) {
+                $scope.areas[i] = {};
+                $scope.areas[i]['id'] = DOM_areas[i].id;
+                $scope.areas[i]['clip_id'] = "";
+            }
+            $scope.clip = "";
+            $scope.area = "";
         }
-        else // Internet Explorer
-        {
-            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-            xmlDoc.async = false;
-            xmlDoc.loadXML(txt);
-        }
-        $scope.areas=[];
-        DOM_areas = xmlDoc.getElementsByTagName("area");
-        for(var i=0; i<DOM_areas.length; i++)
-        {
-            $scope.areas[i] = {};
-            $scope.areas[i]['id'] = DOM_areas[i].id;
-            $scope.areas[i]['clip_id'] = "";
-        }
-        $scope.clip = "";
-        $scope.area = "";
     };
 
     $scope.assignClip = function() {
@@ -56,9 +58,9 @@ function AddProjectTemplateController($scope, $http, $location) {
         }
     };
 
-    $scope.save = function (areas){
+    $scope.save = function (selected_template, areas) {
         if(!validate(areas)) return;
-        data = {"template_id": $scope.template.id,
+        data = {"template_id": selected_template.id,
                 "areas": $scope.areas};
         $http.post("projects/add_project_template/", data).success(function () {
           $location.path('/projects');
@@ -75,5 +77,15 @@ function AddProjectTemplateController($scope, $http, $location) {
             }
         }
         return true;
-    }
+    };
+
+    $scope.querySearch = function (query) {
+        return query ? $scope.templates.filter(createFilterFor(query)) : $scope.templates;
+    };
+
+    var createFilterFor = function(query) {
+        return function filterFn(template) {
+            return (template.template_name.toLowerCase().indexOf(query.toLowerCase()) === 0);
+        };
+    };
 }
