@@ -6,22 +6,29 @@
 		<link rel="stylesheet" type="text/css" href="/static/styles/main.css">
 		<!-- Angular Material style sheet -->
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
-    	 <!-- Angular Material requires Angular.js Libraries -->
-        <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
-        <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+		<!-- Roboto font CDN -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js'></script>
+    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js'></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.4/ng-file-upload.min.js"></script>
 
-          <!-- Angular Material Library -->
-        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 
-          <!-- Our custom js -->
-        <script src='/static/js/app/app.js'></script>
-        <script src='/static/js/app/test/controllers/test-controller.js'></script>
-        <script src='/static/js/app/company/controllers/company-controller.js'></script>
+    <!-- Our custom js -->
+    <script src='/static/js/app/app.js'></script>
+    <script src='/static/js/app/clips/controllers/clip-controller.js'></script>
+    <script src='/static/js/app/clips/controllers/allclip-controller.js'></script>
+    <script src='/static/js/app/clips/controllers/currentclip-controller.js'></script>
+    <script src='/static/js/app/company/controllers/company-controller.js'></script>
 </head>
+
 <body>
+
 <div class="main_wrapper">
   <div ng-include="'/static/js/app/views/header.html'"></div>
 	<div ng-view></div>

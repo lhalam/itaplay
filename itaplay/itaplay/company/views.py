@@ -1,16 +1,12 @@
 import json
 from models import Company
+from authentication.models import AdviserUser
+
 from forms import CompanyForm
 from django.core import serializers
-from django.core.context_processors import csrf
-
-from django.forms.models import model_to_dict
-
 from django.views.generic.base import View
-from django.views.generic import DeleteView
-from django.views.decorators.csrf import csrf_protect
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.forms.models import model_to_dict
+from django.http import HttpResponseBadRequest, HttpResponse
 
 
 class CompanyView(View):
@@ -42,11 +38,28 @@ class CompanyView(View):
         """
         company = Company()
         data = json.loads(request.body)
+        data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
         company_form = CompanyForm(data)
         if not company_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
         company.set_company(data) 
         return HttpResponse(status=201)
+    
+    def put(self, request):
+        """
+        Handling put method.
+        :param request: Request to View.
+        :return: HttpResponse with code 201 if company is updated or
+        HttpResponseBadRequest if request contain incorrect data.
+        """
+        data = json.loads(request.body)   
+        data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
+        company = Company.get_company(data["id"]) 
+        company_form = CompanyForm(data, company)
+        if not company_form.is_valid():
+            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+        company.set_company(data) 
+        return HttpResponse(status=201)    
 
     def delete(self, request, company_id):
         """
@@ -58,7 +71,9 @@ class CompanyView(View):
         """
         company = Company()
         company.delete_company(company_id)
-        return HttpResponse(status=201)
+        data = serializers.serialize("json", Company.get_company())
+        return HttpResponse(data)
+      
 
 
 

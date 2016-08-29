@@ -1,0 +1,35 @@
+<div layout="row">
+  <div flex="30">
+    <md-button class="md-raised md-warn" href="/#/allclips">all clips</md-button>
+  </div>
+  <div flex="33">
+    <div ng-controller="ClipController">
+      <form name="myForm">
+        <md-content class="md-no-momentum">
+          <md-input-container class="md-icon-float md-block">
+            <label>Name:</label>
+            <input type="text" name="fileName" ng-model="filename" size="31" placeholder="Please, enter a clip name" ng-required="true">
+            <i ng-show="myForm.userName.$error.required">*required</i>
+            <br>
+          </md-input-container>
+        </md-content>
+        <md-button class="md-raised md-warn" ng-disabled="!myForm.$valid" 
+          ng-click="uploadPic(picFile)">Submit</md-button>
+        <md-button class="md-raised md-primary" type="file" ngf-select ng-model="picFile" name="file"    accept="image/*, video/*" ngf-max-size="200MB" required ngf-model-invalid="errorFile">select clip 
+          <i ng-show="myForm.file.$error.maxSize">File too large 
+          {{errorFile.size / 1000000|number:1}}MB: max 200M</i>
+        </md-button>
+        <md-button ng-click="picFile = null" ng-show="picFile" class="md-raised">Remove</md-button>
+        <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> 
+        <span class="progress" ng-show="picFile.progress >= 0">
+          <div style="width:{{picFile.progress}}%" 
+            ng-bind="picFile.progress + '%'"></div>
+        </span>
+        <span ng-show="picFile.result">Upload Successful</span>
+        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>
+
