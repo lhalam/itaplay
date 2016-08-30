@@ -30,15 +30,10 @@
                         </div>
                     </div>
                     <div ng-show="areas" layout="column" class="template-container" style="height: {{ zoomValue*100 }}px; width: {{ zoomValue*100 }}px;">
-                        <div ng-value="area" ng-repeat="area in areas" class="area"
+                        <div id="{{ area.id }}" ng-value="area" ng-repeat="area in areas" class="area" ng-click="showDialog($event)"
                              style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left:{{ area.left }}%;">
+                            <p ng-show="area.clips" ng-value="clip" ng-repeat="clip in area.clips">{{ clip.fields.name }}</p>
                         </div>
-                    </div>
-                    <div layout="row" layout-padding>
-                        You have selected:
-                        <ul>
-                            <li ng-value="area" ng-repeat="area in areas">clip with id {{area.clip_id}} for area with id {{area.id}}</li>
-                        </ul>
                     </div>
                     <div layout="row">
                         <div flex="100"></div>

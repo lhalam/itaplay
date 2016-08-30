@@ -9,3 +9,7 @@
     border-width: 1px;
     border-style: solid;
 }
+
+._md-container{
+  display: inline-block;
+}
