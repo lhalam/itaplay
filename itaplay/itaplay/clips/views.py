@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from forms import ClipForm
 from models import Clip
 from django.views.generic import View
-
+import itaplay.s3utils
 
 class ClipView(View):
     """

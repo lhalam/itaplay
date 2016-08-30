@@ -129,7 +129,7 @@ STATICFILES_DIRS = [
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
 # Boto 3
-# import boto3
+import boto
 # s3 = boto3.resource('s3')
 try:
     from local_settings import *
@@ -138,13 +138,15 @@ except ImportError:
 
 # configs for AWS S3    
 
+
+MEDIAFILES_LOCATION = 'media/'
+
+DEFAULT_FILE_STORAGE = 'itaplay.s3utils.MediaS3BotoStorage' 
+STATICFILES_STORAGE = 'itaplay.s3utils.StaticS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
-MEDIAFILES_LOCATION = 'media'
+S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-from storages.backends.s3boto import S3BotoStorage
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 

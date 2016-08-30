@@ -5,6 +5,11 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
+import boto
+from django.conf import settings
+from itaplay import local_settings
+
+
 class Clip(models.Model):
     """
     Model of clip.
@@ -33,11 +38,18 @@ class Clip(models.Model):
         return Clip.objects.filter(id = clip_id)
 
     def save_clip(self, *args, **kwargs):
-        """
-        Method for saving current clip to database.
-
-        """
         super(Clip, self).save(*args, **kwargs)
+        if self.video:
+            conn = boto.s3.connection.S3Connection(
+                                local_settings.AWS_ACCESS_KEY_ID,
+                                local_settings.AWS_SECRET_ACCESS_KEY)
+            bucket = conn.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
+            k = boto.s3.key.Key(bucket)
+            k.key = settings.MEDIAFILES_LOCATION + self.video.name
+
+            k.url = k.generate_url(expires_in=0, query_auth=False)
+
+
 
     def get_all_clips(self):
         """
@@ -46,6 +58,8 @@ class Clip(models.Model):
         
         """
         return Clip.objects.all()
+
+        
 
 # signal allows ud delete media files from AWS S3 bucket
 @receiver(models.signals.post_delete, sender=Clip)

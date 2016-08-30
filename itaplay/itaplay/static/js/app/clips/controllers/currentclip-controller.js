@@ -4,7 +4,7 @@ function CurrentClipController($scope, $sce, $http, $routeParams, $location, Upl
     $scope.init = function() {
         $http.get("clips/clips/" + id).then(function(response) {
             $scope.data = response.data;
-            $scope.urlAmazon = "https://s3-eu-west-1.amazonaws.com/itaplayadviserireland/"
+            $scope.urlAmazon = "https://s3-eu-west-1.amazonaws.com/itaplayadviserireland/media/"
             $scope.myVideo = response.data[0].fields.video
             $scope.fullURL = $scope.urlAmazon + $scope.myVideo
 
