@@ -1,0 +1,15 @@
+.template-container {
+    position: relative;
+    margin: auto;
+}
+
+.area {
+    position: absolute;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
+
+._md-container{
+  display: inline-block;
+}
