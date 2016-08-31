@@ -5,7 +5,7 @@ var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload'
 
 itaplay.config(function($routeProvider) {
     $routeProvider
-    	.when('/users', {
+        .when('/users', {
             templateUrl: '../../../static/js/app/main/views/users.html'
         })
         .when('/allclips', {
