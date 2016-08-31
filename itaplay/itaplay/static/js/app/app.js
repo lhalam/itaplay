@@ -49,13 +49,10 @@ $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }])
 
-// itaplay.directive('fallbackSrc', function () {
-//   var fallbackSrc = {
-//     link: function postLink(scope, iElement, iAttrs) {
-//       iElement.bind('error', function() {
-//         angular.element(this).attr("src", iAttrs.fallbackSrc);
-//       });
-//     }
-//    }
-//    return fallbackSrc;
-// });
+.config(function($sceDelegateProvider) {
+ $sceDelegateProvider.resourceUrlWhitelist([
+   // Allow same origin resource loads.
+   'self',
+   // Allow loading from our assets domain.  Notice the difference between * and **.
+   'https://itaplayadviserireland.s3.amazonaws.com/**']);
+ })

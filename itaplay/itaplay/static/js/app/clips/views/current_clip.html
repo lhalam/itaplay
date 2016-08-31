@@ -10,9 +10,10 @@
    <h1>{{ data[0].fields.name }}</h1>
    
    <br>
-   <p>{{ data[0].fields.url }}</p>
-   <!-- <iframe ng-src="{{trustSrc(clipUrl.src)}}" class="image_current_clip" type="video/mp4" frameborder="0" allowfullscreen controls="controls"  autoplay="1" preload="false" autostart="false" ></iframe> -->
-   <img src="{{data[0].fields.url}}" class="image_current_clip">
-
+   <p>{{ data[0].fields.description }}</p>
+      <div class="slide">
+        <video ng-if="data[0].fields.mimetype == 'video/mp4'" ng-src="{{trustSrc(clipUrl.src)}}" class="image_current_clip" controls></video>
+        <img ng-if="data[0].fields.mimetype == 'image/jpeg'" ng-src="{{trustSrc(clipUrl.src)}}" class="image_current_clip"/>
+      </div>
 </div>
 
