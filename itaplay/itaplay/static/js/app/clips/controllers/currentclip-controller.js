@@ -21,12 +21,7 @@ function CurrentClipController($scope, $sce, $http, $routeParams, $location, Upl
             console.log(response);
             $scope.data = "Something went wrong";
         });
-        // $scope.deleteCurrent = function(clip) {
-        //     $http.delete("clips/delete/" + id, {"clip_id":id}).then(function(clip) {
-        //         $location.path('/#/allclips');
-        //     });
-        // };
-        
+       
 
         $scope.update = function(clip) {
             $http.post("clips/clips/" + id, {

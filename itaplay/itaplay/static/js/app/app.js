@@ -53,6 +53,8 @@ $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
  $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
-   // Allow loading from our assets domain.  Notice the difference between * and **.
+   // Allow loading from our assets domain.
    'https://itaplayadviserireland.s3.amazonaws.com/**']);
  })
+
+
