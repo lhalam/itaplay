@@ -4,15 +4,15 @@ function CurrentClipController($scope, $sce, $http, $routeParams, $location, Upl
     $scope.init = function() {
         $http.get("clips/clips/" + id).then(function(response) {
             $scope.data = response.data;
-            $scope.urlAmazon = "https://s3-eu-west-1.amazonaws.com/itaplayadviserireland/media/"
-            $scope.myVideo = response.data[0].fields.video
-            $scope.fullURL = $scope.urlAmazon + $scope.myVideo
+            // $scope.urlAmazon = "https://s3-eu-west-1.amazonaws.com/itaplayadviserireland/media/"
+            $scope.myAmazonUrl = response.data[0].fields.video
+            // $scope.fullURL = $scope.urlAmazon + $scope.myVideo
 
             $scope.trustSrc = function(src) {
                 return $sce.trustAsResourceUrl(src);
             }
 
-            $scope.clipUrl = {src: $scope.fullURL};
+            $scope.clipUrl = {src: $scope.myAmazonUrl};
 
             console.log(response);
 
@@ -26,6 +26,7 @@ function CurrentClipController($scope, $sce, $http, $routeParams, $location, Upl
         //         $location.path('/#/allclips');
         //     });
         // };
+        
 
         $scope.update = function(clip) {
             $http.post("clips/clips/" + id, {
@@ -38,7 +39,7 @@ function CurrentClipController($scope, $sce, $http, $routeParams, $location, Upl
 
        
     };
-
+$scope.autoplay = false;
 
 };
 

@@ -17,7 +17,8 @@ class Clip(models.Model):
     
     name = models.CharField(max_length=128, null=True, blank=True)
     description = models.CharField(max_length=512, null=True, blank=True)  
-    video = models.FileField(upload_to='itaplayadviser', blank=True, null=True)
+    video = models.FileField(upload_to='', blank=True, null=True)
+    url = models.CharField(max_length=256, null=True, blank=True)
     
 
     def delete_clip(self, clip_id):
@@ -38,7 +39,7 @@ class Clip(models.Model):
         return Clip.objects.filter(id = clip_id)
 
     def save_clip(self, *args, **kwargs):
-        super(Clip, self).save(*args, **kwargs)
+        
         if self.video:
             conn = boto.s3.connection.S3Connection(
                                 local_settings.AWS_ACCESS_KEY_ID,
@@ -47,7 +48,12 @@ class Clip(models.Model):
             k = boto.s3.key.Key(bucket)
             k.key = settings.MEDIAFILES_LOCATION + self.video.name
 
-            k.url = k.generate_url(expires_in=0, query_auth=False)
+            url = k.generate_url(expires_in=0, query_auth=False)
+            self.url = url
+            print self.url
+            # return url
+        super(Clip, self).save(*args, **kwargs)
+        
 
 
 
