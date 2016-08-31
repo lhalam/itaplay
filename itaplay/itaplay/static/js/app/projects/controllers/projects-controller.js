@@ -49,7 +49,7 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
     };
 
     $scope.save = function (selected_template, areas) {
-        if (!validate(areas)) return;
+        if (!validate(selected_template,areas)) return;
         data = {
             "template_id": selected_template.id,
             "areas": areas
@@ -59,14 +59,14 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
         });
     };
 
-    var validate = function (areas) {
-        if (areas == undefined) {
-            alert("You need to select template first!");
+    var validate = function (selected_template, areas) {
+        if (selected_template==null) {
+            showAlert("You need to select template first!");
             return false;
         }
         for (var i = 0; i < areas.length; i++) {
             if (!areas[i]['clips'].length) {
-                alert("All areas must have clips!");
+                showAlert("All areas must have clips!");
                 return false;
             }
         }
@@ -105,6 +105,17 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
                 $scope.status = 'You cancelled the dialog.';
             });
     };
+
+    var showAlert = function(message) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Something went wrong')
+            .textContent(message)
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+        );
+      };
 
     function DialogController($scope, $mdDialog) {
 
