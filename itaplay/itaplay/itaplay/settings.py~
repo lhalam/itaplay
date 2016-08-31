@@ -53,21 +53,22 @@ INSTALLED_APPS = [
     'utils',
     'company',
     'home',
-    'xml_templates',
     'clips',
-    'projects',
-    'player',
+    'player'
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+<<<<<<< HEAD
+    'django.middleware.csrf.CsrfViewMiddleware',
+=======
+>>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'itaplay.urls'
@@ -97,8 +98,17 @@ WSGI_APPLICATION = 'itaplay.wsgi.application'
 
 DATABASES = {
     'default': {
+<<<<<<< HEAD
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'NAME': 'test_database', 
+        'USER': 'roman',
+        'PASSWORD': 'ro135rj',
+        'HOST': 'localhost',
+        'PORT': ''
+=======
         'ENGINE': '',
         'NAME': '',
+>>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
     }
 }
 
@@ -145,6 +155,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+<<<<<<< HEAD
+=======
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -159,6 +171,7 @@ EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
 EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
 
+>>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
 try:
     from local_settings import *
 except ImportError:

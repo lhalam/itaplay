@@ -1,0 +1,31 @@
+<div ng-init="initadd()" layout="column" layout-padding ng-cloak>    
+    <md-button href="#player/" class="groupX right">All players</md-button> 
+    <div layout="row">
+        <div flex=20></div>
+        <div flex=60 style="background-color:  #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
+            <div>Add new player:</div>
+            <form name="newPlayerForm"  layout-padding>
+                <md-content md-theme="docs-dark" style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                    <md-input-container class="md-icon-float md-block" >
+                        <input  ng-model="player.name"/>
+                        <label>Name:</label>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block" >
+                        <input  ng-model="player.description"/>
+                        <label>Description:</label>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <input  ng-model="player.mac_address"/> 
+                        <label>MAC-Address:</label> 
+                    </md-input-container>                    
+                </md-content>
+                <div layout="row">
+                    <div flex="100"></div>
+                    <md-button  class="md-primary md-raised"  type="submit" ng-click="save(player)">Add</md-buttom>
+                </div>
+            </form>
+        </div>
+        <div flex=20></div>
+    </div>
+</div>
+

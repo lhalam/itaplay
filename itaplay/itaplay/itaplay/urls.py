@@ -27,7 +27,9 @@ urlpatterns = [
     url(r'^company/', include('company.urls')),
     url(r'^templates/', include('xml_templates.urls')),
     url(r'^projects/', include('projects.urls')),
+    url(r'^player/', include('player.urls')),
 ]
+
 
 if DEBUG:
     # serve files from media folder
