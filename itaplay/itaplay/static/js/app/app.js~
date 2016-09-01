@@ -41,7 +41,7 @@ itaplay.config(function($routeProvider) {
             controller: CompanyController
         })
 
-        .when('/player/', {
+        when('/player/', {
             templateUrl: '../../../static/js/app/player/views/all_player.html',
             controller: AllPlayerController
         })
