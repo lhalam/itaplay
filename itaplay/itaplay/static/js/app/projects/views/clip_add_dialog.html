@@ -1,0 +1,30 @@
+<md-dialog aria-label="Add clip to area">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add clip to area</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="static/images/ic_close_black_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-content style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                    <md-select placeholder="Select clip" ng-model="selected_clips" style="min-width: 400px;" multiple>
+                        <md-option ng-value="clip" ng-repeat="clip in clips">{{clip.fields.name}}</md-option>
+                    </md-select>
+                </md-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Close
+            </md-button>
+            <md-button ng-click="answer(selected_clips)">
+                Add
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
