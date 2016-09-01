@@ -126,18 +126,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
-# Boto 3
-import boto
-# s3 = boto3.resource('s3')
+
 try:
     from local_settings import *
 except ImportError:
     pass
 
 # configs for AWS S3    
-
+import boto
 
 MEDIAFILES_LOCATION = 'media/'
 

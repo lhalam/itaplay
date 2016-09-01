@@ -7,16 +7,16 @@
    <div layout="column" layout-align="center center">
       <div ng-repeat="clip in clips" class="clips_wrapper">
          <div layout="row">
-            <div flex="30">
+            <div flex="20">
                <p class="clip_name">{{clip.fields.name}}</p>
             </div>
-            <div flex="30">
-              <object data="{{ clip.fields.url }}" class="all_clips" frameborder="0" allowfullscreen controls>
-                <param name="autoplay" value="0">
-                <param name="autostart" value="0">
-              </object>
+            <div flex="50">
+              <div class="slide">
+                  <video ng-if="clip.fields.mimetype == 'video/mp4'" ng-src="{{ clip.fields.url }}" class="all_clips" controls ></video>
+                  <img ng-if="clip.fields.mimetype == 'image/jpeg'" ng-src="{{ clip.fields.url }}" class="all_clips"/>
+              </div>
             </div>
-            <div flex="30">
+            <div flex="20">
                <md-button  class="md-accent" class="md-card-image" href = "#clip/id={{clip.pk}}">
                details</md-button>
                <md-button  class="md-accent" class="md-card-image" href = "#editclip/id={{clip.pk}}">

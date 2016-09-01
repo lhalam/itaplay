@@ -8,7 +8,7 @@ from django.dispatch import receiver
 import boto
 from django.conf import settings
 from itaplay import local_settings
-from mimetypes import MimeTypes
+
 
 class Clip(models.Model):
     """
@@ -52,14 +52,10 @@ class Clip(models.Model):
             url = k.generate_url(expires_in=0, query_auth=False)
             self.url = url
             print self.url
-            mime = MimeTypes()
-            mime_type = mime.guess_type(url)
-            if mime_type == "video/mp4":
+            if self.url.endswith('.mp4'):
                 self.mimetype = "video/mp4"
             else:
                 self.mimetype = "image/jpeg"
-            print self.mimetype
-            # return url
         super(Clip, self).save(*args, **kwargs)
         
 

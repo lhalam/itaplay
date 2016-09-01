@@ -5,7 +5,6 @@ function AllClipController($scope, $http) {
     $http.get(api_url)
         .then(function(response) {
             $scope.clips = response.data;
-            // $scope.urlAmazon = "https://s3-eu-west-1.amazonaws.com/itaplayadviserireland/media/"
             console.log($scope.clips);
         });
 

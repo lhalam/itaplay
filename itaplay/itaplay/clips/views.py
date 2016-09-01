@@ -51,10 +51,3 @@ class ClipView(View):
         data = serializers.serialize('json', clip)
         return HttpResponse(data, content_type='application/json')
 
-
-
-
-
-
-
-
