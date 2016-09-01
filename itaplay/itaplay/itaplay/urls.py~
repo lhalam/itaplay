@@ -27,8 +27,3 @@ urlpatterns = [
     url(r'^company/', include('company.urls')),
 ]
 
-if DEBUG:
-    # serve files from media folder
-    urlpatterns.append(
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-            'document_root': MEDIA_ROOT}))

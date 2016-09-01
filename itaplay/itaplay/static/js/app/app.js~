@@ -1,10 +1,15 @@
 'use strict';
 
+<<<<<<< HEAD
 var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages']);
+=======
+var itaplay = angular.module('itaplay', ['ngRoute','ngMaterial', 'ngMessages']);
+>>>>>>> 60bd40a87c17a20c338dd9758e50a9114a9de9d2
 
 
 itaplay.config(function($routeProvider) {
     $routeProvider
+<<<<<<< HEAD
     	.when('/users', {
             templateUrl: '../../../static/js/app/main/views/users.html'
         })
@@ -25,11 +30,19 @@ itaplay.config(function($routeProvider) {
             controller: 'ClipController'
 
         })
+=======
+        .when('/test/', {
+            templateUrl: '../../../static/js/app/test/views/test.html',
+            controller: TestController
+        })
+        .otherwise({redirectTo: '/test'})
+>>>>>>> 60bd40a87c17a20c338dd9758e50a9114a9de9d2
 
         .when('/company/', {
             templateUrl: '../../../static/js/app/company/views/all_company.html',
             controller: AllCompanyController
         })
+<<<<<<< HEAD
 
         .when('/company/add_new/', {
             templateUrl: '../../../static/js/app/company/views/add_companies.html',
@@ -73,3 +86,53 @@ itaplay.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
+=======
+        .otherwise({redirectTo: '/test'})
+       
+        .when('/player/', {
+            templateUrl: '../../../static/js/app/player/views/all_player.html',
+            controller: AllPlayerController
+        })
+        .otherwise({redirectTo: '/test'})
+
+        .when('/company/add_new/', {
+            templateUrl: '../../../static/js/app/company/views/add_companies.html',
+            controller: CompanyAddController          
+        })
+        .otherwise({redirectTo: '/company/'})
+
+        .when('/player/add_new/', {
+            templateUrl: '../../../static/js/app/player/views/add_players.html',
+            controller: PlayerAddController          
+        })
+        .otherwise({redirectTo: '/player/'})
+       
+        .when('/company/id=:id/', {
+            templateUrl: '../../../static/js/app/company/views/company.html',
+            controller: CompanyController          
+        })
+        .otherwise({redirectTo: '/company/'})
+
+        .when('/player/id=:id/', {
+            templateUrl: '../../../static/js/app/player/views/player.html',
+            controller: PlayerController          
+        })
+        .otherwise({redirectTo: '/player/'})
+})
+
+.run(function($log) {
+    $log.info("Starting up");
+})
+// choose colors for our theme
+.config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('teal')
+      .accentPalette('blue')
+      .dark();
+})
+
+.config(function($httpProvider){
+$httpProvider.defaults.xsrfCookieName = 'csrftoken';
+$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
+>>>>>>> 60bd40a87c17a20c338dd9758e50a9114a9de9d2

@@ -97,12 +97,8 @@ LOGIN_URL = '/auth/login/'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'test_database', 
-        'USER': 'roman',
-        'PASSWORD': 'ro135rj',
-        'HOST': 'localhost',
-        'PORT': ''
+        'ENGINE': '',
+        'NAME': '',
     }
 }
 

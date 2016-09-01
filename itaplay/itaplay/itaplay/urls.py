@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+from django.conf.urls import include, url
+=======
 """itaplay URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,6 +18,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include, patterns
 from django.conf.urls.static import static
+>>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
 from django.contrib import admin
 from .settings import MEDIA_ROOT, DEBUG
 
@@ -28,8 +32,11 @@ urlpatterns = [
     url(r'^player/', include('player.urls')),
 ]
 
+<<<<<<< HEAD
+=======
 if DEBUG:
     # serve files from media folder
     urlpatterns.append(
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': MEDIA_ROOT}))
+>>>>>>> 1cce726579a59faee117fec3c6e7832d60cb0d6b
