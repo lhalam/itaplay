@@ -60,14 +60,11 @@ itaplay.config(function($mdThemingProvider) {
 });
 
 itaplay.config(['$httpProvider', function($httpProvider) {
-<<<<<<< HEAD
+
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-}]);
-=======
-$httpProvider.defaults.xsrfCookieName = 'csrftoken';
-$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }])
+
 
 .config(function($sceDelegateProvider) {
  $sceDelegateProvider.resourceUrlWhitelist([
@@ -78,4 +75,3 @@ $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
  })
 
 
->>>>>>> create_clips
