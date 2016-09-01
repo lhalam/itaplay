@@ -10,15 +10,20 @@ itaplay.config(function($routeProvider) {
         })
         .when('/allclips', {
             templateUrl: '../../../static/js/app/clips/views/allclips.html',
-            controller: 'AllClipController'
+            controller: AllClipController
         })
         .when('/projects', {
             templateUrl: '../../../static/js/app/main/views/projects.html'
         })
+        
+        .when('/clip/id=:clip_id/', {
 
-        .when('/clip/pk=:pk/', {
             templateUrl: '../../../static/js/app/clips/views/current_clip.html',
-            controller: 'CurrentClipController'
+            controller: CurrentClipController
+        })
+        .when('/editclip/id=:clip_id/', {
+            templateUrl: '../../../static/js/app/clips/views/edit_clip.html',
+            
         })
         .when('/clips', {
             templateUrl: '../../../static/js/app/clips/views/add_clip.html',
@@ -55,6 +60,22 @@ itaplay.config(function($mdThemingProvider) {
 });
 
 itaplay.config(['$httpProvider', function($httpProvider) {
+<<<<<<< HEAD
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
+=======
+$httpProvider.defaults.xsrfCookieName = 'csrftoken';
+$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}])
+
+.config(function($sceDelegateProvider) {
+ $sceDelegateProvider.resourceUrlWhitelist([
+   // Allow same origin resource loads.
+   'self',
+   // Allow loading from our assets domain.
+   'https://itaplayadviserireland.s3.amazonaws.com/**']);
+ })
+
+
+>>>>>>> create_clips

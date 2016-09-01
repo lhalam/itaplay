@@ -143,8 +143,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 # E-mail settings
 
@@ -161,3 +159,18 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+# configs for AWS S3    
+import boto
+
+MEDIAFILES_LOCATION = 'media/'
+
+DEFAULT_FILE_STORAGE = 'itaplay.s3utils.MediaS3BotoStorage' 
+STATICFILES_STORAGE = 'itaplay.s3utils.StaticS3BotoStorage'
+AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
+S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+

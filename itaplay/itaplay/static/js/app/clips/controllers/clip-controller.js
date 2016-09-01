@@ -5,9 +5,12 @@ itaplay.controller('ClipController', ['$scope', 'Upload', '$timeout', function($
             url: '/clips/add_clip/',
             data: {
                 filename: $scope.filename,
+                description: $scope.description,
                 file: file
+
             },
         });
+        
 
         file.upload.then(function(response) {
             $timeout(function() {

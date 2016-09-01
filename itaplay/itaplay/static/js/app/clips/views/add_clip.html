@@ -11,6 +11,11 @@
             <input type="text" name="fileName" ng-model="filename" size="31" placeholder="Please, enter a clip name" ng-required="true">
             <i ng-show="myForm.userName.$error.required">*required</i>
             <br>
+           
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block">
+               <label>Description:</label>
+            <input type="text" name="fileName" ng-model="description" size="31" placeholder="description" ng-required="false">
           </md-input-container>
         </md-content>
         <md-button class="md-raised md-warn" ng-disabled="!myForm.$valid" 

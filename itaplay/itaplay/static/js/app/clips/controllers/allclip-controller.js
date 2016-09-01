@@ -1,13 +1,14 @@
-itaplay.controller('AllClipController', function($scope, $http) {
-
+function AllClipController($scope, $http) {
+    $scope.init = function() {
 
     var api_url = '/clips/clips/';
     $http.get(api_url)
         .then(function(response) {
-            $scope.data = response.data;
+            $scope.clips = response.data;
+            console.log($scope.clips);
         });
 
-
+          
 
     $scope.delete = function(object) {
 
@@ -21,14 +22,14 @@ itaplay.controller('AllClipController', function($scope, $http) {
                 "Content-Type": "application/json"
             }
         }).then(function(res) {
-            var index = $scope.data.indexOf(object)
-            $scope.data.splice(index, 1);
+            var index = $scope.clips.indexOf(object)
+            $scope.clips.splice(index, 1);
             //$scope.data.splice(object,1);
-            console.log(res.data);
+            console.log(res.clips);
         }, function(error) {
             console.log(error);
         });
     };
 
-
-});
+};
+};
