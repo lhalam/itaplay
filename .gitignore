@@ -96,3 +96,6 @@ db.sqlite3
 
 # PyLint config
 .pylintrc
+
+# Temp Files
+*.*~
