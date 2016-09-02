@@ -1,7 +1,5 @@
 
-function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
-    var search_text = "";
-    var selected_template;
+function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
     $scope.zoomValue = 4.5;
 
     $scope.init = function () {
@@ -49,13 +47,13 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
     };
 
     $scope.save = function (selected_template, areas) {
-        if (!validate(selected_template,areas)) return;
+        if (!validate(selected_template,areas)){ return;}
         data = {
             "template_id": selected_template.id,
             "areas": areas
         };
         $http.post("projects/add_project_template/", data).success(function () {
-            $location.path('/projects');
+            $location.path("/projects");
         });
     };
 
@@ -64,8 +62,8 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
             showAlert("You need to select template first!");
             return false;
         }
-        for (var i = 0; i < areas.length; i++) {
-            if (!areas[i]['clips'].length) {
+        for (i = 0; i < areas.length; i+=1) {
+            if (!areas[i].clips.length) {
                 showAlert("All areas must have clips!");
                 return false;
             }
@@ -85,12 +83,12 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
 
     $scope.showDialog = function (ev) {
         var area_id = parseInt(ev.currentTarget.id)-1;
-        if($scope.areas[area_id]['clips']) {
-            $scope.selected_clips = $scope.areas[area_id]['clips'];
+        if($scope.areas[area_id].clips) {
+            $scope.selected_clips = $scope.areas[area_id].clips;
         }
         $mdDialog.show({
             controller: DialogController,
-            templateUrl: 'static/js/app/projects/views/clip_add_dialog.html',
+            templateUrl: "static/js/app/projects/views/clip_add_dialog.html",
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -98,11 +96,11 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
             preserveScope: true
         })
             .then(function (answer) {
-                $scope.areas[area_id]['clips'] = answer;
+                $scope.areas[area_id].clips = answer;
                 console.log($scope.areas);
 
             }, function () {
-                $scope.status = 'You cancelled the dialog.';
+                $scope.status = "You cancelled the dialog.";
             });
     };
 
@@ -110,14 +108,14 @@ function AddProjectTemplateController($scope, $http, $location, $mdDialog) {
         $mdDialog.show(
           $mdDialog.alert()
             .clickOutsideToClose(true)
-            .title('Something went wrong')
+            .title("Something went wrong")
             .textContent(message)
-            .ariaLabel('Alert Dialog Demo')
-            .ok('Got it!')
+            .ariaLabel("Alert Dialog Demo")
+            .ok("Got it!")
         );
       };
 
-    function DialogController($scope, $mdDialog) {
+    function DialogController ($scope, $mdDialog) {
 
 
         $scope.cancel = function () {
