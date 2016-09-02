@@ -13,7 +13,18 @@ itaplay.config(function($routeProvider) {
             controller: 'AllClipController'
         })
         .when('/projects', {
-            templateUrl: '../../../static/js/app/projects/views/all_projects.html'
+            templateUrl: '../../../static/js/app/projects/views/all_projects.html',
+            controller: 'ProjectCtrl'
+        })
+
+        .when('/projects/id=:project_id/', {
+            templateUrl: '../../../static/js/app/projects/views/edit_project.html',
+            controller: 'EditProjectCtrl'
+        })
+
+        .when('/projects/new/', {
+            templateUrl: '../../../static/js/app/projects/views/add_project.html',
+            controller: 'AddProjectCtrl'
         })
 
         .when('/clip/pk=:pk/', {
