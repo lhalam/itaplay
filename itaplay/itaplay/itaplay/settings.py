@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'company',
     'home',
     'clips',
+    'player',
 ]
 
 MIDDLEWARE_CLASSES = [
