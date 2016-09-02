@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('authentication.urls')),
     url(r'^company/', include('company.urls')),
+    url(r'^player/', include('player.urls')),
+
 ]
 
 if DEBUG:
