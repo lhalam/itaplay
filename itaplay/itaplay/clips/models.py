@@ -4,10 +4,14 @@ from __future__ import unicode_literals
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-
+from django.core.exceptions import ValidationError
 import boto
 from django.conf import settings
 from itaplay import local_settings
+
+
+VALID_VIDEO_EXTENSIONS = [".mp4",".avi",]
+VALID_IMAGE_EXTENSIONS = [".jpeg",".png",".svg",".tiff",]
 
 
 class Clip(models.Model):
@@ -53,10 +57,12 @@ class Clip(models.Model):
             url = k.generate_url(expires_in=0, query_auth=False)
             self.url = url
             print self.url
-            if self.url.endswith('.mp4'):
+            if self.url.endswith(tuple(VALID_VIDEO_EXTENSIONS)):
                 self.mimetype = "video/mp4"
-            else:
+            elif self.url.endswith(tuple(VALID_IMAGE_EXTENSIONS)):
                 self.mimetype = "image/jpeg"
+            else:
+                raise ValidationError("Please enter valid date")
         super(Clip, self).save(*args, **kwargs)
         
 
