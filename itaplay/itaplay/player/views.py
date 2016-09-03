@@ -19,35 +19,25 @@ class PlayerView(View):
             data = [model_to_dict(i) for i in Player.get_all()]
             return HttpResponse(json.dumps(data))
         player = Player.get_by_id(player_id)
-        print player
         player = model_to_dict(player)
         return HttpResponse(json.dumps({"player":player}))
 
     def post(self, request):
         player = Player()
         data = json.loads(request.body)
-
-        data_adapt = {}
-        if data.get("fields"):
-            data_adapt = data.get("fields")
-            data_adapt["id"] = data["pk"]
-        else:
-            data_adapt = data
-
-        player_form = PlayerForm(data_adapt)
+        player_form = PlayerForm(data)
         if not player_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
-        player.set(data_adapt) 
+        player.set(data) 
         return HttpResponse(status=201)
     
     def put(self, request):
         player = Player()
-        datas = json.loads(request.body)
-        print datas
-        player_form = PlayerForm(datas)
+        data = json.loads(request.body)
+        player_form = PlayerForm(data)
         if not player_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
-        player.set(datas) 
+        player.set(data) 
         return HttpResponse(status=201)
 
     def delete(self, request, player_id):
