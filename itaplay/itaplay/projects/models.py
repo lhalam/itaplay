@@ -14,4 +14,4 @@ class AdviserProject(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField()
     project_template = models.TextField()
-  
+    player = models.ManyToManyField(Player)
