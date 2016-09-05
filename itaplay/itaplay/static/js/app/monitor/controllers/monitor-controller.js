@@ -5,7 +5,7 @@ function MonitorController($scope, $http, $routeParams) {
         $scope.project = response.data;
     }, function(response) {
           console.log(response);
-          $scope.data = "Something went wrong";)
+          $scope.data = "Something went wrong";});
     };
 
-};};
+};
