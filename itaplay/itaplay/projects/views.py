@@ -37,6 +37,7 @@ class AdviserProjectView(View):
 
 def post_project(request):
     data = json.loads(request.body) 
+    project = data.get("project")
     project["id_company"] = Company.get_company(project["id_company"])
     project = AdviserProject(**project)
     project.save()
