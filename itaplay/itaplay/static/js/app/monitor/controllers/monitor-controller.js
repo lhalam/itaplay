@@ -8,4 +8,4 @@ function MonitorController($scope, $http, $routeParams) {
           $scope.data = "Something went wrong";)
     };
 
-};
+};};
