@@ -92,6 +92,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'itaplay.wsgi.application'
 
+LOGIN_URL = '/auth/login/'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
