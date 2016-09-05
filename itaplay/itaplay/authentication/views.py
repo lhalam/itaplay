@@ -123,12 +123,15 @@ class LoginView(View):
 
     """
     Handle dispatch method with login_required decorator.
+
     Handle post method:
         Takes json file from login.html,parsed it and check if user is exists
         if it does we return status 200.
         Else give HttpResponseBadRequest with 401 status
+
     Handle get method:
         which redirect to login.html
+
     """
 
     #@method_decorator(login_required)
@@ -163,6 +166,7 @@ class LogoutView(View):
     """
     Handle dispatch method with login_required decorator.
     Handle get method which log us out and redirect to login.html
+
     """
 
     @method_decorator(login_required)
