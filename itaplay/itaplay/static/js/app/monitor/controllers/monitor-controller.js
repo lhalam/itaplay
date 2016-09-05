@@ -1,7 +1,7 @@
 function MonitorController($scope, $http, $routeParams) {
     var mac = $routeParams.mac;
     $scope.init = function( ) {
-    $http.get('monitor/get_by_mac/'+ mac).then(function(response){
+    $http.get('get_by_mac/'+ mac).then(function(response){
         $scope.project = response.data;
     }, function(response) {
           console.log(response);
