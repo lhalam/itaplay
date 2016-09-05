@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, render_to_response
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
@@ -16,5 +17,5 @@ class MonitorView(View):
         player = Player.objects.get(mac_address=mac)
         project = player.project
         data = model_to_dict(project)
-        return HttpResponse({"data" : data})
+        return HttpResponse(json.dumps({"data" : data}))
    
