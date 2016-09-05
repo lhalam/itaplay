@@ -1,10 +1,30 @@
 <div ng-init="init()" layout="column">
-   <div layout="row">
-        <div flex=20></div>
-        <div>
-            <md-button flex="500"  class="md-primary md-raised" href="#projects/add_project_template" >Add template to project</md-button>
+  <div layout="row">
+    <div flex=20></div>
+    <div layout="column">
+      <form name="ProjectForm"  layout-padding>
+        <md-content md-theme="docs-dark" style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+          <md-input-container class="md-icon-float md-block" >                        
+            <input  ng-model="project.name"/>
+            <label>Name:</label>
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block" >                        
+            <input  ng-model="project.id_company"/>
+            <label>id_company:</label>
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block" >                        
+            <input  ng-model="project.description"/>
+            <label>description:</label>
+          </md-input-container>
+        </md-content>
+        <div layout="row">
+          <md-button flex="500"  class="md-primary " href="#projects/add_project_template" >Add template to project</md-button>
+          <md-button flex="500"  class="md-primary " ng-click="addPlayers($event)">Add project to players</md-button>
+          <md-button  class="md-primary md-raised"  type="submit" ng-click="create(project, players)">Create project</md-buttom>
         </div>
-        <div flex=20></div>
-   </div>
+      </form>
+    </div>
+    <div flex=20></div>
+  </div>
 </div>
 

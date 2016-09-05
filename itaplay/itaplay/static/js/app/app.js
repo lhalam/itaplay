@@ -13,8 +13,8 @@ itaplay.config(function($routeProvider) {
             controller: 'AllClipController'
         })
         .when('/projects', {
-            templateUrl: '../../../static/js/app/projects/views/add_project_template.html',
-            controller: AddProjectTemplateController
+            templateUrl: '../../../static/js/app/projects/views/all_projects.html',
+            controller: AddProjectPlayersController
         })
 
 
@@ -63,6 +63,7 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/projects/views/add_project_template.html',
             controller: AddProjectTemplateController
         })
+    
 
         .when('/templates', {
             templateUrl: '../../../static/js/app/templates/views/templates.html',

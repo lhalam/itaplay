@@ -1,5 +1,9 @@
 import json
 from models import AdviserProject
+
+from player.models import Player
+from company.models import Company
+
 from xml.etree import ElementTree as ET
 from xml_templates.models import XmlTemplate
 
@@ -31,5 +35,14 @@ class AdviserProjectView(View):
         print result_template
         return HttpResponse(status=201)
 
-
+def post_project(request):
+    data = json.loads(request.body) 
+    project["id_company"] = Company.get_company(project["id_company"])
+    project = AdviserProject(**project)
+    project.save()
+    for obj in data.get("players"):
+        player = Player.get_by_id(obj["id"])
+        player.project=project  
+        player.save()
+    return HttpResponse(status=201)
 
