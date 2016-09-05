@@ -154,7 +154,7 @@ class LoginView(View):
             return HttpResponseBadRequest("incorrect username or password", status=401)
 
         #else:
-        return HttpResponseBadRequest(status=400)
+       # return HttpResponseBadRequest(status=400)
 
 
     def get(self, request, *args, **kwargs):

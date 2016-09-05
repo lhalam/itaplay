@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^company/', include('company.urls')),
     url(r'^templates/', include('xml_templates.urls')),
     url(r'^projects/', include('projects.urls')),
+    url(r'^monitor/', include('monitor.urls'))
 ]
 
 if DEBUG:

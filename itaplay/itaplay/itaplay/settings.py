@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'home',
     'xml_templates',
     'clips',
-    'projects'
+    'projects',
+    'monitor'
 ]
 
 MIDDLEWARE_CLASSES = [
