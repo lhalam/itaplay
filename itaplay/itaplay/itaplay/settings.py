@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'xml_templates',
     'clips',
     'projects',
+    'player',
     'monitor'
 ]
 
@@ -67,6 +68,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'itaplay.urls'

@@ -5,16 +5,18 @@ var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload'
 
 itaplay.config(function($routeProvider) {
     $routeProvider
-    	.when('/users', {
-            templateUrl: '../../../static/js/app/main/views/users.html'
+       .when('/users', {
+            templateUrl: '../../../static/js/app/main/views/users.html',
         })
         .when('/allclips', {
             templateUrl: '../../../static/js/app/clips/views/allclips.html',
             controller: 'AllClipController'
         })
         .when('/projects', {
-            templateUrl: '../../../static/js/app/projects/views/all_projects.html'
+            templateUrl: '../../../static/js/app/projects/views/all_projects.html',
+            controller: AddProjectPlayersController
         })
+
 
         .when('/clip/pk=:pk/', {
             templateUrl: '../../../static/js/app/clips/views/current_clip.html',
@@ -23,7 +25,6 @@ itaplay.config(function($routeProvider) {
         .when('/clips', {
             templateUrl: '../../../static/js/app/clips/views/add_clip.html',
             controller: 'ClipController'
-
         })
 
         .when('/company/', {
@@ -37,14 +38,32 @@ itaplay.config(function($routeProvider) {
         })
 
         .when('/company/id=:company_id/', {
+
             templateUrl: '../../../static/js/app/company/views/company.html',
             controller: CompanyController
         })
+       
+        .when('/player/', {
+            templateUrl: '../../../static/js/app/player/views/all_player.html',
+            controller: AllPlayerController
+        })
+        .when('/player/add_new/', {
+            templateUrl: '../../../static/js/app/player/views/add_players.html',
+            controller: PlayerAddController          
+        })
+        
+
+        .when('/player/id=:id/', {
+            templateUrl: '../../../static/js/app/player/views/player.html',
+            controller: PlayerController          
+        })
+
 
         .when('/projects/add_project_template/', {
             templateUrl: '../../../static/js/app/projects/views/add_project_template.html',
             controller: AddProjectTemplateController
         })
+    
 
         .when('/templates', {
             templateUrl: '../../../static/js/app/templates/views/templates.html',
@@ -62,6 +81,21 @@ itaplay.config(function($routeProvider) {
             controller: CurrentTemplateController
         })
 
+	.when('/player/', {
+            templateUrl: '../../../static/js/app/player/views/all_player.html',
+            controller: AllPlayerController
+        })
+
+        .when('/player/add_new/', {
+            templateUrl: '../../../static/js/app/player/views/add_players.html',
+            controller: PlayerAddController
+        })
+
+        .when('/player/id=:id/', {
+            templateUrl: '../../../static/js/app/player/views/player.html',
+            controller: PlayerController
+        })
+
         .otherwise({redirectTo: '/users'});
 
 })
@@ -73,8 +107,8 @@ itaplay.config(function($routeProvider) {
 itaplay.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
-      .accentPalette('blue');
-});
+      .accentPalette('blue')
+})
 
 itaplay.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
