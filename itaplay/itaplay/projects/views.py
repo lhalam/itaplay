@@ -36,7 +36,7 @@ class AdviserProjectView(View):
         return HttpResponse(status=201)
 
 def post_project(request):
-    data = json.loads(request.body) 
+    data = json.loads(request.body)
     project = data.get("project")
     project["id_company"] = Company.get_company(project["id_company"])
     project = AdviserProject(**project)
