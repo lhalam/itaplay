@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.forms.models import model_to_dict
 from player.models import Player
 from projects.models import AdviserProject
+from django.http import HttpResponse
 
 class GetMonitorView(View):
     def get(self, request):
