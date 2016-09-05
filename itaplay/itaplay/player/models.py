@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from projects.models import AdviserProject
 from django.db import models
 
 # Create your models here.
@@ -8,6 +9,7 @@ class Player(models.Model):
     description = models.CharField(max_length=500)
     mac_address = models.CharField(max_length=17)
     status = models.BooleanField(default=False)
+    project = models.ForeignKey(AdviserProject, blank = True, null = True)
 
     def set(self, arg):
         self = Player(**arg)
