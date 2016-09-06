@@ -1,6 +1,7 @@
-<div ng-init="init()">
-  <md-dialog aria-label="Players">
-    <form name="addPlayersForm" >
+
+  <md-dialog flex="60" aria-label="Players">
+  <div data-ng-init="init()">
+    <form>
       <md-toolbar>
         <div class="md-toolbar-tools">
           <h2>Players</h2>
@@ -13,9 +14,9 @@
       <md-dialog-content>
         <div class="md-dialog-content">
           <md-content style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
-            <md-select placeholder="Select player" ng-model="selected_player" style="min-width: 400px;" multiple>
-              <md-option ng-value="player" ng-repeat="player in players">name: {{player.name}}; mac: {{player.mac_address}}</md-option>
-            </md-select>
+           <md-select placeholder="Select player" ng-model="selected_player" style="min-width: 400px;" multiple >
+              <md-option  ng-value="player" ng-repeat="player in players">name: {{player.name}}; mac: {{player.mac_address}}</md-option>
+            </md-select> 
           </md-content>
         </div>
       </md-dialog-content>
@@ -23,5 +24,5 @@
         <md-button ng-click="answer(selected_player)" style="margin-right:20px;">Add</md-button>
       </md-dialog-actions>
     </form>
+    </div>
   </md-dialog>
-</div>

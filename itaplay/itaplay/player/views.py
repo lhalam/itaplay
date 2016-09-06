@@ -1,5 +1,7 @@
 import json
 from models import Player
+from projects.models import AdviserProject
+
 from forms import PlayerForm
 from django.core import serializers
 from django.core.context_processors import csrf
@@ -25,6 +27,8 @@ class PlayerView(View):
     def post(self, request):
         player = Player()
         data = json.loads(request.body)
+        if data.get("project"):
+            data["project"] = AdviserProject.objects.get(id=data["project"])
         player_form = PlayerForm(data)
         if not player_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
@@ -34,6 +38,8 @@ class PlayerView(View):
     def put(self, request):
         player = Player()
         data = json.loads(request.body)
+        if data.get("project"):
+            data["project"] = AdviserProject.objects.get(id=data["project"])
         player_form = PlayerForm(data)
         if not player_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
