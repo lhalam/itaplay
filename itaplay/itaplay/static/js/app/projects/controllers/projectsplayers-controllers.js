@@ -1,12 +1,14 @@
 function AddProjectPlayersController($scope, $http, $location,  $mdDialog) {
 
-   $scope.addPlayers = function (ev){
+   $scope.addPlayers = function ($event){
        $mdDialog.show({
       controller: DialogController,
-      templateUrl: "static/js/app/projects/views/add_players.html",
+      templateUrl:"static/js/app/projects/views/add_players.html",
       parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose:true
+      locals: {parent: $scope},
+      targetEvent: $event,
+      clickOutsideToClose:true,
+    
     })
         .then(function (answer) {
                 $scope.players = answer;
@@ -26,7 +28,8 @@ function AddProjectPlayersController($scope, $http, $location,  $mdDialog) {
   };
 };
 
-function DialogController ($scope, $http, $location, $mdDialog) {
+function DialogController ($scope, $http, $location, $mdDialog, parent) {
+  $scope.parent = parent;
   $scope.init = function(){
     $http.get("player/player_view/").then(function (response) {
       $scope.players = response.data;
