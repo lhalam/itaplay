@@ -16,6 +16,6 @@ class MonitorView(View):
     def get(self, request, mac):
         player = Player.objects.get(mac_address=mac)
         project = player.project
-        data = model_to_dict(project)
-        return HttpResponse(json.dumps({"data" : data}))
+        template = project.project_template
+        return HttpResponse(json.dumps({"template" : template}))
    
