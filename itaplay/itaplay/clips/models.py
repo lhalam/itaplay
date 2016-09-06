@@ -11,7 +11,7 @@ from itaplay import local_settings
 
 
 VALID_VIDEO_EXTENSIONS = [".mp4",".avi", ".wmv", ".ogg",]
-VALID_IMAGE_EXTENSIONS = [".jpeg",".png",".svg",".tiff", ".gif",]
+VALID_IMAGE_EXTENSIONS = [".jpeg",".jpg",".png",".svg",".tiff", ".gif",]
 
 
 class Clip(models.Model):
