@@ -1,5 +1,6 @@
 import json
 from xml.etree import ElementTree as ET
+from xml_templates.models import XmlTemplate
 
 from projects.models import AdviserProject
 from clips.models import Clip
@@ -36,48 +37,14 @@ class AdviserProjectView(View):
         root = ET.fromstring(template)
         for area in root.findall('area'):
             area_id = int(area.get('id'))-1
-            clipTag = ET.SubElement(area, 'clip')
-            clipTag.set('clip_id',str(data['areas'][area_id]['clip_id']))
-            clip = Clip.objects.get(pk = data['areas'][area_id]['clip_id'])
-            clipTag.set('src',str(clip.video))
-            clipTag.text = clip.name
-        result_template = ET.dump(root)
+            for clip in data['areas'][area_id]['clips']:
+                clipTag = ET.SubElement(area, 'clip')
+                clipTag.set('id',str(clip['pk']))
+                clipTag.set('src',clip['fields']['video'])
+                clipTag.text = clip['fields']['name']
+        result_template = ET.tostring(root,encoding="us-ascii", method="xml")
         print result_template
         return HttpResponse(status=201)
-
-    def get(self, request, project_id=None):
-        """
-        Handling get request
-        :param request:
-        :param project_id:
-        :return:
-        """
-        if not project_id:
-            data = serializers.serialize("json", AdviserProject.objects.all())   # TODO limit amount of objects
-            return HttpResponse(data)
-        adviser_project = AdviserProject.objects.filter(id=int(project_id))     # TODO Check for id correctness
-        if not adviser_project.exists():
-            return HttpResponseBadRequest
-        data = json.dumps(model_to_dict(adviser_project.first()))
-        return HttpResponse(data)
-
-    def put(self, request, project_id=None):
-
-        return HttpResponse
-
-    def delete(self, request, project_id=None):
-
-        if not project_id:
-            return HttpResponseBadRequest
-
-        adviser_project = AdviserProject.objects.filter(id=project_id)  # TODO Check for id correctness
-
-        if not adviser_project.exists():
-            return HttpResponseBadRequest
-
-        adviser_project.first().delete()  # TODO Improve code quality
-
-        return HttpResponse
 
 
 class AdviserProjectList(APIView):
@@ -90,6 +57,9 @@ class AdviserProjectList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        if not request.user.adviseruser.id_company_id:  # special for Admins
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        request.data["id_company"] = request.user.adviseruser.id_company_id
         serializer = AdviserProjectSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -101,26 +71,26 @@ class AdviserProjectDetails(APIView):
     """
      Retrieve, update or delete a AdviserProject instance.
      """
-    def get_object(self, pk):
+    def get_object(self, id):
         try:
-            return AdviserProject.objects.get(pk=pk)
+            return AdviserProject.objects.get(id=id)
         except AdviserProject.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        project = self.get_object(pk)
+    def get(self, request, id, format=None):
+        project = self.get_object(id)
         serializer = AdviserProjectSerializer(project)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        project = self.get_object(pk)
+    def put(self, request, id, format=None):
+        project = self.get_object(id)
         serializer = AdviserProjectSerializer(project, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        project = self.get_object(pk)
+    def delete(self, request, id, format=None):
+        project = self.get_object(id)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
