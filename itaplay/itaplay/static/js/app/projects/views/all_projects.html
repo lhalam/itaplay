@@ -1,10 +1,32 @@
-<div ng-init="init()" layout="column">
-   <div layout="row">
-        <div flex=20></div>
-        <div>
-            <md-button flex="500"  class="md-primary md-raised" href="#projects/add_project_template" >Add template to project</md-button>
-        </div>
-        <div flex=20></div>
-   </div>
+<div ng-controller="ProjectCtrl" ng-cloak  layout-gt-sm="row" flex layout-align="center">
+
+    <div flex-gt-sm="70" >
+        <md-toolbar layout="row" class="teal">
+            <div class="md-toolbar-tools">
+                <span>Projects</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex ng-repeat="project in projects">
+                <md-list-item class="md-2-line">
+                    <div class="md-list-item-text">
+                        <h3>{{ project.name }}</h3>
+                        <p>{{ project.description }}</p>
+                    </div>
+                    <md-button class="md-secondary md-raised" href="#projects/id={{ project.id }}">Edit</md-button>
+                    <md-button class="md-secondary md-raised md-warn" ng-click="delete(project)">Delete</md-button>
+                </md-list-item>
+                <md-divider ></md-divider>
+            </md-list>
+        </md-content>
+
+        <md-button class="md-fab md-fab-bottom-right" aria-label="FAB" href="#projects/new">
+            <md-icon md-font-set="material-icons">add</md-icon>
+        </md-button>
+
+    </div>
+
+
+
 </div>
 
