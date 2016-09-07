@@ -21,10 +21,7 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/clips/views/current_clip.html',
             controller: CurrentClipController
         })
-        .when('/editclip/id=:clip_id/', {
-            templateUrl: '../../../static/js/app/clips/views/edit_clip.html',
-            
-        })
+        
         .when('/clips', {
             templateUrl: '../../../static/js/app/clips/views/add_clip.html',
             controller: 'ClipController'

@@ -165,8 +165,8 @@ import boto
 
 MEDIAFILES_LOCATION = 'media/'
 
-DEFAULT_FILE_STORAGE = 'itaplay.s3utils.MediaS3BotoStorage' 
-STATICFILES_STORAGE = 'itaplay.s3utils.StaticS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'utils.s3utils.MediaS3BotoStorage' 
+STATICFILES_STORAGE = 'utils.s3utils.StaticS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
 S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
