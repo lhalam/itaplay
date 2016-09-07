@@ -39,7 +39,6 @@ class AdviserProjectView(View):
         HttpResponseBadRequest if request contain incorrect data.
         """
         data = json.loads(request.body)
-        print data
         template = XmlTemplate.get_by_id(data['template_id']).template_content
         root = ET.fromstring(template)
         for area in root.findall('area'):
@@ -100,16 +99,10 @@ class AdviserProjectList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = AdviserProjectSerializer(data=request.data.get("project"))
+        serializer = AdviserProjectSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()   
-            project = AdviserProject.objects.get(id=serializer.data["id"])
-            for obj in request.data.get("players"):
-                player = Player.get_by_id(obj["id"])
-                player.project = project  
-                player.save()      
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-      
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -130,28 +123,22 @@ class AdviserProjectDetails(APIView):
 
     def put(self, request, pk, format=None):
         project = self.get_object(pk)
-        serializer = AdviserProjectSerializer(project, data=request.data.get("project"))
+        serializer = AdviserProjectSerializer(project, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            project = AdviserProject.objects.get(id=serializer.data["id"])
-            for obj in request.data.get("players"):
-                player = Player.get_by_id(obj["id"])
-                player.project = project  
-                player.save()      
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
     def delete(self, request, pk, format=None):
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 def post_project(request):
     data = json.loads(request.body) 
-    print data
     project = data.get("project")
-    project["id_company"] = Company.get_company("1")
+    project["id_company"] = Company.get_company(project["id_company"])
     project = AdviserProject(**project)
     project.save()
     for obj in data.get("players"):
@@ -159,5 +146,3 @@ def post_project(request):
         player.project=project  
         player.save()
     return HttpResponse(status=201)
-
-

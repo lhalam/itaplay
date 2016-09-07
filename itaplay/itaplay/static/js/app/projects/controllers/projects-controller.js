@@ -154,7 +154,7 @@ itaplay.controller('ProjectCtrl', function($scope, $http) {
     $scope.init();
 });
 
-itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $location) {
+itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $location, $mdDialog) {
 
     var id = $routeParams.project_id;
 
@@ -167,8 +167,29 @@ itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $loc
         });
     };
 
-    $scope.update = function (project) {
-        $http.put("api/projects/" + project.id + "/", project)
+    $scope.addPlayers = function ($event){
+        $mdDialog.show({
+        controller: DialogController,
+        templateUrl:"static/js/app/projects/views/add_players.html",
+        parent: angular.element(document.body),
+        locals: {parent: $scope},
+        targetEvent: $event,
+        clickOutsideToClose:true,
+    })
+        .then(function (answer) {
+                $scope.players = answer;
+                console.log($scope.players);
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+   };     
+
+    $scope.update = function (project, players) {
+        data = {
+              "project" : project,
+              "players" : players
+        };
+        $http.put("api/projects/" + data.project.id + "/", data)
             .success(function () {
                 $location.path('/projects');
             });
@@ -180,17 +201,40 @@ itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $loc
                 $location.path('/projects');
             });
     };
-
+    
     $scope.init();
 });
 
-itaplay.controller('AddProjectCtrl', function ($scope, $http) {
+itaplay.controller('AddProjectCtrl', function ($scope, $http, $mdDialog) {
+    
+    $scope.addPlayers = function ($event){
+        $mdDialog.show({
+        controller: DialogController,
+        templateUrl:"static/js/app/projects/views/add_players.html",
+        parent: angular.element(document.body),
+        locals: {parent: $scope},
+        targetEvent: $event,
+        clickOutsideToClose:true,
+    })
+        .then(function (answer) {
+                $scope.players = answer;
+                console.log($scope.players);
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+   };     
 
-    $scope.create = function (project) {
-        $http.post("api/projects/", project)
+    $scope.create = function (project, players) {
+        data = {
+              "project" : project,
+              "players" : players
+        }
+        $http.post("api/projects/", data)
             .success(function () {
                 $location.path('/projects');
             });
     };
 
+
 });
+
