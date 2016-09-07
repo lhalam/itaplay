@@ -4,11 +4,13 @@ from company.models import Company
 
 
 class AdviserProjectSerializer(serializers.Serializer):
+    """
+    Serializer for AdviserProject
+    """
     id = serializers.IntegerField(read_only=True)
     id_company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all())
     name = serializers.CharField(max_length=30)
     description = serializers.CharField(max_length=150)
-    # TODO Integrate with project_template
 
     def create(self, validated_data):
         """

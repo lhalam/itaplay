@@ -1,8 +1,14 @@
 
-function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
+function AddProjectTemplateController ($scope,$routeParams, $http, $location, $mdDialog) {
     $scope.zoomValue = 4.5;
-
+    $scope.project_id = $routeParams.project_id;
     $scope.init = function () {
+        $http.get("api/projects/" + $scope.project_id + "/").then(function (response) {
+            $scope.project = response.data;
+        }, function(response) {
+            console.log(response);
+        });
+
         $http.get("/templates/all/").then(function (response) {
             $scope.templates = response.data;
         }, function (response) {
@@ -49,11 +55,12 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
     $scope.save = function (selected_template, areas) {
         if (!validate(selected_template,areas)){ return;}
         data = {
+            "project_id": $scope.project_id,
             "template_id": selected_template.id,
             "areas": areas
         };
-        $http.post("api/projects/add_project_template/", data).success(function () {
-            $location.path("/projects");
+        $http.post("api/projects/" + $scope.project_id + "/template/", data).success(function () {
+            $location.path("/projects/id=" + $scope.project_id + "/");
         });
     };
 
@@ -82,8 +89,8 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
     };
 
     $scope.showDialog = function (ev) {
-        var area_id = parseInt(ev.currentTarget.id) - 1;
-        if ($scope.areas[area_id].clips) {
+        var area_id = parseInt(ev.currentTarget.id)-1;
+        if($scope.areas[area_id].clips) {
             $scope.selected_clips = $scope.areas[area_id].clips;
         }
         $mdDialog.show({
@@ -104,18 +111,18 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
             });
     };
 
-    var showAlert = function (message) {
+    var showAlert = function(message) {
         $mdDialog.show(
-            $mdDialog.alert()
-                .clickOutsideToClose(true)
-                .title("Something went wrong")
-                .textContent(message)
-                .ariaLabel("Alert Dialog Demo")
-                .ok("Got it!")
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title("Something went wrong")
+            .textContent(message)
+            .ariaLabel("Alert Dialog Demo")
+            .ok("Got it!")
         );
-    };
+      };
 
-    function DialogController($scope, $mdDialog) {
+    function DialogController ($scope, $mdDialog) {
 
 
         $scope.cancel = function () {
@@ -128,38 +135,27 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
 };
 
 itaplay.controller('ProjectCtrl', function($scope, $http, $route) {
-    $scope.init = function(){
-
-        $http.get("api/projects/").then(function (response) {
-            $scope.projects = response.data;
-        }, function(response) {
-            console.log(response);
-        });
-    };
+    $http.get("api/projects/")
+            .then(function (response) {
+                $scope.projects = response.data['results'];
+            });
 
     $scope.delete = function (project) {
         $http.delete("api/projects/" + project.id + "/")
             .success(function () {
-                console.log("Success");
                 $route.reload();
             });
     };
-
-    $scope.init();
 });
 
 itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $location) {
 
     var id = $routeParams.project_id;
 
-    $scope.init = function(){
-
-        $http.get("api/projects/" + id + "/").then(function (response) {
+    $http.get("api/projects/" + id + "/")
+        .then(function (response) {
             $scope.project = response.data;
-        }, function(response) {
-            console.log(response);
         });
-    };
 
     $scope.update = function (project) {
         $http.put("api/projects/" + project.id + "/", project)
@@ -174,8 +170,6 @@ itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $loc
                 $location.path('/projects');
             });
     };
-
-    $scope.init();
 });
 
 itaplay.controller('AddProjectCtrl', function ($scope, $http, $location) {
@@ -186,5 +180,4 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $location) {
                 $location.path('/projects');
             });
     };
-
 });

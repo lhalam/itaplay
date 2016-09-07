@@ -52,7 +52,7 @@ itaplay.config(function($routeProvider) {
             controller: CompanyController
         })
 
-        .when('/projects/add_project_template/', {
+        .when('/projects/add_project_template/id=:project_id/', {
             templateUrl: '../../../static/js/app/projects/views/add_project_template.html',
             controller: AddProjectTemplateController
         })
