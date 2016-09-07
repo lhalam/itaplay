@@ -1,3 +1,7 @@
-<div ng-init="init()">
-<p> {{ template }} </p>
+<div ng-init="init()" >
+
+    <div ng-repeat="area in areas" class="area"  style=" height: {{ area.height }}%; width:{{ area.width }}%;
+top:{{ area.top }}%; left: {{ area.left }}% ">
+    <img ng-repeat="clip in area.clips" src="../media/{{clip.src}}" height="100%" width="100%">
+    </div>
 </div>
