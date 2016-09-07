@@ -18,7 +18,8 @@ itaplay.controller('ClipController', ['$scope', 'Upload', '$timeout', function($
             });
         }, function(response) {
             if (response.status > 0)
-                $scope.errorMsg = response.status + ': ' + response.data;
+                $scope.errorMsg = "Something went wrong. Please, check your form";
+                // $scope.errorMsg = response.status + ': ' + response.data;
         }, function(evt) {
             // Math.min is to fix IE which reports 200% sometimes
             file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));

@@ -10,8 +10,8 @@ from django.conf import settings
 from itaplay import local_settings
 
 
-VALID_VIDEO_EXTENSIONS = [".mp4",".avi", ".wmv", ".ogg",]
-VALID_IMAGE_EXTENSIONS = [".jpeg",".jpg",".png",".svg",".tiff", ".gif",]
+VALID_VIDEO_EXTENSIONS = [".mp4", ".avi", ".wmv", ".ogg", ]
+VALID_IMAGE_EXTENSIONS = [".jpeg", ".jpg", ".png", ".svg", ".tiff", ".gif", ]
 
 
 class Clip(models.Model):
@@ -20,7 +20,7 @@ class Clip(models.Model):
     """
 
     name = models.CharField(max_length=128, null=True, blank=True)
-    description = models.CharField(max_length=512, null=True, blank=True)  
+    description = models.CharField(max_length=512, null=True, blank=True)
     video = models.FileField(upload_to='', blank=True, null=True)
     url = models.CharField(max_length=256, null=True, blank=True)
     mimetype = models.CharField(max_length=64, null=True, blank=True)
@@ -28,7 +28,7 @@ class Clip(models.Model):
 
     def delete_clip(self, clip_id):
         """
-        Method for deleteing clip from database.
+        Method for deleting clip from database.
         :param pk: primary key for searched clip.
         :return: nothing.
         """
@@ -40,12 +40,11 @@ class Clip(models.Model):
         """
         Method for getting current clip from database.
         :param pk: primary key for searched clip.
-        
         """
         return Clip.objects.filter(id = clip_id)
 
     def save_clip(self, *args, **kwargs):
-        
+
         if self.video:
             conn = boto.s3.connection.S3Connection(
                                 local_settings.AWS_ACCESS_KEY_ID,
@@ -62,9 +61,8 @@ class Clip(models.Model):
             elif self.url.endswith(tuple(VALID_IMAGE_EXTENSIONS)):
                 self.mimetype = "image/jpeg"
             else:
-                raise ValidationError("Please enter valid date")
+                raise ValidationError("Please enter valid file")
         super(Clip, self).save(*args, **kwargs)
-        
 
 
 
@@ -72,7 +70,6 @@ class Clip(models.Model):
         """
         Method for getting all clips from database.
         :param pk: primary key for searched clip.
-        
         """
         return Clip.objects.all()
 
@@ -81,4 +78,3 @@ class Clip(models.Model):
 @receiver(models.signals.post_delete, sender=Clip)
 def remove_file_from_s3(sender, instance, **kwargs):
     instance.video.delete(save=False)
-
