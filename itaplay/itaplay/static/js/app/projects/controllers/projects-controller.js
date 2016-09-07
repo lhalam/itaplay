@@ -1,8 +1,14 @@
 
-function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
+function AddProjectTemplateController ($scope,$routeParams, $http, $location, $mdDialog) {
     $scope.zoomValue = 4.5;
-
+    $scope.project_id = $routeParams.project_id;
     $scope.init = function () {
+        $http.get("api/projects/" + $scope.project_id + "/").then(function (response) {
+            $scope.project = response.data;
+        }, function(response) {
+            console.log(response);
+        });
+
         $http.get("/templates/all/").then(function (response) {
             $scope.templates = response.data;
         }, function (response) {
@@ -49,10 +55,11 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
     $scope.save = function (selected_template, areas) {
         if (!validate(selected_template,areas)){ return;}
         data = {
+            "project_id": $scope.project_id,
             "template_id": selected_template.id,
             "areas": areas
         };
-        $http.post("projects/add_project_template/", data).success(function () {
+        $http.post("api/add_project_template/", data).success(function () {
             $location.path("/projects");
         });
     };
@@ -126,3 +133,64 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
         };
     };
 };
+
+itaplay.controller('ProjectCtrl', function($scope, $http) {
+    $scope.init = function(){
+
+        $http.get("api/projects/").then(function (response) {
+            $scope.projects = response.data;
+        }, function(response) {
+            console.log(response);
+        });
+    };
+
+    $scope.delete = function (project) {
+        $http.delete("api/projects/" + project.id + "/")
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+
+    $scope.init();
+});
+
+itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $location) {
+
+    var id = $routeParams.project_id;
+
+    $scope.init = function(){
+
+        $http.get("api/projects/" + id + "/").then(function (response) {
+            $scope.project = response.data;
+        }, function(response) {
+            console.log(response);
+        });
+    };
+
+    $scope.update = function (project) {
+        $http.put("api/projects/" + project.id + "/", project)
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+
+    $scope.delete = function (project) {
+        $http.delete("api/projects/" + project.id + "/")
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+
+    $scope.init();
+});
+
+itaplay.controller('AddProjectCtrl', function ($scope, $http) {
+
+    $scope.create = function (project) {
+        $http.post("api/projects/", project)
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+
+});
