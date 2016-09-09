@@ -1,7 +1,19 @@
 <div ng-init="init()" >
 
-    <div ng-repeat="area in areas" class="area"  style=" height: {{ area.height }}%; width:{{ area.width }}%;
-top:{{ area.top }}%; left: {{ area.left }}% ">
-    <img ng-repeat="clip in area.clips" src="../media/{{clip.src}}" height="100%" width="100%">
+
+    <div  ng-repeat="area in areas" >
+
+        <div ng-repeat="clip in area.clips"  >
+
+            <div ng-if="checkVideo(clip.src)" class="area"  style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">
+                <object ng-if="checkVideo(clip.src)" ng-repeat="clip in area.clips" data="../media/{{clip.src}}"  type="video/mp4" height="100%"  width="100%" autohide="1"></object>
+            </div>
+
+            <div ng-if="checkImage(clip.src)"  width="100%" class="area"  style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">
+                <img ng-if="checkImage(clip.src)" ng-repeat="clip in area.clips" ng-src="../media/{{clip.src}}" height="100%"  width="100%" >
+            </div>
+
+        </div>
+
     </div>
 </div>
