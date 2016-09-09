@@ -205,7 +205,7 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     
 });
 
-itaplay.controller('AddProjectCtrl', function ($scope, $http, $mdDialog) {
+itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDialog) {
     
     $scope.addPlayers = function ($event){
         $mdDialog.show({
