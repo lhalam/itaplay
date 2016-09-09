@@ -211,7 +211,6 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $mdDialog, $locati
           $scope.status = 'You cancelled the dialog.';
         });
    };
-itaplay.controller('AddProjectCtrl', function ($scope, $http, $location) {
 
     $scope.create = function (project, players) {
         data = {

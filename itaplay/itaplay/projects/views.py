@@ -59,21 +59,24 @@ class AdviserProjectList(generics.ListCreateAPIView):
     serializer_class = AdviserProjectSerializer
 
     def post(self, request, format=None):
+        # return Response( status=status.HTTP_201_CREATED)
         serializer = AdviserProjectSerializer(data=request.data.get("project"))
+        print serializer
+        print serializer.is_valid()
         if serializer.is_valid():
+            print serializer.data["id"]
             serializer.save()
+            print serializer.data["id"]
             project = AdviserProject.objects.get(id=serializer.data["id"])
+            print request.data.get("players")
             for obj in request.data.get("players"):
+                print obj
                 player = Player.get_by_id(obj["id"])
                 player.project = project
                 player.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    def post(self, request, *args, **kwargs):
-        if not request.user.adviseruser.id_company_id:  # special for Admins
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        request.data["id_company"] = request.user.adviseruser.id_company_id
-        return self.create(request, *args, **kwargs)
+
 
 
 class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
