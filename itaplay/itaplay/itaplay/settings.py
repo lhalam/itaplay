@@ -48,12 +48,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'itaplay',
     'authentication',
     'utils',
     'company',
     'home',
+    'xml_templates',
     'clips',
+    'projects',
+    'player',
+    'monitor'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -64,6 +69,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'itaplay.urls'

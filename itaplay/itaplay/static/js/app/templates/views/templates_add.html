@@ -1,0 +1,33 @@
+<div ng-init="init()">
+    <form name="myForm">
+        <fieldset>
+            <legend>Upload template</legend>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Template Name:</label>
+                <input type="text" name="templateName" ng-model="templateName" size="31" required>
+                <i ng-show="myForm.templateName.$error.required">*required</i>
+            </md-input-container>
+            <br>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Xml File:</label>
+                <input type="file" ngf-select ng-model="xmlFile" name="file" ngf-pattern="'.xml'" accept=".xml" ngf-max-size="1MB" required ngf-model-invalid="errorFile">
+                <br>
+                <i ng-show="myForm.file.$error.required">*required</i>
+                <i ng-show="myForm.file.$error.maxSize"><p>File too large 
+          {{errorFile.size / 1000000|number:1}}MB: max 1M</p></i>
+                <i ng-show="myForm.file.$error.pattern">Only allowed formats is .xml</i>
+                <button ng-click="xmlFile = null" ng-show="xmlFile">Remove File</button>
+                <button ng-click="xmlFile = null; templateName = null">Clear All Fields</button>
+            </md-input-container>
+            <br>
+            <button ng-disabled="!myForm.$valid" ng-click="uploadXml(xmlFile)">Submit</button>
+            <span class="progress" ng-show="xmlFile.progress >= 0">
+          <div style="width:{{xmlFile.progress}}%" 
+          ng-bind="xmlFile.progress + '%'"></div>
+        </span>
+            <span ng-show="xmlFile.result">Upload Successful</span>
+            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+        </fieldset>
+        <br>
+    </form>
+</div>

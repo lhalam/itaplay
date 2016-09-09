@@ -1,0 +1,49 @@
+<div ng-init="init()" layout="column" layout-padding ng-cloak>
+    <div layout="row">
+        <div flex=20></div>
+        <div flex=60 style="background-color:  #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
+            <div>Add new project template:</div>
+            <form name="newProjectTemplateForm">
+                <div style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                    <md-content>
+                        <md-autocomplete
+                              md-selected-item="selected_template"
+                              md-search-text="search_text"
+                              md-items="item in querySearch(search_text)"
+                              md-item-text="item.template_name"
+                              md-min-length="1"
+                              md-selected-item-change="parseTemplate(selected_template)"
+                              placeholder="Select project template">
+                            <md-item-template>
+                              <span md-highlight-text="search_text">{{item.template_name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                              No templates matching "{{search_text}}" were found.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </md-content>
+
+                    <div ng-show="areas" layout="row" layout-padding>
+                        <div flex="initial" style="margin-top: 14px">Slide to zoom template: </div>
+                        <div flex>
+                            <md-slider ng-model="zoomValue" min="2" max="7" step="0.1">Slide to zoom</md-slider>
+                        </div>
+                    </div>
+                    <div ng-show="areas" layout="column" class="template-container" style="height: {{ zoomValue*100 }}px; width: {{ zoomValue*100 }}px;">
+                        <div id="{{ area.id }}" ng-value="area" ng-repeat="area in areas" class="area" ng-click="showDialog($event)"
+                             layout="column" style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left:{{ area.left }}%;">
+                            <p class="area-content" ng-show="area.clips" ng-value="clip" ng-repeat="clip in area.clips">{{ clip.fields.name }}</p>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="100"></div>
+                        <md-button  class="md-primary md-raised"  type="submit" ng-click="save(selected_template,areas)">Add</md-buttom>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div flex=20></div>
+    </div>
+</div>
+
+
