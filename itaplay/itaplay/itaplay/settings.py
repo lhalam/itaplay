@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'clips',
     'projects',
     'player',
+    'monitor'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -91,6 +92,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'itaplay.wsgi.application'
+
+LOGIN_URL = '/auth/login/'
 
 
 # Database

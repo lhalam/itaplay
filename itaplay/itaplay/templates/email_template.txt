@@ -1,0 +1,7 @@
+Hello!
+
+We are pleased to invite you to our service.
+
+To register, visit the link: {{ inviteLink }}
+
+Have a nice day!

@@ -232,4 +232,3 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $mdDialog) {
             });
     };
 });
-

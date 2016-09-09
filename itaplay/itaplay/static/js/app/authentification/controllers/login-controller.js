@@ -7,8 +7,9 @@ angular.module('loginApp',['ngMaterial', 'ngMessages'])
             url: '/auth/login',
             data: {username: user, password: password}
         }).then(function successCallback(response) {
-            $window.location.href = '/';
+                $window.location.href = '/';
             },
-                function errorCallback(response) {});
+            function errorCallback(response) {
+            });
     }
 });

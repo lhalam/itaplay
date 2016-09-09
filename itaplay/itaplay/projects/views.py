@@ -1,21 +1,25 @@
 import json
 
 from models import AdviserProject
-
+from clips.models import Clip
 from player.models import Player
 from company.models import Company
+from xml_templates.models import XmlTemplate
 
 from xml.etree import ElementTree as ET
+from xml_templates.models import XmlTemplate
 
+from django.core import serializers
 from django.views.generic.base import View
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
+
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
 
 from projects.serializers import AdviserProjectSerializer
-from projects.models import AdviserProject
-from xml_templates.models import XmlTemplate
 
+from django.http import Http404
 
 class AdviserProjectView(View):
     """docs goes here"""
