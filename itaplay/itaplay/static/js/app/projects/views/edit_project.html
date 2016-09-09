@@ -23,11 +23,17 @@
                              <input ng-model="project.description" required md-maxlength="150"/>
                              <label>Project description:</label>
                          </md-input-container>
-                        
                         <md-card flex layout-padding>
-                          <h4>Your players:</h4>
-                          <div ng-repeat="player in players">
+                          <h4>Added players:</h4>
+                          <div ng-repeat="player in data | filter:player.project=project.id">
                             <md-checkbox ng-checked="true">name: {{player.name}}; mac: {{player.mac_address}}</md-checkbox>
+                            <md-divider ng-if="!$last"></md-divider>
+                          </div>
+                        </md-card>
+                        <md-card flex layout-padding  ng-click="addPlayers($event)">
+                          <h4>Add new players:</h4>
+                          <div ng-repeat="new_player in new_players">
+                            <md-checkbox ng-checked="true">name: {{new_player.name}}; mac: {{new_player.mac_address}}</md-checkbox>
                             <md-divider ng-if="!$last"></md-divider>
                           </div>
                         </md-card>
@@ -35,9 +41,9 @@
                      </div>
                       <div layout="row">
                           <div flex offset="33"></div>
-                          <md-button class="md-primary" href="#projects/add_project_template">Add template to project</md-button>
-                          <md-button class="md-primary" ng-click="addPlayers($event)">Add project to players</md-button>
-                          <md-button  class="md-primary md-raised" ng-click="update(project, players)">Save</md-button>
+                           <md-button class="md-primary md-raised" href="#projects/add_project_template/id={{ project.id }}">Change template</md-button>
+                          <md-button class="md-primary" ng-click="addProjectToPlayers(project, new_players)">Add project to chosen players</md-button>
+                          <md-button type="submit" class="md-raised md-primary">Save</md-button>
                           <md-button class="md-raised md-warn" ng-click="delete(project)">Delete</md-button>
                       </div>
                   </form>

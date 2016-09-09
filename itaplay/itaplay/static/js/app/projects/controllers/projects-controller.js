@@ -59,8 +59,8 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
             "template_id": selected_template.id,
             "areas": areas
         };
-        $http.post("api/add_project_template/", data).success(function () {
-            $location.path("/projects");
+        $http.post("api/projects/" + $scope.project_id + "/template/", data).success(function () {
+            $location.path("/projects/id=" + $scope.project_id + "/");
         });
     };
 
@@ -134,38 +134,34 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
     };
 };
 
-itaplay.controller('ProjectCtrl', function($scope, $http) {
-    $scope.init = function(){
-
-        $http.get("api/projects/").then(function (response) {
-            $scope.projects = response.data;
-        }, function(response) {
-            console.log(response);
-        });
-    };
+itaplay.controller('ProjectCtrl', function($scope, $http, $route) {
+    $http.get("api/projects/")
+            .then(function (response) {
+                $scope.projects = response.data['results'];
+            });
 
     $scope.delete = function (project) {
         $http.delete("api/projects/" + project.id + "/")
             .success(function () {
-                $location.path('/projects');
+                $route.reload();
             });
     };
-
-    $scope.init();
 });
 
 itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $location, $mdDialog) {
 
     var id = $routeParams.project_id;
 
-    $scope.init = function(){
-
-        $http.get("api/projects/" + id + "/").then(function (response) {
+    $http.get("api/projects/" + id + "/")
+        .then(function (response) {
             $scope.project = response.data;
-        }, function(response) {
-            console.log(response);
         });
-    };
+     $http.get("player/player_view/").then(function (response) {
+      $scope.data= response.data;
+     }, function(response) {
+          console.log(response);
+        $scope.data = "Something went wrong";
+    });
 
     $scope.addPlayers = function ($event){
         $mdDialog.show({
@@ -177,19 +173,24 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
         clickOutsideToClose:true,
     })
         .then(function (answer) {
-                $scope.players = answer;
-                console.log($scope.players);
+                $scope.new_players = answer;
+                console.log($scope.new_players);
         }, function() {
           $scope.status = 'You cancelled the dialog.';
         });
    };     
-
-    $scope.update = function (project, players) {
-        data = {
-              "project" : project,
-              "players" : players
+    $scope.addProjectToPlayers = function (project, new_players) {
+        data ={
+            "project" : project, 
+            "players" : new_players
         };
-        $http.put("api/projects/" + data.project.id + "/", data)
+        $http.put("api/projects_to_players/", data)
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+    $scope.update = function (project) {
+        $http.put("api/projects/" + project.id + "/", project)
             .success(function () {
                 $location.path('/projects');
             });
@@ -202,7 +203,6 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
             });
     };
     
-    $scope.init();
 });
 
 itaplay.controller('AddProjectCtrl', function ($scope, $http, $mdDialog) {
@@ -225,16 +225,11 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $mdDialog) {
    };     
 
     $scope.create = function (project, players) {
-        data = {
-              "project" : project,
-              "players" : players
-        }
-        $http.post("api/projects/", data)
+        project["players"]=players;
+        $http.post("api/projects/", project)
             .success(function () {
                 $location.path('/projects');
             });
     };
-
-
 });
 
