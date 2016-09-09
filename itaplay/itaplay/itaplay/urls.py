@@ -26,9 +26,9 @@ urlpatterns = [
     url(r'^auth/', include('authentication.urls')),
     url(r'^company/', include('company.urls')),
     url(r'^templates/', include('xml_templates.urls')),
-    url(r'^projects/', include('projects.urls')),
     url(r'^player/', include('player.urls')),
     url(r'^monitor/', include('monitor.urls'))
+    url(r'^api/', include('projects.urls')),
 ]
 
 

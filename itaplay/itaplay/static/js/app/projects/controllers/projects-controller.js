@@ -1,8 +1,14 @@
 
-function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
+function AddProjectTemplateController ($scope,$routeParams, $http, $location, $mdDialog) {
     $scope.zoomValue = 4.5;
-
+    $scope.project_id = $routeParams.project_id;
     $scope.init = function () {
+        $http.get("api/projects/" + $scope.project_id + "/").then(function (response) {
+            $scope.project = response.data;
+        }, function(response) {
+            console.log(response);
+        });
+
         $http.get("/templates/all/").then(function (response) {
             $scope.templates = response.data;
         }, function (response) {
@@ -49,10 +55,11 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
     $scope.save = function (selected_template, areas) {
         if (!validate(selected_template,areas)){ return;}
         data = {
+            "project_id": $scope.project_id,
             "template_id": selected_template.id,
             "areas": areas
         };
-        $http.post("projects/add_project_template/", data).success(function () {
+        $http.post("api/add_project_template/", data).success(function () {
             $location.path("/projects");
         });
     };
@@ -126,3 +133,108 @@ function AddProjectTemplateController ($scope, $http, $location, $mdDialog) {
         };
     };
 };
+
+itaplay.controller('ProjectCtrl', function($scope, $http) {
+    $scope.init = function(){
+
+        $http.get("api/projects/").then(function (response) {
+            $scope.projects = response.data;
+        }, function(response) {
+            console.log(response);
+        });
+    };
+
+    $scope.delete = function (project) {
+        $http.delete("api/projects/" + project.id + "/")
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+
+    $scope.init();
+});
+
+itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $location, $mdDialog) {
+
+    var id = $routeParams.project_id;
+
+    $scope.init = function(){
+
+        $http.get("api/projects/" + id + "/").then(function (response) {
+            $scope.project = response.data;
+        }, function(response) {
+            console.log(response);
+        });
+    };
+
+    $scope.addPlayers = function ($event){
+        $mdDialog.show({
+        controller: DialogController,
+        templateUrl:"static/js/app/projects/views/add_players.html",
+        parent: angular.element(document.body),
+        locals: {parent: $scope},
+        targetEvent: $event,
+        clickOutsideToClose:true,
+    })
+        .then(function (answer) {
+                $scope.players = answer;
+                console.log($scope.players);
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+   };     
+
+    $scope.update = function (project, players) {
+        data = {
+              "project" : project,
+              "players" : players
+        };
+        $http.put("api/projects/" + data.project.id + "/", data)
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+
+    $scope.delete = function (project) {
+        $http.delete("api/projects/" + project.id + "/")
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+    
+    $scope.init();
+});
+
+itaplay.controller('AddProjectCtrl', function ($scope, $http, $mdDialog) {
+    
+    $scope.addPlayers = function ($event){
+        $mdDialog.show({
+        controller: DialogController,
+        templateUrl:"static/js/app/projects/views/add_players.html",
+        parent: angular.element(document.body),
+        locals: {parent: $scope},
+        targetEvent: $event,
+        clickOutsideToClose:true,
+    })
+        .then(function (answer) {
+                $scope.players = answer;
+                console.log($scope.players);
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+   };     
+
+    $scope.create = function (project, players) {
+        data = {
+              "project" : project,
+              "players" : players
+        }
+        $http.post("api/projects/", data)
+            .success(function () {
+                $location.path('/projects');
+            });
+    };
+
+
+});
+
