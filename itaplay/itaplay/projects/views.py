@@ -1,13 +1,9 @@
 import json
 from models import AdviserProject
-
 from player.models import Player
 from company.models import Company
-
 from xml.etree import ElementTree as ET
 from xml_templates.models import XmlTemplate
-
-from django.http import HttpResponse
 from django.views.generic.base import View
 from projects.models import AdviserProject
 from clips.models import Clip
@@ -20,7 +16,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 
 from projects.serializers import AdviserProjectSerializer
 
@@ -54,64 +50,33 @@ class AdviserProjectView(View):
         project.save()
         return HttpResponse(status=201)
 
-    def get(self, request, project_id=None):
-        """
-        Handling get request
-        :param request:
-        :param project_id:
-        :return:
-        """
-        if not project_id:
-            data = serializers.serialize("json", AdviserProject.objects.all())   # TODO limit amount of objects
-            return HttpResponse(data)
-        adviser_project = AdviserProject.objects.filter(id=int(project_id))     # TODO Check for id correctness
-        if not adviser_project.exists():
-            return HttpResponseBadRequest
-        data = json.dumps(model_to_dict(adviser_project.first()))
-        return HttpResponse(data)
 
-    def put(self, request, project_id=None):
-
-        return HttpResponse
-
-    def delete(self, request, project_id=None):
-
-        if not project_id:
-            return HttpResponseBadRequest
-
-        adviser_project = AdviserProject.objects.filter(id=project_id)  # TODO Check for id correctness
-
-        if not adviser_project.exists():
-            return HttpResponseBadRequest
-
-        adviser_project.first().delete()  # TODO Improve code quality
-
-        return HttpResponse
-
-
-class AdviserProjectList(APIView):
+class AdviserProjectList(generics.ListCreateAPIView):
     """
-    List all snippets, or create a new AdviserProject.
+    List all AdviserProjects of create new AdviserProject
     """
-    def get(self, request, format=None):
-        projects = AdviserProject.objects.all()
-        serializer = AdviserProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    queryset = AdviserProject.objects.all()
+    serializer_class = AdviserProjectSerializer
 
     def post(self, request, format=None):
         serializer = AdviserProjectSerializer(data=request.data.get("project"))
         if serializer.is_valid():
-            serializer.save()   
+            serializer.save()
             project = AdviserProject.objects.get(id=serializer.data["id"])
             for obj in request.data.get("players"):
                 player = Player.get_by_id(obj["id"])
-                player.project = project  
-                player.save()      
+                player.project = project
+                player.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        if not request.user.adviseruser.id_company_id:  # special for Admins
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        request.data["id_company"] = request.user.adviseruser.id_company_id
+        return self.create(request, *args, **kwargs)
 
 
-class AdviserProjectDetails(APIView):
+class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
     """
      Retrieve, update or delete a AdviserProject instance.
      """
@@ -134,8 +99,8 @@ class AdviserProjectDetails(APIView):
             project = AdviserProject.objects.get(id=serializer.data["id"])
             for obj in request.data.get("players"):
                 player = Player.get_by_id(obj["id"])
-                player.project = project  
-                player.save()      
+                player.project = project
+                player.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -143,4 +108,3 @@ class AdviserProjectDetails(APIView):
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-

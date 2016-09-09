@@ -13,13 +13,14 @@
                 <div layout="column">
                   <form name="projectForm" ng-submit="create(project)">
                      <div layout="column">
-                        <md-input-container class="md-block">
-                           <input aria-label="Project name:" ng-model="project.name" required md-maxlength="30"/>
-                            <label>Project name:</label>
-                        </md-input-container>
 
-                        <md-input-container class="md-block">
-                           <input ng-model="project.description" required md-maxlength="150"/>
+                         <md-input-container class="md-block">
+                             <input aria-label="Project name:" ng-model="project.name" required md-maxlength="30"/>
+                             <label>Project name:</label>
+                         </md-input-container>
+
+                         <md-input-container class="md-block">
+                             <input ng-model="project.description" required md-maxlength="150"/>
                              <label>Project description:</label>
                         </md-input-container>
                         <md-card flex layout-padding>
