@@ -38,7 +38,8 @@ class CompanyView(View):
         """
         company = Company()
         data = json.loads(request.body)
-        data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
+        if data.get("administrator"):  
+            data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
         company_form = CompanyForm(data)
         if not company_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
@@ -52,8 +53,9 @@ class CompanyView(View):
         :return: HttpResponse with code 201 if company is updated or
         HttpResponseBadRequest if request contain incorrect data.
         """
-        data = json.loads(request.body)   
-        data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
+        data = json.loads(request.body)
+        if data.get("administrator"):     
+            data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
         company = Company.get_company(data["id"]) 
         company_form = CompanyForm(data, company)
         if not company_form.is_valid():
