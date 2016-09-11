@@ -148,7 +148,7 @@ itaplay.controller('ProjectCtrl', function($scope, $http, $route) {
     };
 });
 
-itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $location) {
+itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $location, $window, $mdDialog) {
 
     var id = $routeParams.project_id;
 
@@ -156,6 +156,39 @@ itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $loc
         .then(function (response) {
             $scope.project = response.data;
         });
+
+    $http.get("api/projects_to_players/" + id)
+        .then(function (response) {
+            $scope.data = response.data;
+     });
+
+    $scope.addPlayers = function ($event){
+        $mdDialog.show({
+        controller: DialogController,
+        templateUrl:"static/js/app/projects/views/add_players.html",
+        parent: angular.element(document.body),
+        locals: {parent: $scope},
+        targetEvent: $event,
+        clickOutsideToClose:true,
+    })
+        .then(function (answer) {
+                $scope.new_players = answer;
+                console.log($scope.new_players);
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+    };  
+
+    $scope.addProjectToPlayers = function (project, new_players) {
+        data ={
+            "project" : project, 
+            "players" : new_players
+        };
+        $http.put("api/projects_to_players/", data)
+            .success(function () {
+                $window.location.reload();
+            });
+    };
 
     $scope.update = function (project) {
         $http.put("api/projects/" + project.id + "/", project)
@@ -172,9 +205,27 @@ itaplay.controller('EditProjectCtrl', function($scope, $http, $routeParams, $loc
     };
 });
 
-itaplay.controller('AddProjectCtrl', function ($scope, $http, $location) {
+itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDialog) {
 
-    $scope.create = function (project) {
+    $scope.addPlayers = function ($event){
+        $mdDialog.show({
+        controller: DialogController,
+        templateUrl:"static/js/app/projects/views/add_players.html",
+        parent: angular.element(document.body),
+        locals: {parent: $scope},
+        targetEvent: $event,
+        clickOutsideToClose:true,
+    })
+        .then(function (answer) {
+                $scope.players = answer;
+                console.log($scope.players);
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+   };     
+
+    $scope.create = function (project, players) {
+        project["players"]=players;
         $http.post("api/projects/", project)
             .success(function () {
                 $location.path('/projects');
