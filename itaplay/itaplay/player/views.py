@@ -49,11 +49,4 @@ class PlayerView(View):
     def delete(self, request, player_id):
         Player.delete_by_id(player_id)
         return HttpResponse(201)     
-
-              
-class ProjectPlayersView(View):
-    def get(self, request, project_id):
-        players = Player.objects.filter(project=project_id)
-        data = [model_to_dict(i) for i in players]
-        return HttpResponse(json.dumps(data))
         

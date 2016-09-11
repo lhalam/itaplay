@@ -7,8 +7,10 @@ from company.models import Company
 
 from xml.etree import ElementTree as ET
 
-from django.views.generic.base import View
 from django.http import HttpResponse
+from django.views.generic.base import View
+from django.forms.models import model_to_dict
+
 from rest_framework.response import Response
 from rest_framework import status, generics
 
@@ -74,6 +76,12 @@ class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class AdviserProjectToPlayers(View):
+
+    def get(self, request, project_id):
+        players = Player.objects.filter(project=project_id)
+        data = [model_to_dict(i) for i in players]
+        return HttpResponse(json.dumps(data))
+        
     def put(self, request):
         data = json.loads(request.body)
         if (not data.get("players")):
