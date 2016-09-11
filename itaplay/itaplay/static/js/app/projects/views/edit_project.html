@@ -25,7 +25,7 @@
                          </md-input-container>
                         <md-card flex layout-padding>
                           <h4>Added players:</h4>
-                          <div ng-repeat="player in data | filter:player.project=project.id">
+                          <div ng-repeat="player in data">
                             <md-checkbox ng-checked="true">name: {{player.name}}; mac: {{player.mac_address}}</md-checkbox>
                             <md-divider ng-if="!$last"></md-divider>
                           </div>
