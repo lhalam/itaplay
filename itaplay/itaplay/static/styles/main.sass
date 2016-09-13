@@ -1,9 +1,9 @@
-/* sass variables -------------------------------
+/* sass variables -------------------------------*/
 $primary-color: #009688
 $second-color: #FF5722
 
 
-/* starting footer end of page -------------------------------
+/* starting footer end of page -------------------------------*/
 
 html
   position: relative
@@ -24,7 +24,7 @@ footer
 .main_wrapper
   margin-bottom: 60px
 
-/* ending footer end of page -------------------------------
+/* ending footer end of page -------------------------------*/
 
 .footer_text
   font-size: 16px
@@ -38,7 +38,7 @@ footer
   height: 60px
   width: 80px
 
-/* search form starting stylings -------------------------------
+/* search form starting stylings -------------------------------*/
 
 .group
   position: relative
@@ -54,7 +54,7 @@ input
   &:focus
     outline: none
 
-/* LABEL =======================================
+/* LABEL =======================================*/
 
 label
   color: #999
@@ -68,7 +68,7 @@ label
   -moz-transition: 0.2s ease all
   -webkit-transition: 0.2s ease all
 
-/* active state
+/* active state*/
 
 input
   &:focus ~ label, &:valid ~ label
@@ -76,7 +76,7 @@ input
     font-size: 14px
     color: $primary-color
 
-/* BOTTOM BARS =================================
+/* BOTTOM BARS =================================*/
 
 .bar
   position: relative
@@ -97,13 +97,13 @@ input
   &:after
     right: 50%
 
-/* active state
+/* active state*/
 
 input:focus ~ .bar
   &:before, &:after
     width: 50%
 
-/* HIGHLIGHTER ==================================
+/* HIGHLIGHTER ==================================*/
 
 .highlight
   position: absolute
@@ -114,14 +114,14 @@ input:focus ~ .bar
   pointer-events: none
   opacity: 0.5
 
-/* active state
+/* active state*/
 
 input:focus ~ .highlight
   -webkit-animation: inputHighlighter 0.3s ease
   -moz-animation: inputHighlighter 0.3s ease
   animation: inputHighlighter 0.3s ease
 
-/* ANIMATIONS ================
+/* ANIMATIONS ================*/
 @-webkit-keyframes inputHighlighter
   from
     background: $primary-color
@@ -149,9 +149,9 @@ input:focus ~ .highlight
     background: transparent
 
 
-/* search form ending stylings -------------------------------
+/* search form ending stylings -------------------------------*/
 
-/* add clip form starting stylings -------------------------------
+/* add clip form starting stylings -------------------------------*/
 
 .thumb
   width: 24px
@@ -176,7 +176,7 @@ form .progress
   width: 360px
   height: 240px
 
-/* starting stylings for small devices -------------------------------
+/* starting stylings for small devices -------------------------------*/
 @media (min-width: 240px) and (max-width: 600px)
   .all_clips
     width: 240px
@@ -199,9 +199,9 @@ form .progress
   .header_logo
     height: 30px
     width: 40px
-/* ending stylings for small devices -------------------------------
+/* ending stylings for small devices -------------------------------*/
 
-/* add clip form ending stylings -------------------------------
+/* add clip form ending stylings -------------------------------*/
 
 .clips_wrapper
   border-bottom: 2px solid $primary-color
@@ -219,6 +219,6 @@ form .progress
   height: 100%
 
 
-# .slide
-#   @extend .clips_wrapper
-#   text-align: center
+ // .slide
+ //   @extend .clips_wrapper
+ //   text-align: center

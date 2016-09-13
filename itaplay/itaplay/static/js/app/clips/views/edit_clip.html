@@ -1,0 +1,24 @@
+<div layout="row" layout-align="space-around start">
+<!-- <div ng-init="init()" layout="column" layout-padding ng-cloak> -->
+<div flex="30">
+    <md-button class="md-raised md-warn" href="/#/allclips">all clips</md-button>
+  </div>
+   <div flex="33">
+   <form method="put" enctype="multipart/form-data">
+   <md-content class="md-no-momentum">
+   <md-input-container class="md-icon-float md-block">
+   <input type="text" name="filename" ng-model="data[0].fields.name">
+   </md-input-container>
+   <md-input-container class="md-icon-float md-block">
+   <input type="text" name="description" ng-model="data[0].fields.description">
+   </md-input-container>
+     	<md-button class="md-primary md-raised md-button md-ink-ripple flex-100" 
+          ng-click="update(clip)">update</md-button>
+    </md-content>
+   </form>
+   </div>
+   <div flex="33">
+    <p>your new clip name:</p><h2>{{ data[0].fields.name }}</h2>
+   <p>your new clip description:</p><h2>{{ data[0].fields.description }}</h2>
+   </div>
+</div>

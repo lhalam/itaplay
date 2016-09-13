@@ -168,7 +168,7 @@ MEDIAFILES_LOCATION = 'media/'
 DEFAULT_FILE_STORAGE = 'utils.s3utils.MediaS3BotoStorage' 
 STATICFILES_STORAGE = 'utils.s3utils.StaticS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
-S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME

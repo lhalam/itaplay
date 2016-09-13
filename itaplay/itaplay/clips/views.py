@@ -4,11 +4,13 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, render_to_response, redirect, \
     get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-
 from forms import ClipForm
 from models import Clip
 from django.views.generic import View
 import itaplay.s3utils
+import json
+
+
 
 class ClipView(View):
     """
@@ -34,6 +36,7 @@ class ClipView(View):
         clip = Clip()
         clip.delete_clip(clip_id)
         return HttpResponse(status=201)
+
     """
     Handling GET method for all clips.
     
@@ -50,4 +53,28 @@ class ClipView(View):
         clip = clip.get_clip(clip_id)
         data = serializers.serialize('json', clip)
         return HttpResponse(data, content_type='application/json')
+
+    """
+    Handling PUT method for current clip.
+    
+    :return: HttpResponse with code 201 if clip is updated.
+    """  
+    def put(self, request, clip_id, *args, **kwargs):
+
+        data = json.loads(request.body)[0]
+        newname = data.get('fields', {}).get('name', None)
+        newdescription = data.get('fields', {}).get('description', None)
+        newvideo = data.get('fields', {}).get('video', None)
+
+        clip = Clip()
+        clip = clip.get_clip(clip_id)
+        form = ClipForm(clip)
+
+        if form.is_valid():
+            clip = Clip(video=newvideo,
+                           name=newname,
+                           description=newdescription,
+                           pk=clip_id)
+            clip.save_clip()
+            return HttpResponse(status=201)
 

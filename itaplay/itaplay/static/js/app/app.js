@@ -28,6 +28,12 @@ itaplay.config(function($routeProvider) {
 
         })
 
+        .when('/editclip/id=:clip_id/', {
+            templateUrl: '../../../static/js/app/clips/views/edit_clip.html',
+            controller: EditClipController
+
+        })
+
         .when('/company/', {
             templateUrl: '../../../static/js/app/company/views/all_company.html',
             controller: AllCompanyController
