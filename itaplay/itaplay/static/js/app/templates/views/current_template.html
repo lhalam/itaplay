@@ -1,0 +1,21 @@
+<div ng-init="init()" layout="column">
+    <div layout="column" layout-align="center center"></div>
+    <div>
+        <div layout="row" layout-align="center center">
+            <div>
+                <md-button class="md-primary" href='/#/templates'>All Templates</md-button>
+            </div>
+            <div>
+                <md-button class="md-warn" ng-click="deleteCurrent(data)">Delete Template</md-button>
+            </div>
+        </div>
+        <div layout="column" layout-align="center center">
+            <div>
+                <h3>{{ data.template_name }}</h3>
+            </div>
+            <div>
+                <pre lang="xml">{{ data.template_content }}</pre>
+            </div>
+        </div>
+    </div>
+</div>
