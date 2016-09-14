@@ -1,6 +1,7 @@
 function AllClipController($scope, $http) {
     $scope.init = function() {
 
+    };
     var api_url = '/clips/clips/';
     $http.get(api_url)
         .then(function(response) {
@@ -8,7 +9,7 @@ function AllClipController($scope, $http) {
             console.log($scope.clips);
         });
 
-          
+
 
     $scope.delete = function(object) {
 
@@ -30,6 +31,4 @@ function AllClipController($scope, $http) {
             console.log(error);
         });
     };
-
-};
 };

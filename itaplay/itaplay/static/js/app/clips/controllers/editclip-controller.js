@@ -1,8 +1,7 @@
 function EditClipController($scope, $sce, $http, $routeParams, $location, Upload, $timeout) {
 
     var id = $routeParams.clip_id;
-    $scope.init = function() { 
-    };
+    $scope.init = function() {};
     $http.get("clips/clips/" + id).then(function(response) {
             $scope.data = response.data;
             // $scope.urlAmazon = "https://s3-eu-west-1.amazonaws.com/itaplayadviserireland/media/"

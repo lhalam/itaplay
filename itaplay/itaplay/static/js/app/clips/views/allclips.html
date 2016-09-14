@@ -1,29 +1,29 @@
 <div ng-init="init()">
-   <div layout="row" layout-xs="column">
-      <div flex="15">
-         <md-button class="md-accent md-raised md-hue-1" href="#/clips" class="groupX right">Add new clip</md-button>
-      </div>
-   </div>
-   <div layout="column" layout-xs="column" layout-align="center center" layout-align-xs="center center">
-      <div ng-repeat="clip in clips" class="clips_wrapper">
-         <div layout="row" layout-xs="column" layout-sm="column">
-            <div flex="20" flex-gt-xm="100">
-               <p class="clip_name">{{clip.fields.name}}</p>
+    <div layout="row" layout-xs="column">
+        <div flex="15">
+            <md-button class="md-accent md-raised md-hue-1" href="#/clips" class="groupX right">Add new clip</md-button>
+        </div>
+    </div>
+    <div layout="column" layout-xs="column" layout-align="center center" layout-align-xs="center center">
+        <div ng-repeat="clip in clips" class="clips_wrapper">
+            <div layout="row" layout-xs="column" layout-sm="column">
+                <div flex="20" flex-gt-xm="100">
+                    <p class="clip_name">{{clip.fields.name}}</p>
+                </div>
+                <div flex="60" flex-gt-xm="100">
+                    <div class="slide">
+                        <video ng-if="clip.fields.mimetype == 'video/mp4'" ng-src="{{ clip.fields.url }}" class="all_clips" controls></video>
+                        <img ng-if="clip.fields.mimetype == 'image/jpeg'" ng-src="{{ clip.fields.url }}" class="all_clips" />
+                    </div>
+                </div>
+                <div flex="20" flex-gt-xm="100">
+                    <md-button class="md-primary md-raised md-button md-ink-ripple" href="#clip/id={{clip.pk}}">
+                        details</md-button>
+                    <md-button class="md-raised md-button md-ink-ripple" href="#editclip/id={{clip.pk}}">
+                        update</md-button>
+                    <md-button class="md-raised md-warn md-button md-ink-ripple" ng-click="delete(clip)">delete</md-button>
+                </div>
             </div>
-            <div flex="60" flex-gt-xm="100">
-              <div class="slide">
-                  <video ng-if="clip.fields.mimetype == 'video/mp4'" ng-src="{{ clip.fields.url }}" class="all_clips" controls ></video>
-                  <img ng-if="clip.fields.mimetype == 'image/jpeg'" ng-src="{{ clip.fields.url }}" class="all_clips"/>
-              </div>
-            </div>
-            <div flex="20" flex-gt-xm="100">
-               <md-button  class="md-primary md-raised md-button md-ink-ripple" href = "#clip/id={{clip.pk}}">
-               details</md-button>
-               <md-button  class="md-raised md-button md-ink-ripple" href = "#editclip/id={{clip.pk}}">
-               update</md-button>
-               <md-button class="md-raised md-warn md-button md-ink-ripple" ng-click="delete(clip)">delete</md-button>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>

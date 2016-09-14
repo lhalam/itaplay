@@ -11,13 +11,14 @@ import itaplay.s3utils
 import json
 
 
-
 class ClipView(View):
+
     """
     Handling POST method.
-    
+
     :return: HttpResponse with code 201 if clip is added.
     """
+
     def post(self, request, *args, **kwargs):
         form = ClipForm(request.POST, request.FILES)
         if form.is_valid:
@@ -32,6 +33,7 @@ class ClipView(View):
     
     :return: HttpResponse with code 201 if clip is deleted.
     """
+
     def delete(self, request, clip_id):
         clip = Clip()
         clip.delete_clip(clip_id)
@@ -41,7 +43,8 @@ class ClipView(View):
     Handling GET method for all clips.
     
     :return: all clips
-    """  
+    """
+
     def get(self, request, clip_id=None):
         if not clip_id:
             clips = Clip()
@@ -58,7 +61,8 @@ class ClipView(View):
     Handling PUT method for current clip.
     
     :return: HttpResponse with code 201 if clip is updated.
-    """  
+    """
+
     def put(self, request, clip_id, *args, **kwargs):
 
         data = json.loads(request.body)[0]
@@ -72,9 +76,8 @@ class ClipView(View):
 
         if form.is_valid():
             clip = Clip(video=newvideo,
-                           name=newname,
-                           description=newdescription,
-                           pk=clip_id)
+                        name=newname,
+                        description=newdescription,
+                        pk=clip_id)
             clip.save_clip()
             return HttpResponse(status=201)
-
