@@ -47,7 +47,6 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
                 $scope.areas[i]['left'] = DOM_areas[i].attributes.left.nodeValue;
                 $scope.areas[i]['clips'] = [];
             }
-            $scope.clip = "";
             $scope.selected_clips = [];
         }
     };
@@ -104,10 +103,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
         })
             .then(function (answer) {
                 $scope.areas[area_id].clips = answer;
-                console.log($scope.areas);
 
-            }, function () {
-                $scope.status = "You cancelled the dialog.";
             });
     };
 
@@ -117,13 +113,12 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
             .clickOutsideToClose(true)
             .title("Something went wrong")
             .textContent(message)
-            .ariaLabel("Alert Dialog Demo")
+            .ariaLabel("Error")
             .ok("Got it!")
         );
       };
 
     function DialogController ($scope, $mdDialog) {
-
 
         $scope.cancel = function () {
             $mdDialog.cancel();

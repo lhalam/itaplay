@@ -17,11 +17,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Settings for sending e-mail
 EMAIL_SETTINGS = {'DEFAULT_FROM_EMAIL': 'team@blabla.com',
-                  'SERVER_EMAIL': 'someroot@localhost',
-                  'EMAIL_HOST': 'smtp.sendgrid.com',
+                  'SERVER_EMAIL': 'adviser@gmail.com',
+                  'EMAIL_HOST': 'smtp.gmail.com',
                   'EMAIL_MAIN': 'support@blabla.com',
-                  'EMAIL_HOST_USER': 'marcosss',
-                  'EMAIL_HOST_PASSWORD': 're$RA8uf',
                   'EMAIL_PORT': 587,
                   'EMAIL_USE_TLS': True,
                   'URL_REGISTRATION': "http://127.0.0.1:8000/auth/register?code="}
@@ -168,8 +166,6 @@ DEFAULT_FROM_EMAIL = EMAIL_SETTINGS['DEFAULT_FROM_EMAIL']
 SERVER_EMAIL = EMAIL_SETTINGS['SERVER_EMAIL']
 EMAIL_HOST = EMAIL_SETTINGS['EMAIL_HOST']
 EMAIL_MAIN = EMAIL_SETTINGS['EMAIL_MAIN']
-EMAIL_HOST_USER = EMAIL_SETTINGS['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
 EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
 
