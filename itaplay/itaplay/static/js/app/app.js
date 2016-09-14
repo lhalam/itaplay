@@ -41,6 +41,21 @@ itaplay.config(function($routeProvider) {
             controller: CompanyController
         })
 
+	.when('/player/', {
+            templateUrl: '../../../static/js/app/player/views/all_player.html',
+            controller: AllPlayerController
+        })
+
+        .when('/player/add_new/', {
+            templateUrl: '../../../static/js/app/player/views/add_players.html',
+            controller: PlayerAddController
+        })
+
+        .when('/player/id=:id/', {
+            templateUrl: '../../../static/js/app/player/views/player.html',
+            controller: PlayerController
+        })
+
         .otherwise({redirectTo: '/users'});
 })
 .run(function($log) {
