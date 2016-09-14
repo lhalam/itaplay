@@ -45,6 +45,8 @@ class AdviserProjectList(generics.ListCreateAPIView):
     queryset = AdviserProject.objects.all()
     serializer_class = AdviserProjectSerializer
 
+    # TODO Return projects for specific company
+
     def post(self, request, *args, **kwargs):
         if not request.user.adviseruser.id_company_id:  # special for Admins
             return Response(status=status.HTTP_400_BAD_REQUEST)

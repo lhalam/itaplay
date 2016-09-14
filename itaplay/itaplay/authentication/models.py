@@ -33,6 +33,7 @@ class AdviserUser(models.Model):
         user.user = base_user
         user.id_company = invitation.id_company
         user.save()
+        return user
 
 
 class AdviserInvitations(models.Model):
