@@ -19,6 +19,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EMAIL_SETTINGS = {'DEFAULT_FROM_EMAIL': 'team@blabla.com',
                   'SERVER_EMAIL': 'adviser@gmail.com',
                   'EMAIL_HOST': 'smtp.gmail.com',
+                  'EMAIL_HOST_USER':'user@mail.com',
+                  'EMAIL_HOST_PASSWORD': 'password',
                   'EMAIL_MAIN': 'support@blabla.com',
                   'EMAIL_PORT': 587,
                   'EMAIL_USE_TLS': True,
@@ -165,6 +167,8 @@ MEDIA_URL = '/media/'
 DEFAULT_FROM_EMAIL = EMAIL_SETTINGS['DEFAULT_FROM_EMAIL']
 SERVER_EMAIL = EMAIL_SETTINGS['SERVER_EMAIL']
 EMAIL_HOST = EMAIL_SETTINGS['EMAIL_HOST']
+EMAIL_HOST_USER = EMAIL_SETTINGS['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
 EMAIL_MAIN = EMAIL_SETTINGS['EMAIL_MAIN']
 EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
 EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']

@@ -107,6 +107,13 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
             });
     };
 
+    $scope.setAreaStyle = function(area) {
+        return {height: area.height+'%',
+                width: area.width+'%',
+                top: area.top+'%',
+                left:area.left+'%'}
+    };
+
     var showAlert = function(message) {
         $mdDialog.show(
           $mdDialog.alert()

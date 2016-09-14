@@ -106,7 +106,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 }
 
 /* HIGHLIGHTER ================================== */
-.highlight {
+.searchHighlight {
   position:absolute;
   height:60%;
   width:100px;
