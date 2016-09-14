@@ -15,7 +15,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 class PlayerView(View):
     def get(self, request, player_id=None):
-        if player_id==None:
+        if not player_id::
             data = [model_to_dict(i) for i in Player.get_all()]
             return HttpResponse(json.dumps(data))
         player = Player.get_by_id(player_id)
