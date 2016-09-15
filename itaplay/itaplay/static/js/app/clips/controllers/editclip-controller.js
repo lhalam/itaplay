@@ -23,6 +23,9 @@ function EditClipController($scope, $sce, $http, $routeParams, $location, Upload
                 url: "clips/update/" + id,
                 method: 'PUT',
                 data: $scope.data
+            }).then(function(response) {
+                if (response.status == 201)
+                    $scope.successMsg = "You update clip successfully";
             })
         }
 
