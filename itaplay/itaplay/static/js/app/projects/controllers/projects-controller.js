@@ -135,7 +135,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
 };
 
 itaplay.controller('ProjectCtrl', function($scope, $http, $route) {
-    $http.get("api/projects/")
+    $http.get("api/projects")
             .then(function (response) {
                 $scope.projects = response.data['results'];
             });

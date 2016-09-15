@@ -30,6 +30,7 @@ function CompanyController($scope, $http, $routeParams, $location) {
   $scope.init = function(){
     $http.get("company/current_company_view/"+id).then(function (response) {
       $scope.company = response.data.company;
+      $scope.users = response.data.users;
     }, function(response) {
           console.log(response);
           $scope.data = "Something went wrong";
@@ -41,7 +42,7 @@ function CompanyController($scope, $http, $routeParams, $location) {
       });
     };      
     $scope.update = function(company){
-      $http.post("company/company_view/", company).success(function (company) {
+      $http.put("company/company_view/", company).success(function (company) {
         $location.path('/company');
       });
     };    
