@@ -12,4 +12,12 @@ angular.module('loginApp',['ngMaterial', 'ngMessages'])
                 function errorCallback(response) {
                 });
     }
+
+//    $scope.LogoutUser = function() {
+//        $http.get('/auth/logout').then(function(response) {
+//            $window.location.href = '/';
+//        },
+//            function errorCallback(response) {
+//            });
+//    }
 });

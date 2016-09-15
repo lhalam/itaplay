@@ -1,4 +1,4 @@
-<header>
+<header ng-controller="LogoutController">
   <md-toolbar>
     <div class="md-toolbar-tools">
       <img src="/static/images/Logo.png" class="header_logo">
@@ -10,11 +10,13 @@
         <span class="bar"></span>
         <label>search</label>
       </div>
-    
-    <md-button class="md-fab md-mini header_user_image" aria-label="user_image">img</md-button>
+
+        <md-button type="submit" ng-click="LogoutUser()" class="md-fab md-mini header_user_image" aria-label="user_image">Exit</md-button>
+
     </div>
+
   </md-toolbar>
-</header> 
+</header>
 
 <section layout="row" layout-align="center start">
   <md-button href="#users" class="groupX left">users</md-button>
@@ -23,6 +25,6 @@
   <md-button href="#allclips" class="groupX middle">clips</md-button>
   <md-button href="#player" class="groupX middle">players</md-button>
   <md-button class="groupX middle">messages</md-button>
-  <md-button href="#templates" class="groupX right">templates</md-button> 
-  <md-button href="#company" class="groupX right">companies</md-button> 
+  <md-button href="#templates" class="groupX right">templates</md-button>
+  <md-button href="#company" class="groupX right">companies</md-button>
 </section>

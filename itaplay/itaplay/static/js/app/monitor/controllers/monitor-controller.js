@@ -45,7 +45,7 @@ function MonitorController($scope, $http, $routeParams) {
 
     $scope.checkVideo = function(value) {
         var format = value.split('.').pop();
-        return ['mp4', 'avi', 'asf', 'flv'].includes(format) ? true : false
+        return ['mp4', 'avi', 'asf', 'flv','webm'].includes(format) ? true : false
     };
 
 };
