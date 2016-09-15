@@ -24,7 +24,7 @@ itaplay.config(function($routeProvider) {
         
         .when('/clips', {
             templateUrl: '../../../static/js/app/clips/views/add_clip.html',
-            controller: 'ClipController'
+            controller: 'AddClipController'
 
         })
 

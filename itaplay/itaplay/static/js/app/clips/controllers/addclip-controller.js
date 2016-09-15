@@ -1,5 +1,5 @@
 //inject angular file upload directives and services.
-itaplay.controller('ClipController', ['$scope', 'Upload', '$timeout', function($scope, Upload, $timeout) {
+itaplay.controller('AddClipController', ['$scope', 'Upload', '$timeout', function($scope, Upload, $timeout) {
     $scope.uploadPic = function(file) {
         file.upload = Upload.upload({
             url: '/clips/add_clip/',

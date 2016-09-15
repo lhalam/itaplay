@@ -1,15 +1,12 @@
 function AllClipController($scope, $http) {
     $scope.init = function() {
-
+        var api_url = '/clips/clips/';
+        $http.get(api_url)
+            .then(function(response) {
+                $scope.clips = response.data;
+                console.log($scope.clips);
+            });
     };
-    var api_url = '/clips/clips/';
-    $http.get(api_url)
-        .then(function(response) {
-            $scope.clips = response.data;
-            console.log($scope.clips);
-        });
-
-
 
     $scope.delete = function(object) {
 
