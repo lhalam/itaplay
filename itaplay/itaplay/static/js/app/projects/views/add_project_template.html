@@ -15,7 +15,7 @@
                               md-selected-item-change="parseTemplate(selected_template)"
                               placeholder="Select project template">
                             <md-item-template>
-                              <span md-highlight-text="search_text">{{item.template_name}}</span>
+                              <span md-highlight-text="search_text" md-highlight-flags="^i">{{item.template_name}}</span>
                             </md-item-template>
                             <md-not-found>
                               No templates matching "{{search_text}}" were found.
@@ -23,15 +23,9 @@
                         </md-autocomplete>
                     </md-content>
 
-                    <div ng-show="areas" layout="row" layout-padding>
-                        <div flex="initial" style="margin-top: 14px">Slide to zoom template: </div>
-                        <div flex>
-                            <md-slider ng-model="zoomValue" min="2" max="7" step="0.1">Slide to zoom</md-slider>
-                        </div>
-                    </div>
-                    <div ng-show="areas" layout="column" class="template-container" style="height: {{ zoomValue*100 }}px; width: {{ zoomValue*100 }}px;">
+                    <div ng-show="areas" layout="column" class="template-container">
                         <div id="{{ area.id }}" ng-value="area" ng-repeat="area in areas" class="area" ng-click="showDialog($event)"
-                             layout="column" style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left:{{ area.left }}%;">
+                             layout="column" ng-style="setAreaStyle(area)">
                             <p class="area-content" ng-show="area.clips" ng-value="clip" ng-repeat="clip in area.clips">{{ clip.fields.name }}</p>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import json
-from xml.etree import ElementTree as ET
+from xml.etree import ElementTree
 
 from django.views.generic.base import View
 from django.forms.models import model_to_dict
@@ -22,19 +22,19 @@ class AdviserProjectView(View):
         """
         Handling POST method.
         :param request: Request to View.
-        HttpResponseBadRequest if request contain incorrect data.
+        :return: Http response with status code 201
         """
         data = json.loads(request.body)
         template = XmlTemplate.get_by_id(data['template_id']).template_content
-        root = ET.fromstring(template)
-        for area in root.findall('area'):
-            area_id = int(area.get('id'))-1
-            for clip in data['areas'][area_id]['clips']:
-                clipTag = ET.SubElement(area, 'clip')
-                clipTag.set('id',str(clip['pk']))
-                clipTag.set('src',clip['fields']['video'])
-                clipTag.text = clip['fields']['name']
-        result_template = ET.tostring(root,encoding="us-ascii", method="xml")
+        tree = ElementTree.fromstring(template)
+        for area in data['areas']:
+            template_area = tree.find(".//area[@id=\"%s\"]"%(area['id']))
+            for clip in area['clips']:
+                clip_tag = ElementTree.SubElement(template_area, 'clip')
+                clip_tag.set('id',str(clip['pk']))
+                clip_tag.set('src',clip['fields']['video'])
+                clip_tag.text = clip['fields']['name']
+        result_template = ElementTree.tostring(tree,encoding="us-ascii", method="xml")
         project = AdviserProject.objects.filter(id = data['project_id']).first()
         project.project_template = result_template
         project.save()
@@ -47,6 +47,8 @@ class AdviserProjectList(generics.ListCreateAPIView):
     """
     queryset = AdviserProject.objects.all()
     serializer_class = AdviserProjectSerializer
+
+    # TODO Return projects for specific company
 
     def post(self, request, *args, **kwargs):
         if not request.user.adviseruser.id_company_id:  # special for Admins
