@@ -87,7 +87,7 @@ class AdviserProjectToPlayers(View):
         
     def put(self, request):
         """
-        Handling POST method. Send project to chosen players.
+        Handling PUT method. Send project to chosen players.
         :param request: Request to View.
         :return: Http response with status code 400 if players weren`t added. Http response with status code 201 if project is sended.
         """
