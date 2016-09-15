@@ -106,7 +106,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 }
 
 /* HIGHLIGHTER ================================== */
-.highlight {
+.searchHighlight {
   position:absolute;
   height:60%;
   width:100px;
@@ -141,9 +141,9 @@ input:focus ~ .highlight {
 
 
 /* Templates ===== */
-#templates_list{
+#templates_list {
   border-bottom: 1px solid black;
-
+}
 
 /* add clip form starting stylings ------------------------------- */
 
@@ -198,4 +198,9 @@ form .progress {
 .image_current_clip {
   width: 640px;
   height: 480px;
+}
+
+md-whiteframe {
+  margin: 15px;
+  padding: 25px;
 }
