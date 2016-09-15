@@ -20,15 +20,15 @@ class ClipView(View):
 
     def post(self, request):
         form = ClipForm(request.POST, request.FILES)
-        
+
         if form.is_valid:
             newclip = Clip(name=request.POST['filename'],
                            description=request.POST['description'],
-                           clipfile = request.FILES['file']
+                           clipfile=request.FILES['file']
                            )
             newclip.save_on_amazon_with_boto()
             newclip.save()
-    
+
             return HttpResponse(status=201)
 
     """
@@ -72,6 +72,7 @@ class ClipView(View):
         newname = data.get('fields', {}).get('name', None)
         newdescription = data.get('fields', {}).get('description', None)
         newclipfile = data.get('fields', {}).get('clipfile', None)
+        print newclipfile
 
         clip = Clip()
         clip = clip.get_clip(clip_id)
@@ -82,6 +83,5 @@ class ClipView(View):
                         name=newname,
                         description=newdescription,
                         pk=clip_id)
-            clip.save_on_amazon_with_boto()
-            clip.save()
-            return HttpResponse(status=201)
+            clip.save(update_fields=["name", "description"])
+        return HttpResponse(status=201)
