@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-from utils.s3utils import ClipUploadAmazon
+from utils.AmazonS3Service import ClipUploadAmazon
 
 
 class Clip(models.Model, ClipUploadAmazon):
