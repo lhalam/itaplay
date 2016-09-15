@@ -7,7 +7,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from forms import ClipForm
 from models import Clip
 from django.views.generic import View
-import itaplay.s3utils
 import json
 
 
@@ -19,13 +18,17 @@ class ClipView(View):
     :return: HttpResponse with code 201 if clip is added.
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         form = ClipForm(request.POST, request.FILES)
+        
         if form.is_valid:
-            newclip = Clip(video=request.FILES['file'],
-                           name=request.POST['filename'],
-                           description=request.POST['description'])
-            newclip.save_clip()
+            newclip = Clip(name=request.POST['filename'],
+                           description=request.POST['description'],
+                           clipfile = request.FILES['file']
+                           )
+            newclip.save_on_amazon_with_boto()
+            newclip.save()
+    
             return HttpResponse(status=201)
 
     """
@@ -63,21 +66,22 @@ class ClipView(View):
     :return: HttpResponse with code 201 if clip is updated.
     """
 
-    def put(self, request, clip_id, *args, **kwargs):
+    def put(self, request, clip_id):
 
         data = json.loads(request.body)[0]
         newname = data.get('fields', {}).get('name', None)
         newdescription = data.get('fields', {}).get('description', None)
-        newvideo = data.get('fields', {}).get('video', None)
+        newclipfile = data.get('fields', {}).get('clipfile', None)
 
         clip = Clip()
         clip = clip.get_clip(clip_id)
         form = ClipForm(clip)
 
         if form.is_valid():
-            clip = Clip(video=newvideo,
+            clip = Clip(clipfile=newclipfile,
                         name=newname,
                         description=newdescription,
                         pk=clip_id)
-            clip.save_clip()
+            clip.save_on_amazon_with_boto()
+            clip.save()
             return HttpResponse(status=201)

@@ -6,4 +6,4 @@ class ClipForm(forms.Form):
 
     class Meta:
             model = Clip
-            fields = ('name', 'description', 'video')
+            fields = ('name', 'description', 'clipfile')
