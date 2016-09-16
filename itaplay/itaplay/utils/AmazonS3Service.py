@@ -10,9 +10,15 @@ MediaS3BotoStorage = lambda: S3BotoStorage(location='media')
 VALID_VIDEO_EXTENSIONS = [".mp4", ".avi", ".wmv", ".ogg", ]
 VALID_IMAGE_EXTENSIONS = [".jpeg", ".jpg", ".png", ".svg", ".tiff", ".gif", ]
 
+# Class for upload media files to Amazon 
+
 class ClipUploadAmazon(object):
 
-   
+    """
+    Handling save file on Amazon method.
+
+    :return: True.
+    """
     def save_on_amazon_with_boto(self):
 
         if self.clipfile:
@@ -33,4 +39,3 @@ class ClipUploadAmazon(object):
             else:
                 raise ValidationError("Please enter valid file")
             return True
-

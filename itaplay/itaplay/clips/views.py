@@ -1,14 +1,13 @@
 from django.core import serializers
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, render_to_response, redirect, \
-    get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from forms import ClipForm
 from models import Clip
 from django.views.generic import View
 import json
 
+# Class for clips
 
 class ClipView(View):
 
