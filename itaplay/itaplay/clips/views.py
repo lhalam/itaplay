@@ -71,16 +71,13 @@ class ClipView(View):
         data = json.loads(request.body)[0]
         newname = data.get('fields', {}).get('name', None)
         newdescription = data.get('fields', {}).get('description', None)
-        newclipfile = data.get('fields', {}).get('clipfile', None)
-        print newclipfile
 
         clip = Clip()
         clip = clip.get_clip(clip_id)
         form = ClipForm(clip)
 
         if form.is_valid():
-            clip = Clip(clipfile=newclipfile,
-                        name=newname,
+            clip = Clip(name=newname,
                         description=newdescription,
                         pk=clip_id)
             clip.save(update_fields=["name", "description"])
