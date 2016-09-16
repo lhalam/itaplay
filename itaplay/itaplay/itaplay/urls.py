@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('authentication.urls')),
     url(r'^company/', include('company.urls')),
+    url(r'^templates/', include('xml_templates.urls')),
+    url(r'^api/', include('projects.urls')),
 ]
 
 
