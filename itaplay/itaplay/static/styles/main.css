@@ -37,18 +37,18 @@ footer {
   position: relative;
   margin-bottom: 5px; }
 
-input {
+.head_input {
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
   width: 300px;
   border: none;
   border-bottom: 1px solid #757575; }
-  input:focus {
+  .head_input:focus {
     outline: none; }
 
 /* LABEL ======================================= */
-label {
+.head_label {
   color: #999;
   font-size: 18px;
   font-weight: normal;
@@ -61,7 +61,7 @@ label {
   -webkit-transition: 0.2s ease all; }
 
 /* active state */
-input:focus ~ label, input:valid ~ label {
+.head_input:focus ~ .head_label, .head_input:valid ~ .head_label {
   top: -20px;
   font-size: 14px;
   color: #009688; }
@@ -87,11 +87,11 @@ input:focus ~ label, input:valid ~ label {
     right: 50%; }
 
 /* active state */
-input:focus ~ .bar:before, input:focus ~ .bar:after {
+.head_input:focus ~ .bar:before, .head_input:focus ~ .bar:after {
   width: 50%; }
 
 /* HIGHLIGHTER ================================== */
-.highlight {
+.head_highlight {
   position: absolute;
   height: 60%;
   width: 100px;
@@ -101,7 +101,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
   opacity: 0.5; }
 
 /* active state */
-input:focus ~ .highlight {
+.head_input:focus ~ .head_highlight {
   -webkit-animation: inputHighlighter 0.3s ease;
   -moz-animation: inputHighlighter 0.3s ease;
   animation: inputHighlighter 0.3s ease; }
@@ -156,11 +156,12 @@ form .progress {
     width: 240px;
     height: 160px; }
 
-  input {
-    font-size: 8px;
+  .head_input {
+    font-size: 18px;
     padding: 2px 2px 2px 1px;
     display: block;
-    width: 150px; }
+    width: 150px;
+    height: 30px; }
 
   .bar {
     position: relative;
