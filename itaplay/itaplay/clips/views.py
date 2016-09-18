@@ -6,8 +6,10 @@ from forms import ClipForm
 from models import Clip
 from django.views.generic import View
 import json
+from utils.amazons3service import save_on_amazon_with_boto, delete_from_amazon_with_boto
 
 # Class for clips
+
 
 class ClipView(View):
 
@@ -23,9 +25,13 @@ class ClipView(View):
         if form.is_valid:
             newclip = Clip(name=request.POST['filename'],
                            description=request.POST['description'],
-                           clipfile=request.FILES['file']
                            )
-            newclip.save_on_amazon_with_boto()
+
+            clipfile = request.FILES['file']
+
+            newclip.url = save_on_amazon_with_boto(clipfile)
+            newclip.mimetype = newclip.generate_mimetype(newclip.url)
+
             newclip.save()
 
             return HttpResponse(status=201)
@@ -37,8 +43,15 @@ class ClipView(View):
     """
 
     def delete(self, request, clip_id):
-        clip = Clip()
-        clip.delete_clip(clip_id)
+        data = json.loads(request.body)
+        clip = Clip.get_clip(clip_id=data['pk'])
+        data = serializers.serialize('json', clip)
+        data = data.encode('utf-8')
+        data = json.loads(data)[0]
+        url = data.get('fields', {}).get('url', None)
+
+        delete_from_amazon_with_boto(url)
+        clip.delete()
         return HttpResponse(status=201)
 
     """
@@ -49,13 +62,13 @@ class ClipView(View):
 
     def get(self, request, clip_id=None):
         if not clip_id:
-            clips = Clip()
-            clips = clips.get_all_clips()
+            # clips = Clip()
+            clips = Clip.get_all_clips()
             data = serializers.serialize('json', clips)
             return HttpResponse(data, content_type='application/json')
 
-        clip = Clip()
-        clip = clip.get_clip(clip_id)
+        # clip = Clip()
+        clip = Clip.get_clip(clip_id)
         data = serializers.serialize('json', clip)
         return HttpResponse(data, content_type='application/json')
 
