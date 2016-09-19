@@ -41,8 +41,7 @@ class ClipView(View):
     """
 
     def delete(self, request, clip_id):
-        data = json.loads(request.body)
-        clip = Clip.get_clip(clip_id=data['pk'])
+        clip = Clip.get_clip(clip_id)
         data = serializers.serialize('json', clip).encode('utf-8')
         # convert to dict
         data = json.loads(data)[0]

@@ -10,16 +10,9 @@ function AllClipController($scope, $http) {
 
     $scope.delete = function(object) {
 
-        $http({
-            url: '/clips/delete/' + object.pk,
-            method: 'DELETE',
-            data: {
-                pk: object.pk
-            },
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function(res) {
+        $http.delete('/clips/delete/' + object.pk, {pk: object.pk, 
+                headers: {"Content-Type": "application/json"}})
+        .then(function(res) {
             var index = $scope.clips.indexOf(object)
             $scope.clips.splice(index, 1);
             //$scope.data.splice(object,1);
