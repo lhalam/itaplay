@@ -3,7 +3,7 @@ from xml.etree import ElementTree as ET
 
 from django.views.generic.base import View
 from django.forms.models import model_to_dict
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from rest_framework.response import Response
 from rest_framework import status, generics
@@ -68,9 +68,13 @@ class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = AdviserProject.objects.all()
     serializer_class = AdviserProjectSerializer
 
+
 class AdviserProjectToPlayers(View):
 
     def get(self, request, project_id):
+        project = AdviserProject.objects.get(id=project_id)
+        if project.id_company.id != request.user.adviseruser.id_company.id:
+            return HttpResponseBadRequest("Permission denied")
         players = Player.objects.filter(project=project_id)
         data = [model_to_dict(i) for i in players]
         return HttpResponse(json.dumps(data))
@@ -80,6 +84,8 @@ class AdviserProjectToPlayers(View):
         if (not data.get("players")):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         project = AdviserProject.objects.get(id = data.get("project")["id"])
+        if project.id_company.id != request.user.adviseruser.id_company.id:
+            return HttpResponseBadRequest("Permission denied")
         for obj in data.get("players"):
             player = Player.get_by_id(obj["id"])
             player.project = project 
