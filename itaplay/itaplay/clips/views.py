@@ -43,11 +43,12 @@ class ClipView(View):
     def delete(self, request, clip_id):
         data = json.loads(request.body)
         clip = Clip.get_clip(clip_id=data['pk'])
-        data = serializers.serialize('json', clip)
-        data = data.encode('utf-8')
+        data = serializers.serialize('json', clip).encode('utf-8')
+        # convert to dict
         data = json.loads(data)[0]
+        # get current clip url
         url = data.get('fields', {}).get('url', None)
-
+        # delete file on amazon
         delete_from_amazon_with_boto(url)
         clip.delete()
         return HttpResponse(status=201)
@@ -60,12 +61,10 @@ class ClipView(View):
 
     def get(self, request, clip_id=None):
         if not clip_id:
-            # clips = Clip()
             clips = Clip.get_all_clips()
             data = serializers.serialize('json', clips)
             return HttpResponse(data, content_type='application/json')
 
-        # clip = Clip()
         clip = Clip.get_clip(clip_id)
         data = serializers.serialize('json', clip)
         return HttpResponse(data, content_type='application/json')

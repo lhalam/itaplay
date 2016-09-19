@@ -2,7 +2,7 @@ function EditClipController($scope, $sce, $http, $routeParams, $location, Upload
 
     var id = $routeParams.clip_id;
     $scope.init = function() {};
-    $http.get("clips/clips/" + id).then(function(response) {
+    $http.get("clips/" + id).then(function(response) {
             $scope.data = response.data;
             $scope.myAmazonUrl = response.data[0].fields.url
             $scope.trustSrc = function(src) {

@@ -1,6 +1,6 @@
 function AllClipController($scope, $http) {
     $scope.init = function() {
-        var api_url = '/clips/clips/';
+        var api_url = '/clips/allclips/';
         $http.get(api_url)
             .then(function(response) {
                 $scope.clips = response.data;

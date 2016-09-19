@@ -2,7 +2,7 @@ function CurrentClipController($scope, $sce, $http, $routeParams, $location, Upl
 
     var id = $routeParams.clip_id;
     $scope.init = function() {
-        $http.get("clips/clips/" + id).then(function(response) {
+        $http.get("clips/" + id).then(function(response) {
             $scope.data = response.data;
             $scope.myAmazonUrl = response.data[0].fields.url
 
@@ -20,14 +20,5 @@ function CurrentClipController($scope, $sce, $http, $routeParams, $location, Upl
             $scope.data = "Something went wrong";
         });
     };
-
-    $scope.update = function(clip) {
-        $http.post("clips/clips/" + id, {
-            "clip_id": id
-        }).success(function(clip) {
-            console.log(clip);
-            $location.path('/#/allclips');
-        });
-    }
 
 };
