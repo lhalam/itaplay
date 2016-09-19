@@ -1,6 +1,4 @@
 from django.core import serializers
-from django.template import RequestContext
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from forms import ClipForm
 from models import Clip

@@ -22,7 +22,7 @@ def save_on_amazon_with_boto(clipfile):
         k.set_contents_from_file(clipfile)
         # make public
         k.set_acl('public-read')
-        # generate url which will save in database later
+        # generate url which will be save in database 
         url = k.generate_url(expires_in=0, query_auth=False)
         return url
 

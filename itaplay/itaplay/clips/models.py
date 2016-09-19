@@ -2,13 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
-import boto
-from storages.backends.s3boto import S3BotoStorage
-from boto.s3.connection import S3Connection
-from django.conf import settings
-from itaplay import local_settings
 from django.core.exceptions import ValidationError
 
 VALID_VIDEO_EXTENSIONS = [".mp4", ".avi", ".wmv", ".ogg", ]
