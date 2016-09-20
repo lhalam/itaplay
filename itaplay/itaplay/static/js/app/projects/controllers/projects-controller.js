@@ -157,7 +157,9 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     $http.get("api/projects/" + id + "/")
         .then(function (response) {
             $scope.project = response.data;
-        });
+        }, function errorCallback(response) {
+            $location.path('/projects/error');    // or show message with error
+    });
 
     $http.get("api/projects_to_players/" + id)
         .then(function (response) {

@@ -45,10 +45,15 @@ class AdviserProjectList(generics.ListCreateAPIView):
     """
     List all AdviserProjects of create new AdviserProject
     """
-    queryset = AdviserProject.objects.all()
     serializer_class = AdviserProjectSerializer
 
-    # TODO Return projects for specific company
+    def get_queryset(self):
+        """
+        Filtering API only for users company
+        :return: filtered queryset
+        """
+        user = self.request.user
+        return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
     def post(self, request, *args, **kwargs):
         if not request.user.adviseruser.id_company_id:  # special for Admins
@@ -67,8 +72,15 @@ class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve, update or delete a AdviserProject instance.
     """
-    queryset = AdviserProject.objects.all()
     serializer_class = AdviserProjectSerializer
+
+    def get_queryset(self):
+        """
+        Filtering API only for users company
+        :return: filtered queryset
+        """
+        user = self.request.user
+        return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
 
 class AdviserProjectToPlayers(View):

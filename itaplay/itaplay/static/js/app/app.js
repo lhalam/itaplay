@@ -26,7 +26,9 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/projects/views/add_project.html',
             controller: 'AddProjectCtrl'
         })
-
+        .when('/projects/error/', {
+            templateUrl: '../../../static/js/app/projects/views/error_project.html',
+        })
 
         .when('/clip/pk=:pk/', {
             templateUrl: '../../../static/js/app/clips/views/current_clip.html',
