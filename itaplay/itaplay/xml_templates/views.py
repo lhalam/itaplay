@@ -34,12 +34,11 @@ class TemplateView(View):
         Returns:
             HttpResponse with code 201 if company is added.
         """
-        if request.method == 'POST':
-            template_name = request.POST.get('templateName')
-            xml_file = request.FILES['file'].read()
-            xml_template = XmlTemplate()
-            xml_template.set(template_name, xml_file)
-            xml_template.save()
+        template_name = request.POST.get('templateName')
+        xml_file = request.FILES['file'].read()
+        xml_template = XmlTemplate()
+        xml_template.set(template_name, xml_file)
+        xml_template.save()
         return HttpResponse(201)
 
     def delete(self, request, template_id):
