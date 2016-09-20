@@ -47,7 +47,7 @@ function CompanyController($scope, $http, $routeParams, $location) {
         });
     };      
     $scope.update = function(company){
-      $http.put("company/company_details_view/"+id, company).success(function (company) {
+      $http.put("company/company_details_view/"+id +"/", company).success(function (company) {
         $location.path('/company');
       });
     };    

@@ -76,7 +76,7 @@ class AdviserProjectToPlayers(View):
     Class-based view used for handling adding project to players while edditing.
     """
     def get(self, request, project_id):
-         """
+        """
         Handling GET method.
         :param request: Request to View.
         :param project_id: id of project for which players will be returned
