@@ -72,8 +72,16 @@ class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class AdviserProjectToPlayers(View):
-
+    """
+    Class-based view used for handling adding project to players while edditing.
+    """
     def get(self, request, project_id):
+         """
+        Handling GET method.
+        :param request: Request to View.
+        :param project_id: id of project for which players will be returned
+        :return: Http response with list of players that have current project
+        """
         project = AdviserProject.objects.get(id=project_id)
         if project.id_company.id != request.user.adviseruser.id_company.id:
             return HttpResponseBadRequest("Permission denied")
@@ -82,6 +90,11 @@ class AdviserProjectToPlayers(View):
         return HttpResponse(json.dumps(data))
         
     def put(self, request):
+        """
+        Handling PUT method. Send project to chosen players.
+        :param request: Request to View.
+        :return: Http response with status code 400 if players weren`t added. Http response with status code 201 if project is sended.
+        """
         data = json.loads(request.body)
         if (not data.get("players")):
             return Response(status=status.HTTP_400_BAD_REQUEST)

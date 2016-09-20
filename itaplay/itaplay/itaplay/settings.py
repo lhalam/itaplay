@@ -57,11 +57,8 @@ INSTALLED_APPS = [
     'xml_templates',
     'clips',
     'projects',
-<<<<<<< HEAD
     'player',
-=======
     'tests',
->>>>>>> 1da495320ea91a04779d820baeb38c9b63d48532
 ]
 
 MIDDLEWARE_CLASSES = [
