@@ -1,5 +1,5 @@
 'use strict';
-var monitorApp = angular.module('monitorApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var monitorApp = angular.module('monitorApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'ngAnimate']);
 
 monitorApp.config(function($routeProvider) {
     $routeProvider
@@ -8,3 +8,4 @@ monitorApp.config(function($routeProvider) {
             controller: MonitorController
         });
       });
+
