@@ -98,8 +98,8 @@ class AdviserProjectsTests(APITestCase):
         """
         url = reverse('projects-list')
         response = self.client.get(url)
-        self.assertEqual(response.data, {'count': 1, "next": 'null', "previous": 'null', "results":
-            [{"id": 1, "id_company": 1, "name": "TestProject", "description": "Test description"}]})
+        self.assertEqual(response.content, '{"count":1,"next":null,"previous":null,"results":[{"id":1,"id_company":1,'
+                                           '"name":"TestProject","description":"Test description"}]}')
 
     def test_getting_adviser_project(self):
         """
@@ -142,25 +142,10 @@ class AdviserProjectsTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(AdviserProject.objects.get(id=1).id_company, Company.objects.get(id=1))
 
-    def test_access_adviser_project_list(self):
-        """
-        Testing is AdviserProjects are filtered by user company
-        """
-        url = reverse('projects-list')
-        response = self.client.get(url)
-        self.assertEqual(response.data,
-                         {'count': 1, "next": 'null', "previous": 'null', "results":
-                             [{"id": 1, "id_company": 1, "name": "TestProject", "description": "Test description"}]})
-        self.client.logout()
-        self.client.login(user="test2@test.com", password="password")
-        response = self.client.get(url)
-        self.assertEqual(response.data, {'count': 1, "next": 'null', "previous": 'null', "results":
-            [{"id": 2, "id_company": 2, "name": "TestProject 2", "description": "Test description"}]})
-
     def test_access_to_adviser_project(self):
         """
         Testing is AdviserProject inaccessible for user with others company ids
         """
         url = reverse('project', args=[2])
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
