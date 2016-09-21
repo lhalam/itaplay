@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from forms import CompanyForm
 from django.core import serializers
 from django.views.generic.base import View
-from django.views.generic import ListView, DetailView
 from django.forms.models import model_to_dict
 from django.http import HttpResponseBadRequest, HttpResponse
 
