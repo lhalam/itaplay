@@ -21,15 +21,15 @@
                     <md-card-title >
                         <md-card-title-media>
                             <div class="md-media-lg">
-                                <md-button  class="md-accent" class="md-card-image" href = "#company/id={{company.pk}}">
-                                    <img src="{{company.fields.company_logo}}"  alt="{{company.fields.company_name}}" >
+                                <md-button  class="md-accent" class="md-card-image" href = "#company/id={{company.id}}">
+                                    <img src="{{company.company_logo}}"  alt="{{company.company_name}}" >
                                 </md-button >
                             </div>
                         </md-card-title-media>
                         <md-card-title-text>
-                            <span class="md-headline">{{company.fields.company_name}}</span>
-                            <span class="md-subhead">{{company.fields.company_zipcode}}</span>
-                            <span class="md-subhead">{{company.fields.company_mail}}</span>
+                            <span class="md-headline">{{company.company_name}}</span>
+                            <span class="md-subhead">{{company.company_zipcode}}</span>
+                            <span class="md-subhead">{{company.company_mail}}</span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-actions layout="row">
