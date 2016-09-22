@@ -8,4 +8,3 @@ monitorApp.config(function($routeProvider) {
             controller: MonitorController
         });
       });
-

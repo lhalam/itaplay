@@ -3,11 +3,11 @@
     <div  ng-repeat="area in areas" >
 
         <div class="area"  style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">
-            <object ng-if="checkVideo(clip.src)" ng-repeat="clip in area.clips" data="../media/{{clip.src}}"  type="video/mp4" height="100%"  width="100%" autohide="1"></object>
+            <object ng-if="checkVideo(clip.src)" ng-repeat="clip in area.clips" data="../media/{{clip.src}}"  type="video/mp4" height="100%"  width="100%" ></object>
         </div>
 
         <div class="area" style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">  
-            <img ng-if="checkImage(clip.src)"  ng-repeat="clip in area.clips"  ng-click="nextSlide(area.id, area.clips)"  ng-show="isCurrentSlideIndex(area.id, $index)" ng-src="../media/{{clip.src}}" height="100%"  width="100%">
+            <img ng-if="checkImage(clip.src)"  ng-repeat="clip in area.clips" ng-show="isCurrentSlideIndex(area.id, $index, area.clips)" ng-src="../media/{{clip.src}}" height="100%"  width="100%">
         </div> 
 
     </div>     
