@@ -10,22 +10,27 @@ from django.views.generic.base import View
 from django.views.generic import DeleteView
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse,HttpResponseBadRequest
 
 
 class PlayerView(View):
+
     def get(self, request, player_id=None):
         if player_id==None:
             data = [model_to_dict(i) for i in Player.get_all()]
             return HttpResponse(json.dumps(data))
         player = Player.get_by_id(player_id)
         player = model_to_dict(player)
-        return HttpResponse(json.dumps({"player":player}))
+        return HttpResponse(json.dumps({"player": player}))
 
     def post(self, request):
         player = Player()
+        print 'player',player
         data = json.loads(request.body)
+        print 'body', request.body
+        print 'data ', data
         player_form = PlayerForm(data)
+        print 'player form:', player_form
         if not player_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
         player.set(data) 
@@ -42,6 +47,4 @@ class PlayerView(View):
 
     def delete(self, request, player_id):
         Player.delete_by_id(player_id)
-        return HttpResponse(201)     
-
-              
+        return HttpResponse(200)

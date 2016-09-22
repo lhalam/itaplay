@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'clips',
     'projects',
     'player',
-    'monitor'
+    'monitor',
+    'tests'
 ]
 
 MIDDLEWARE_CLASSES = [

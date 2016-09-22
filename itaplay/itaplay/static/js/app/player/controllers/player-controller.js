@@ -39,7 +39,7 @@ function PlayerAddController($scope, $http,  $location) {
 
 function PlayerController($scope, $http, $routeParams,  $location) {
   var id = $routeParams.id;
-  $scope.initplay = function(){
+  $scope.init = function(){
     $http.get("player/current_player_view/"+id).then(function (response) {
       $scope.player = response.data.player;
     }, function(response) {

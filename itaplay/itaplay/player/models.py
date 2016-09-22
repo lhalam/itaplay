@@ -28,4 +28,7 @@ class Player(models.Model):
 
     @classmethod
     def get_by_id(cls, player_id):
-        return cls.objects.get(id=player_id)
+        try:
+            return cls.objects.get(id=player_id)
+        except:
+            return None
