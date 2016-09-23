@@ -27,7 +27,6 @@ class PlayerViewTestCase(TestCase):
             )
         _project.save()
 
-
         self.first = [Player.objects.create(
             id=1,
             name="player1",
@@ -77,8 +76,10 @@ class PlayerViewTestCase(TestCase):
 
     def test_put(self):
         url = reverse('players')
-        data = json.dumps({'name': 'Put Player', 'description': 'Put description',
-                           'mac_address': "11:2a:bb:q1:ss:77", 'id': 3})
+        data = json.dumps({'id': 2, 'name': 'Put Player',
+                           'description': "player2 description",
+                           'mac_address': "88:2a:bb:q1:ss:88",
+                           'status': True})
         response = self.client.put(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(Player.objects.get(id=3).name, 'Put Player')
+        self.assertEqual(Player.objects.get(id=2).name, 'Put Player')
