@@ -28,7 +28,7 @@ class XmlTemplateModelTests(TestCase):
 
     def test_xml_template_get_by_id(self):
         xmlTemplateExpected = XmlTemplate.objects.get(id=1)
-        self.assertEquals(XmlTemplate.get_by_id(1), xmlTemplateExpected)
+        self.assertEqual(XmlTemplate.get_by_id(1), xmlTemplateExpected)
 
     def test_xml_template_get_all(self):
         xmlTemplatesExpected = XmlTemplate.objects.all()
@@ -39,12 +39,12 @@ class XmlTemplateModelTests(TestCase):
         xmlTemplateResult.set("newTemplate", '''<?xml >
             <project name="newTemplate">
             </project> ''',)
-        self.assertEquals(xmlTemplateResult.template_name, "newTemplate")
-        self.assertEquals(xmlTemplateResult.template_content, '''<?xml >
+        self.assertEqual(xmlTemplateResult.template_name, "newTemplate")
+        self.assertEqual(xmlTemplateResult.template_content, '''<?xml >
             <project name="newTemplate">
             </project> ''')
 
     def test_xml_template_delete(self):
         XmlTemplate.delete(1)
-        self.assertEquals(XmlTemplate.objects.count(), 1)
+        self.assertEqual(XmlTemplate.objects.count(), 1)
         self.assertFalse(XmlTemplate.objects.filter(pk=1).exists())
