@@ -113,7 +113,7 @@ class AdviserProjectToPlayers(View):
         """
         data = json.loads(request.body)
         if (not data.get("players")):
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return HttpResponseBadRequest("Players are not added. Please, add some players.")
         project = AdviserProject.objects.get(id = data.get("project")["id"])
         if project.id_company.id != request.user.adviseruser.id_company.id:
             return HttpResponseBadRequest("Permission denied")
