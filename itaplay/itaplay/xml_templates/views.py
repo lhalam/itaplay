@@ -50,6 +50,5 @@ class TemplateView(View):
         Returns:
             HttpResponse with code 201 if template is deleted.
         """
-        if request.method == 'DELETE':
-            XmlTemplate.delete(template_id)
+        XmlTemplate.delete(template_id)
         return HttpResponse(201)
