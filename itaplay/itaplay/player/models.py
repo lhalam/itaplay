@@ -12,8 +12,7 @@ class Player(models.Model):
     project = models.ForeignKey(AdviserProject, blank = True, null = True, on_delete=models.SET_NULL)
 
     def set(self, arg):
-        self = Player(**arg)
-        self.save()
+        Player(**arg).save()
 
     def delete(self):
         self.delete()
