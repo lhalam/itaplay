@@ -56,11 +56,6 @@ class PlayerTestCase(TestCase):
         self.assertEqual(test.name, "player3")
         self.assertEqual(test.mac_address, "00:00:00:q1:ss:88")
 
-    def test_player_delete(self):
-        test = Player.objects.all()
-        test.delete()
-        self.assertEqual(len(test), 0)
-
     def test_player_delete_by_id(self):
         Player.delete_by_id(1)
         try:
@@ -75,6 +70,10 @@ class PlayerTestCase(TestCase):
     def test_player_get_by_id(self):
         test = Player.get_by_id(1)
         self.assertEqual(test.name, 'player1')
+
+    def test_player_get_None(self):
+        test = Player.get_by_id(33)
+        self.assertIsNone(test)
 
 
 

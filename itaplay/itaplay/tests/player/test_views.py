@@ -12,6 +12,7 @@ class PlayerViewTestCase(TestCase):
 
     def setUp(self):
         _company = Company(
+            id=1,
             company_zipcode="79008",
             company_logo="http://test.test",
             company_name="testcompany",
@@ -20,6 +21,7 @@ class PlayerViewTestCase(TestCase):
         )
         _company.save()
         _project = AdviserProject(
+            id=1,
             id_company=_company,
             name="project1",
             description="test",
@@ -90,3 +92,10 @@ class PlayerViewTestCase(TestCase):
         response = self.client.put(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Player.objects.get(id=2).name, 'Put Player')
+
+    def test_failed_put(self):
+        url = reverse('players')
+        data = json.dumps({'name': 'TestPlayer', 'description': 'Player description',
+                           'mac_address': "11:2a:bb:q1:ss:77111111", 'id': 1, 'status': True})
+        response = self.client.put(url, data=data, content_type='application/json')
+        self.assertEqual(response.status_code, 400)
