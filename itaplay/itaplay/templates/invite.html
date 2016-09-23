@@ -22,7 +22,7 @@
       <div flex="50" flex-offset="25" flex-sm="90" offset-sm="5">
          <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
             <span flex>
-               <div layout="column">
+               <div ng-init="init()" layout="column">
                   <div layout="row">
                      <h2>Invite user</h2>
                   </div>
@@ -33,13 +33,15 @@
                            <input type="email" ng-model="inviteInfo.email" name="email" required>
                         </md-input-container>
                         <md-input-container>
-                           <label>Company ID</label>
-                           <input type="number" ng-model="inviteInfo.id_company" name="id_company" required>
+                           <label>Company</label>
+                            <md-select ng-model="company">
+                              <md-option ng-repeat="company in companies" ng-value="company" ng-bind="company.fields.company_name"></md-option>
+                            </md-select>
                         </md-input-container>
                      </div>
                      <div layout="row">
                         <div flex offset="33"></div>
-                        <md-button type='reset' flex>Cancel</md-button>
+                        <md-button type="reset" flex>Reset</md-button>
                         <md-button type="submit" flex class="md-raised md-primary">Invite</md-button>
                      </div>
                   </form>
