@@ -61,12 +61,19 @@ class PlayerViewTestCase(TestCase):
     def test_post(self):
         url = reverse('players')
         data = json.dumps({'name': 'TestPlayer', 'description': 'Player description',
-                           'mac_address': "11:2a:bb:q1:ss:77", 'id': 4})
+                           'mac_address': "11:2a:bb:q1:ss:77", 'id': 4,'status': True})
         response = self.client.post(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Player.objects.get(id=4).name, 'TestPlayer')
         self.assertEqual(Player.objects.get(id=4).description, 'Player description')
         self.assertEqual(Player.objects.get(id=4).mac_address, "11:2a:bb:q1:ss:77")
+
+    def test_failed_post(self):
+        url = reverse('players')
+        data = json.dumps({'name': 'TestPlayer', 'description': 'Player description',
+                           'mac_address': "11:2a:bb:q1:ss:77111111", 'id': 4, 'status': True})
+        response = self.client.post(url, data=data, content_type='application/json')
+        self.assertEqual(response.status_code, 400)
 
     def test_delete(self):
         url = reverse('player_delete', args=[1])

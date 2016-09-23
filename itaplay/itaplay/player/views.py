@@ -25,12 +25,8 @@ class PlayerView(View):
 
     def post(self, request):
         player = Player()
-        print 'player',player
         data = json.loads(request.body)
-        print 'body', request.body
-        print 'data ', data
         player_form = PlayerForm(data)
-        print 'player form:', player_form
         if not player_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
         player.set(data) 
