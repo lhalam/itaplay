@@ -1,4 +1,4 @@
-function MonitorController($scope, $http, $routeParams) {
+function MonitorController($scope, $rootScope, $http, $routeParams,  $interval) {
     var mac = $routeParams.mac;
     $scope.init = function( ) {
         $http.get('get_by_mac/'+ mac).then(function(response) {
@@ -22,7 +22,6 @@ function MonitorController($scope, $http, $routeParams) {
                 $scope.areas[i]['width'] = DOM_areas[i].attributes.width.nodeValue;
                 $scope.areas[i]['top'] = DOM_areas[i].attributes.top.nodeValue;
                 $scope.areas[i]['left'] = DOM_areas[i].attributes.left.nodeValue;
-
                 DOM_clip = DOM_areas[i].getElementsByTagName("clip");
                 $scope.areas[i]['clips'] = [];
                 for (var k = 0; k < DOM_clip.length; k++) {
@@ -30,6 +29,8 @@ function MonitorController($scope, $http, $routeParams) {
                     $scope.areas[i]['clips'][k]['src'] = DOM_clip[k].attributes.src.nodeValue;
                 };
             };
+            ImageSlider($scope.areas);   
+          
         }, function(response) {
             console.log(response);
             $scope.data = "Something went wrong";
@@ -37,15 +38,27 @@ function MonitorController($scope, $http, $routeParams) {
     };
 
     $scope.checkImage = function(value) {
-        console.log("checkImage", value);
         var format = value.split('.').pop();
-        return ['jpg', 'img', 'png', 'gif'].includes(format) ? true : false
+        return ['jpg', 'img', 'png', 'gif'].includes(format) ? true : false;
 
     };
 
     $scope.checkVideo = function(value) {
         var format = value.split('.').pop();
-        return ['mp4', 'avi', 'asf', 'flv','webm'].includes(format) ? true : false
+        return ['mp4', 'avi', 'asf', 'flv','webm'].includes(format) ? true : false;
     };
 
+    $scope.currentIndex=[];
+
+    $scope.isCurrentSlideIndex = function (id_area, index) {
+        return $scope.currentIndex[id_area] === index;
+    };
+
+    var ImageSlider = function(areas){
+        areas.forEach(function(area) {
+          $scope.currentIndex[area['id']] = 0;
+          //clips = area['clips']
+          $interval(function(){$scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentIndex[area['id']] : 0;}, 5000+area['id']*400);
+        });
+    };
 };

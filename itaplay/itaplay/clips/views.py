@@ -27,7 +27,8 @@ class ClipView(View):
     """
     Handling DELETE method.
     
-    :return: HttpResponse with code 201 if clip is deleted.
+    :return:
+        HttpResponse with code 201 if clip is deleted.
     """
     def delete(self, request, pk):
         clip = Clip()
