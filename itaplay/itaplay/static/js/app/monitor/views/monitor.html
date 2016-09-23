@@ -7,7 +7,7 @@
         </div>
 
         <div class="area" style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">  
-            <img ng-if="checkImage(clip.src)"  ng-repeat="clip in area.clips" ng-show="isCurrentSlideIndex(area.id, $index, area.clips)" ng-src="../media/{{clip.src}}" height="100%"  width="100%">
+            <img ng-if="checkImage(clip.src)"  ng-repeat="clip in area.clips" ng-show="isCurrentSlideIndex(area.id, $index)" ng-src="../media/{{clip.src}}" height="100%"  width="100%">
         </div> 
 
     </div>     
