@@ -32,7 +32,7 @@
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
                         <md-select placeholder="ID of administrator is {{company.administrator}}" ng-model="company.administrator"> 
-                            <md-option ng-value="user" ng-repeat="user in users">Change to {{user.id}}</md-option> 
+                            <md-option ng-value="user" ng-repeat="user in users">Change to <img src="{{user.avatar}}" alt="user" height ="50px">  id: {{user.id}}</md-option> 
                         </md-select>               
                         <label>Choose admin:</label>
                     </md-input-container>

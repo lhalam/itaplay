@@ -161,15 +161,15 @@ class CompanyViewTestCase(TestCase):
         url = reverse('company_list_view')
         response = self.client.post(url, data=invalid_data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
-        masage = response._container[0]
-        self.assertEqual(masage, 'Invalid input data. Please edit and try again.')
+        massage = response._container[0]
+        self.assertEqual(massage, 'Invalid input data. Please edit and try again.')
 
         self.client = Client()
         self.client.login(username="test@test.com", password="password")
         response = self.client.post(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
-        masage = response._container[0]
-        self.assertEqual(masage, 'Permission denied')
+        massage = response._container[0]
+        self.assertEqual(massage, 'Permission denied')
         
 
     def test_put(self):
@@ -211,13 +211,14 @@ class CompanyViewTestCase(TestCase):
                     "company_mail" : "testtestes",
                     "company_address" : "test address",
                     "company_phone" : "151551515",    
-                    "administrator" : 2,
+                    "administrator" : 1,
                 })
         response = self.client.put(url, data=invalid_data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
-        masage = response._container[0]
-        self.assertEqual(masage, 'Invalid input data. Please edit and try again.')
+        massage = response._container[0]
+        self.assertEqual(massage, 'Invalid input data. Please edit and try again.')
 
+        # company admin
         self.client = Client()
         self.client.login(username="test@test.com", password="password")
         data_user_1 = json.dumps({
@@ -241,13 +242,28 @@ class CompanyViewTestCase(TestCase):
                     "administrator" : 3,
                 })
         response = self.client.put(url, data=data_user_1, content_type='application/json')
-        self.assertEqual(response.status_code, 400)
-        masage = response._container[0]
-        self.assertEqual(masage, 'Permission denied')
+        self.assertEqual(response.status_code, 201)
         response = self.client.put(url_2, data=data_user_2, content_type='application/json')
         self.assertEqual(response.status_code, 400)
-        masage = response._container[0]
-        self.assertEqual(masage, 'Permission denied')
+        massage = response._container[0]
+        self.assertEqual(massage, 'Permission denied')
+        # regularuser
+        self.client = Client()
+        self.client.login(username="test3@test.com", password="password")
+        data_regular_user = json.dumps({
+                   "id" : 1,
+                    "company_zipcode" : "123444411",
+                    "company_logo" : "http://teeest.tst",
+                    "company_name" : "testcompany 2",
+                    "company_mail" : "test@mail.test",
+                    "company_address" : "test address 2",
+                    "company_phone" : "252525552522",   
+                    "administrator" : 1,
+                })
+        response = self.client.put(url, data=data_regular_user, content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        massage = response._container[0]
+        self.assertEqual(massage, 'Permission denied')
 
     def test_delete(self):
         url = reverse('company_details_view', args=[1])
@@ -259,5 +275,5 @@ class CompanyViewTestCase(TestCase):
         url_2 = reverse('company_details_view', args=[2])
         response = self.client.delete(url_2)
         self.assertEqual(response.status_code, 400)
-        masage = response._container[0]
-        self.assertEqual(masage, 'Permission denied')
+        massage = response._container[0]
+        self.assertEqual(massage, 'Permission denied')
