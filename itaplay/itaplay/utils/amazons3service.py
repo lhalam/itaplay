@@ -37,3 +37,4 @@ def delete_from_amazon_with_boto(url):
     # print filename_from_url
     k.key = settings.MEDIAFILES_LOCATION + filename_from_url
     bucket.delete_key(k)
+    return True
