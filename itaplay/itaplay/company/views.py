@@ -18,11 +18,9 @@ class CompanyListView(View):
     def get(self, request):
         """
         Handling GET method.
-        :args
-            request: Request to View.
-            company_id: id of company to be returned.
+        :param request: 
         :return: HttpResponse with company fields and values by id_company of user which is logined. 
-        If user is super admin returns all companies with their fields and values.
+        If user is superuser returns all companies with their fields and values.
         """
         user = request.user
         if user.is_superuser:
@@ -37,7 +35,7 @@ class CompanyListView(View):
         Handling POST method.
         :param request: Request to View.
         :return: HttpResponse with code 201 if company is added or
-        HttpResponseBadRequest if request contain incorrect data.
+        HttpResponseBadRequest if request contain incorrect data or user is not superuser.
         """
         if not request.user.is_superuser:
             return HttpResponseBadRequest("Permission denied")
@@ -64,9 +62,9 @@ class CompanyDetailsView(View):
             request: Request to View.
             company_id: id of company to be returned.
         :return: HttpResponse with company fields and values by id. 
-        If company_id is 'None' returns all companies with their fields and values.
+        If user is not superuser and tries to get acces into foreign company 
+        returns HttpResponseBadRequest with 'Permission denied' massage.
         """
-
         company_id = int(company_id)  
         if (not request.user.is_superuser)  and  (company_id != AdviserUser.objects.get(user=request.user.id).id_company.id):
            return HttpResponseBadRequest("Permission denied")
@@ -82,12 +80,13 @@ class CompanyDetailsView(View):
     def put(self, request, company_id):
         """
         Handling put method.
-        :param request: Request to View.
-        ^company_id: id of company to be updated.
+        :args
+            request: Request to View.
+            company_id: id of company to be updated.
         :return: HttpResponse with code 201 if company is updated or
-        HttpResponseBadRequest if request contain incorrect data.
+        HttpResponseBadRequest if request contain incorrect data also if user is not superuser .
         """
-        if not request.user.is_superuser:
+        if (not request.user.is_superuser)  and (Company.get_company(company_id).administrator != AdviserUser.objects.get(user=request.user.id)):
             return HttpResponseBadRequest("Permission denied")
         data = json.loads(request.body)
         if type(data.get("administrator"))==int: 
@@ -108,6 +107,7 @@ class CompanyDetailsView(View):
             request: Request to View.
             company_id: id of company to be deleted.
         :return: HttpResponse with code 201 if company is deleted.
+        HttpResponseBadRequest with 'Permission denied' if user is not superuser.
         """
 
         if not request.user.is_superuser:
