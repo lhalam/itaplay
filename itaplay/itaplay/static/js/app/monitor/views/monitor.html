@@ -3,7 +3,7 @@
     <div  ng-repeat="area in areas" >
 
         <div class="area"  style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">
-            <object ng-if="checkVideo(clip.src)" ng-repeat="clip in area.clips" data="../media/{{clip.src}}"  type="video/mp4" height="100%"  width="100%" ></object>
+            <object ng-if="checkVideo(clip.src)" ng-repeat="clip in area.clips" data="/media/{{clip.src}}"  type="video/mp4" height="100%"  width="100%" ></object>
         </div>
 
         <div class="area" style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">  
