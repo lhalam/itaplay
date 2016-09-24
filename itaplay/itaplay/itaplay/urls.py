@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^company/', include('company.urls')),
     url(r'^templates/', include('xml_templates.urls')),
     url(r'^api/', include('projects.urls')),
+    url(r'^player/', include('player.urls')),
 ]
 
 
