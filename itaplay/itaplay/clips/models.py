@@ -2,44 +2,48 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.exceptions import ValidationError
+
+VALID_VIDEO_EXTENSIONS = [".mp4", ".avi", ".wmv", ".ogg", ]
+VALID_IMAGE_EXTENSIONS = [".jpeg", ".jpg", ".png", ".svg", ".tiff", ".gif", ]
 
 
 class Clip(models.Model):
+
     """
     Model of clip.
     """
-    
-    name = models.CharField(max_length=128, null=True, blank=True)  
-    video = models.FileField(upload_to='clips/%Y/%m/%d', blank=True, null=True)
 
-    def delete_clip(self, pk):
-        """
-        Method for deleteing clip from database.
-        :param pk: primary key for searched clip.
-        :return: nothing.
-        """
-        Clip.objects.filter(pk = pk).delete()
+    name = models.CharField(max_length=128, null=True, blank=False)
+    description = models.CharField(max_length=512, null=True, blank=False)
+    url = models.CharField(max_length=256, null=True, blank=False)
+    mimetype = models.CharField(max_length=64, null=True, blank=True)
 
-    def get_clip(self, pk):
+    @classmethod
+    def get_clip(self, clip_id):
         """
         Method for getting current clip from database.
         :param pk: primary key for searched clip.
-        
         """
-        return Clip.objects.filter(pk = pk)
+        return Clip.objects.filter(id=clip_id)
 
-    def save_clip(self, *args, **kwargs):
-        """
-        Method for saving current clip to database.
-
-        """
-        super(Clip, self).save(*args, **kwargs)
-
+    @classmethod
     def get_all_clips(self):
         """
         Method for getting all clips from database.
         :param pk: primary key for searched clip.
-        
         """
         return Clip.objects.all()
 
+    def generate_mimetype(self, url):
+        """
+        Method for generating clip mimetype.
+        """
+
+        if url.endswith(tuple(VALID_VIDEO_EXTENSIONS)):
+            mimetype = "video/mp4"
+        elif url.endswith(tuple(VALID_IMAGE_EXTENSIONS)):
+            mimetype = "image/jpeg"
+        else:
+            raise ValidationError("Please enter valid file")
+        return mimetype

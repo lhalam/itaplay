@@ -53,6 +53,8 @@ class AdviserProjectList(generics.ListCreateAPIView):
         :return: filtered queryset
         """
         user = self.request.user
+        if user.is_superuser:
+            return AdviserProject.objects.all()
         return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
     def post(self, request, *args, **kwargs):
@@ -80,6 +82,8 @@ class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
         :return: filtered queryset
         """
         user = self.request.user
+        if user.is_superuser:
+            return AdviserProject.objects.all()
         return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
 
