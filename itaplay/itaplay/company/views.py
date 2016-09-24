@@ -1,11 +1,10 @@
 import json
+
 from models import Company
-from authentication.models import AdviserUser
-from django.contrib.auth.models import User
 from forms import CompanyForm
-from django.core import serializers
+from authentication.models import AdviserUser
+
 from django.views.generic.base import View
-from django.views.generic import ListView, DetailView
 from django.forms.models import model_to_dict
 from django.http import HttpResponseBadRequest, HttpResponse
 
@@ -18,8 +17,8 @@ class CompanyListView(View):
     def get(self, request):
         """
         Handling GET method.
-        :param request: 
-        :return: HttpResponse with company fields and values by id_company of user which is logined. 
+        :param request:
+        :return: HttpResponse with company fields and values by id_company of user which is logined.
         If user is superuser returns all companies with their fields and values.
         """
         user = request.user
@@ -28,7 +27,7 @@ class CompanyListView(View):
             return HttpResponse(json.dumps(company))
         adviser_user = AdviserUser.objects.get(user=request.user.id)
         company = [model_to_dict(i) for i in Company.objects.filter(id=adviser_user.id_company.id)]
-        return HttpResponse(json.dumps(company))     
+        return HttpResponse(json.dumps(company))
 
     def post(self, request):
         """
@@ -41,16 +40,15 @@ class CompanyListView(View):
             return HttpResponseBadRequest("Permission denied")
         company = Company()
         data = json.loads(request.body)
-        if data.get("administrator"):  
+        if data.get("administrator"):
             data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
         company_form = CompanyForm(data)
         if not company_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
         company.set_company(data) 
         return HttpResponse(status=201)
-    
-    
-      
+
+
 class CompanyDetailsView(View):
     """
     View used for handling company account.
@@ -61,13 +59,13 @@ class CompanyDetailsView(View):
         :args
             request: Request to View.
             company_id: id of company to be returned.
-        :return: HttpResponse with company fields and values by id. 
-        If user is not superuser and tries to get acces into foreign company 
+        :return: HttpResponse with company fields and values by id.
+        If user is not superuser and tries to get acces into foreign company
         returns HttpResponseBadRequest with 'Permission denied' massage.
         """
-        company_id = int(company_id)  
-        if (not request.user.is_superuser)  and  (company_id != AdviserUser.objects.get(user=request.user.id).id_company.id):
-           return HttpResponseBadRequest("Permission denied")
+        company_id = int(company_id)
+        if (not request.user.is_superuser) and (company_id != AdviserUser.objects.get(user=request.user.id).id_company.id):
+            return HttpResponseBadRequest("Permission denied")
         company = Company.get_company(company_id)
         company = model_to_dict(company)
         users = AdviserUser.objects.filter(id_company=company_id)
@@ -86,13 +84,13 @@ class CompanyDetailsView(View):
         :return: HttpResponse with code 201 if company is updated or
         HttpResponseBadRequest if request contain incorrect data also if user is not superuser .
         """
-        if (not request.user.is_superuser)  and (Company.get_company(company_id).administrator != AdviserUser.objects.get(user=request.user.id)):
+        if (not request.user.is_superuser) and (Company.get_company(company_id).administrator != AdviserUser.objects.get(user=request.user.id)):
             return HttpResponseBadRequest("Permission denied")
         data = json.loads(request.body)
-        if type(data.get("administrator"))==int: 
-            data["administrator"]=AdviserUser.objects.get(id=data.get("administrator"))
-        elif data.get("administrator"): 
-            data["administrator"]=AdviserUser.objects.get(**data.get("administrator"))
+        if type(data.get("administrator")) == int:
+            data["administrator"] = AdviserUser.objects.get(id=data.get("administrator"))
+        elif data.get("administrator"):
+            data["administrator"] = AdviserUser.objects.get(**data.get("administrator"))
         company = Company.get_company(data["id"]) 
         company_form = CompanyForm(data, company)
         if not company_form.is_valid():

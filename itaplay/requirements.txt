@@ -2,3 +2,6 @@ Django==1.9.8
 psycopg2==2.6.2
 djangorestframework==3.4.6
 django-filter==0.14.0
+boto==2.42.0
+botocore==1.4.49
+

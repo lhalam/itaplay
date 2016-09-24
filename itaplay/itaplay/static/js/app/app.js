@@ -10,7 +10,7 @@ itaplay.config(function($routeProvider) {
         })
         .when('/allclips', {
             templateUrl: '../../../static/js/app/clips/views/allclips.html',
-            controller: 'AllClipController'
+            controller: AllClipController
         })
         .when('/projects', {
             templateUrl: '../../../static/js/app/projects/views/all_projects.html',
@@ -30,13 +30,22 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/projects/views/error_project.html',
         })
 
-        .when('/clip/pk=:pk/', {
+        .when('/clip/id=:clip_id/', {
+
             templateUrl: '../../../static/js/app/clips/views/current_clip.html',
-            controller: 'CurrentClipController'
+            controller: CurrentClipController
         })
+
         .when('/clips', {
             templateUrl: '../../../static/js/app/clips/views/add_clip.html',
-            controller: 'ClipController'
+            controller: 'AddClipController'
+
+        })
+
+        .when('/editclip/id=:clip_id/', {
+            templateUrl: '../../../static/js/app/clips/views/edit_clip.html',
+            controller: EditClipController
+
         })
 
         .when('/company/', {
@@ -50,24 +59,23 @@ itaplay.config(function($routeProvider) {
         })
 
         .when('/company/id=:company_id/', {
-
             templateUrl: '../../../static/js/app/company/views/company.html',
             controller: CompanyController
         })
-       
+
         .when('/player/', {
             templateUrl: '../../../static/js/app/player/views/all_player.html',
             controller: AllPlayerController
         })
         .when('/player/add_new/', {
             templateUrl: '../../../static/js/app/player/views/add_players.html',
-            controller: PlayerAddController          
+            controller: PlayerAddController
         })
-        
+
 
         .when('/player/id=:id/', {
             templateUrl: '../../../static/js/app/player/views/player.html',
-            controller: PlayerController          
+            controller: PlayerController
         })
 
 
@@ -75,7 +83,6 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/projects/views/add_project_template.html',
             controller: AddProjectTemplateController
         })
-    
 
         .when('/templates', {
             templateUrl: '../../../static/js/app/templates/views/templates.html',
@@ -104,10 +111,20 @@ itaplay.config(function($routeProvider) {
 itaplay.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
-      .accentPalette('blue')
-})
+      .accentPalette('blue');
+});
 
 itaplay.config(['$httpProvider', function($httpProvider) {
+
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
+
+
+itaplay.config(function($sceDelegateProvider) {
+ $sceDelegateProvider.resourceUrlWhitelist([
+   // Allow same origin resource loads.
+   'self',
+   // Allow loading from our assets domain.
+   'https://itaplayadviserireland.s3.amazonaws.com/**']);
+ });
