@@ -3,21 +3,29 @@
     <md-button class="md-raised md-warn" href="/#/allclips">all clips</md-button>
   </div>
   <div flex="33">
-    <div ng-controller="ClipController">
+    <div ng-controller="AddClipController">
       <form name="myForm">
         <md-content class="md-no-momentum">
-          <md-input-container class="md-icon-float md-block">
+          <md-input-container class="md-icon-float md-block" ng-class="{error: myForm.fileName.$invalid}">
             <label>Name:</label>
-            <input type="text" name="fileName" ng-model="filename" size="31" placeholder="Please, enter a clip name" ng-required="true">
-            <i ng-show="myForm.userName.$error.required">*required</i>
+            <input type="text" name="filename" ng-model="filename" ng-maxlength="16"  placeholder="Please, enter a clip name" ng-required="true">
+            <i ng-show="myForm.filename.$error.maxlength">Filename too long 
+          max 16 characters</i>
             <br>
+           
+          </md-input-container>
+          <md-input-container class="md-icon-float md-block">
+               <label>Description:</label>
+            <input type="text" name="fileName" ng-model="description" size="31" placeholder="description" ng-required="true">
           </md-input-container>
         </md-content>
         <md-button class="md-raised md-warn" ng-disabled="!myForm.$valid" 
           ng-click="uploadPic(picFile)">Submit</md-button>
-        <md-button class="md-raised md-primary" type="file" ngf-select ng-model="picFile" name="file"    accept="image/*, video/*" ngf-max-size="200MB" required ngf-model-invalid="errorFile">select clip 
+        <md-button class="md-raised md-primary" type="file" ngf-select ng-model="picFile" name="file" ngf-pattern="'image/*,video/*'" accept="'image/*,video/*'" ngf-max-size="200MB" required ngf-model-invalid="errorFile">select clip 
           <i ng-show="myForm.file.$error.maxSize">File too large 
           {{errorFile.size / 1000000|number:1}}MB: max 200M</i>
+          <i ng-show="myForm.file.$error.pattern">Only allowed image/video formats</i>
+
         </md-button>
         <md-button ng-click="picFile = null" ng-show="picFile" class="md-raised">Remove</md-button>
         <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> 
