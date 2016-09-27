@@ -4,7 +4,7 @@ angular.module('inviteApp',['ngMessages','ngMaterial'])
 
         $scope.company = undefined;
 
-        $http.get("/company/company_view/").then(function (response) {
+        $http.get("/company/company_list_view/").then(function (response) {
           $scope.companies = response.data;
          }, function(response) {
               console.log(response);
@@ -17,7 +17,7 @@ angular.module('inviteApp',['ngMessages','ngMaterial'])
                 url: $location.$$absUrl,
                 data: {
                     email: $scope.inviteInfo.email,
-                    id_company: $scope.company.pk,
+                    id_company: $scope.company.id,
                 }
             };
             $http(req).success(function(){
