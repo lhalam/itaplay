@@ -32,7 +32,8 @@ class AdviserProjectView(View):
             for clip in area['clips']:
                 clip_tag = ElementTree.SubElement(template_area, 'clip')
                 clip_tag.set('id',str(clip['pk']))
-                clip_tag.set('src',clip['fields']['video'])
+                clip_tag.set('src', clip['fields']['url'])
+                clip_tag.set('mimetype', clip['fields']['mimetype'])
                 clip_tag.text = clip['fields']['name']
         result_template = ElementTree.tostring(tree,encoding="us-ascii", method="xml")
         project = AdviserProject.objects.filter(id = data['project_id']).first()
