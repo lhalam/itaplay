@@ -25,6 +25,7 @@ class AdviserProjectView(View):
         :return: Http response with status code 201
         """
         data = json.loads(request.body)
+        print 'proj', data
         template = XmlTemplate.get_by_id(data['template_id']).template_content
         tree = ElementTree.fromstring(template)
         for area in data['areas']:

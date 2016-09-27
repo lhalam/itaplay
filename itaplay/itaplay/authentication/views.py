@@ -134,25 +134,22 @@ class LoginView(View):
 
     """
 
-    #@method_decorator(login_required)
-    #def dispatch(self, *args, **kwargs):
-     #   return super(LoginView, self).dispatch(*args, **kwargs)
-
     def post(self, request):
+        """
+        Handling POST method
+        :param request to View
+        :return: HttpResponse with code 201 if user is invited or
+                 HttpResponseBadRequest if request contain incorrect data
+        """
         data = json.loads(request.body)
-
         username = data.get('username', None)
         password = data.get('password', None)
-
         user = auth.authenticate(username=username, password=password)
-
         if user is not None:
             auth.login(request, user)
             return HttpResponse(status=200)
-
         else:
             return HttpResponseBadRequest("incorrect username or password", status=401)
-
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
@@ -173,7 +170,11 @@ class LogoutView(View):
     def dispatch(self, *args, **kwargs):
         return super(LogoutView, self).dispatch(*args, **kwargs)
 
-
     def get(self, request, format=None):
+        """
+        logout user and redirect to login.html
+        :param request:
+        :return: redirect
+        """
         auth.logout(request)
         return redirect('/')
