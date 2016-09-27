@@ -49,6 +49,11 @@ function CompanyController($scope, $http, $routeParams, $location, $mdDialog) {
     $http.get("company/company_details_view/"+id).then(function (response) {
       $scope.company = response.data.company;
       $scope.users = response.data.users;
+      response.data.users.forEach(function(admin){
+        if (admin.id == response.data.company.administrator){
+            $scope.company.administrator = admin ;
+        };                                                      
+      });
     }, function(response) {
         $mdDialog.show(
             $mdDialog.alert()
