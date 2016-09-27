@@ -274,11 +274,9 @@ class AdviserProjectsToPlayersTests(TestCase):
             )
 
         self.client = Client()
-        self.client.login(username="test@superadmin.com", password="password")
+        self.client.login(username="test@test.com", password="password")
 
     def test_get(self):
-        self.client = Client()
-        self.client.login(username="test@test.com", password="password")
         url = reverse('get_players_for_project', args=[1])
         response = self.client.get(url)
         players = json.loads(response._container[0])
@@ -286,7 +284,7 @@ class AdviserProjectsToPlayersTests(TestCase):
         self.assertEqual(players[0].get("id"), 2)
         self.assertEqual(players[1].get("id"), 1)
     
-        #try access foreign project
+    def test_get_try_foreign_project(self):
         url = reverse('get_players_for_project', args=[2])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 400)
@@ -326,22 +324,43 @@ class AdviserProjectsToPlayersTests(TestCase):
         second_player = Player.objects.get(id=4)
         self.assertEqual(second_player.project.id, 2)
         
-        #try access foreign project
-        self.client = Client()
-        self.client.login(username="test@test.com", password="password")
+    def test_put_try_foreign_project(self):
+        data = json.dumps({ 'project' : {
+                                          'id' : 2,
+                                          'name' : 'TestProject 2',
+                                          'description' : 'Test description',
+                                          'id_company' : 2                                 
+                                        },
+                            'players' : [{
+                                           'id' : 1,
+                                           'name' : 'testPlayer 1',
+                                           'description' : 'first player test description',
+                                           'mac_address' : 'aa:dd:ff:11:22:33',
+                                           'status': True,
+                                        },
+                                        {
+                                           'id' : 4,
+                                           'name' : 'testPlayer 4',
+                                           'description' : 'player test description',
+                                           'mac_address' : 'fd:fd:cc:aa:32:cc',
+                                           'status': True,
+                                        }],          
+
+        })
+        url = reverse('put_projects_to_players')
         response = self.client.put(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
         massage = response._container[0]
         self.assertEqual(massage, 'Permission denied')
 
-        #without players
+    def test_put_try_without_players(self):
         invalid_data = json.dumps({ 'project' : {
                                           'id' : 1,
                                           'name' : 'TestProject 1',
                                           'description' : 'Test description',
                                           'id_company' : 1                                 
                                         }})
-
+        url = reverse('put_projects_to_players')
         response = self.client.put(url, data=invalid_data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
         massage = response._container[0]
@@ -368,8 +387,6 @@ class AdviserProjectsToPlayersTests(TestCase):
                                            'status': True,
                                         }],          
         })
-        self.client = Client()
-        self.client.login(username="test@test.com", password="password")
         response = self.client.post(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(AdviserProject.objects.count(), 1)
