@@ -27,6 +27,7 @@ function MonitorController($scope, $rootScope, $http, $routeParams,  $interval) 
                 for (var k = 0; k < DOM_clip.length; k++) {
                     $scope.areas[i]['clips'][k] = {};
                     $scope.areas[i]['clips'][k]['src'] = DOM_clip[k].attributes.src.nodeValue;
+                    $scope.areas[i]['clips'][k]['mimetype'] = DOM_clip[k].attributes.mimetype.nodeValue;
                 };
             };
             ImageSlider($scope.areas);   
@@ -37,16 +38,16 @@ function MonitorController($scope, $rootScope, $http, $routeParams,  $interval) 
         });
     };
 
-    $scope.checkImage = function(value) {
-        var format = value.split('.').pop();
-        return ['jpg', 'img', 'png', 'gif'].includes(format) ? true : false;
+//    $scope.checkImage = function(value) {
+//        var format = value.split('.').pop();
+//        return ['jpg', 'img', 'png', 'gif'].includes(format) ? true : false;
+//
+//    };
 
-    };
-
-    $scope.checkVideo = function(value) {
-        var format = value.split('.').pop();
-        return ['mp4', 'avi', 'asf', 'flv','webm'].includes(format) ? true : false;
-    };
+//    $scope.checkVideo = function(value) {
+//        var format = value.split('.').pop();
+//        return ['mp4', 'avi', 'asf', 'flv','webm'].includes(format) ? true : false;
+//    };
 
     $scope.currentIndex=[];
 
