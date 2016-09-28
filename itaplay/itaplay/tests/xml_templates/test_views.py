@@ -28,9 +28,11 @@ class XmlTemplateViewTests(TestCase):
 
         self.client = Client()
 
-        def test_get_list_xml_templates_loads():
+        def test_get_list_xml_templates_loads(self):
             self.client.login(username="superuser@user.com",
                               password="password1")
             url = reverse('templates_list')
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
+
+
