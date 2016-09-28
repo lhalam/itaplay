@@ -19,7 +19,6 @@ class XmlTemplate(models.Model):
         verbose_name="content")
 
     def __unicode__(self):
-        """Customizes representation of single template in admin."""
         return u"%s" % (self.template_name)
 
     def set(self, template_name, xml_file):

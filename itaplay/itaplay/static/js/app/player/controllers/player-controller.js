@@ -54,7 +54,7 @@ function PlayerController($scope, $http, $routeParams,  $location) {
         });
       };      
       $scope.update = function(player){
-        $http.post("player/player_view/", player).success(function (player) {
+        $http.put("player/player_view/", player).success(function (player) {
           $location.path('/#/player');
         });
       };      

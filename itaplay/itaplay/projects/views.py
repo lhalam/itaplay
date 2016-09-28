@@ -25,7 +25,6 @@ class AdviserProjectView(View):
         :return: Http response with status code 201
         """
         data = json.loads(request.body)
-        print 'proj', data
         template = XmlTemplate.get_by_id(data['template_id']).template_content
         tree = ElementTree.fromstring(template)
         for area in data['areas']:
@@ -33,7 +32,8 @@ class AdviserProjectView(View):
             for clip in area['clips']:
                 clip_tag = ElementTree.SubElement(template_area, 'clip')
                 clip_tag.set('id',str(clip['pk']))
-                clip_tag.set('src',clip['fields']['video'])
+                clip_tag.set('src', clip['fields']['url'])
+                clip_tag.set('mimetype', clip['fields']['mimetype'])
                 clip_tag.text = clip['fields']['name']
         result_template = ElementTree.tostring(tree,encoding="us-ascii", method="xml")
         project = AdviserProject.objects.filter(id = data['project_id']).first()
@@ -46,6 +46,7 @@ class AdviserProjectList(generics.ListCreateAPIView):
     """
     List all AdviserProjects of create new AdviserProject
     """
+
     serializer_class = AdviserProjectSerializer
 
     def get_queryset(self):
@@ -54,6 +55,8 @@ class AdviserProjectList(generics.ListCreateAPIView):
         :return: filtered queryset
         """
         user = self.request.user
+        if user.is_superuser:
+            return AdviserProject.objects.all()
         return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
     def post(self, request, *args, **kwargs):
@@ -81,6 +84,8 @@ class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
         :return: filtered queryset
         """
         user = self.request.user
+        if user.is_superuser:
+            return AdviserProject.objects.all()
         return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
 

@@ -16,7 +16,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
             $scope.data = "Something went wrong";
         });
 
-        $http.get("/clips/clips/").then(function (response) {
+        $http.get("/clips/allclips/").then(function (response) {
             $scope.clips = response.data;
         }, function (response) {
             console.log(response);
@@ -47,7 +47,6 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
                 $scope.areas[i]['left'] = DOM_areas[i].attributes.left.nodeValue;
                 $scope.areas[i]['clips'] = [];
             }
-            $scope.clip = "";
             $scope.selected_clips = [];
         }
     };
@@ -104,11 +103,15 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
         })
             .then(function (answer) {
                 $scope.areas[area_id].clips = answer;
-                console.log($scope.areas);
 
-            }, function () {
-                $scope.status = "You cancelled the dialog.";
             });
+    };
+
+    $scope.setAreaStyle = function(area) {
+        return {height: area.height+'%',
+                width: area.width+'%',
+                top: area.top+'%',
+                left:area.left+'%'}
     };
 
     var showAlert = function(message) {
@@ -117,13 +120,12 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
             .clickOutsideToClose(true)
             .title("Something went wrong")
             .textContent(message)
-            .ariaLabel("Alert Dialog Demo")
+            .ariaLabel("Error")
             .ok("Got it!")
         );
       };
 
     function DialogController ($scope, $mdDialog) {
-
 
         $scope.cancel = function () {
             $mdDialog.cancel();
@@ -135,7 +137,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
 };
 
 itaplay.controller('ProjectCtrl', function($scope, $http, $route) {
-    $http.get("api/projects/")
+    $http.get("api/projects")
             .then(function (response) {
                 $scope.projects = response.data['results'];
             });
@@ -155,7 +157,9 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     $http.get("api/projects/" + id + "/")
         .then(function (response) {
             $scope.project = response.data;
-        });
+        }, function errorCallback(response) {
+            $location.path('/projects/error');    // or show message with error
+    });
 
     $http.get("api/projects_to_players/" + id)
         .then(function (response) {
