@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'xml_templates',
     'clips',
     'projects',
+    'player',
     'tests',
 ]
 
@@ -103,7 +104,6 @@ DATABASES = {
         'NAME': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -160,8 +160,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 # E-mail settings
 
@@ -178,3 +176,14 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+# configs for AWS S3    
+import boto
+
+MEDIAFILES_LOCATION = 'media/'
+
+AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
