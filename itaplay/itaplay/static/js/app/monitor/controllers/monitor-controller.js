@@ -58,7 +58,6 @@ function MonitorController($scope, $rootScope, $http, $routeParams,  $interval) 
     var ImageSlider = function(areas){
         areas.forEach(function(area) {
           $scope.currentIndex[area['id']] = 0;
-          //clips = area['clips']
           $interval(function(){$scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentIndex[area['id']] : 0;}, 5000+area['id']*400);
         });
     };
