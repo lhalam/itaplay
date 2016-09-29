@@ -178,3 +178,4 @@ class LogoutView(View):
         """
         auth.logout(request)
         return redirect('/')
+    
