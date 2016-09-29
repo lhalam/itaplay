@@ -1,26 +1,20 @@
 
 function AddProjectTemplateController ($scope,$routeParams, $http, $location, $mdDialog) {
-    $scope.zoomValue = 4.5;
     $scope.project_id = $routeParams.project_id;
     $scope.init = function () {
-        $http.get("api/projects/" + $scope.project_id + "/").then(function (response) {
+        $http.get("api/projects/" + $scope.project_id + "/")
+            .then(function (response) {
             $scope.project = response.data;
-        }, function(response) {
-            console.log(response);
         });
 
-        $http.get("/templates/all/").then(function (response) {
+        $http.get("/templates/all/")
+            .then(function (response) {
             $scope.templates = response.data;
-        }, function (response) {
-            console.log(response);
-            $scope.data = "Something went wrong";
         });
 
-        $http.get("/clips/allclips/").then(function (response) {
+        $http.get("/clips/allclips/")
+            .then(function (response) {
             $scope.clips = response.data;
-        }, function (response) {
-            console.log(response);
-            $scope.data = "Something went wrong";
         });
     };
 
@@ -58,7 +52,8 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
             "template_id": selected_template.id,
             "areas": areas
         };
-        $http.post("api/projects/" + $scope.project_id + "/template/", data).success(function () {
+        $http.post("api/projects/" + $scope.project_id + "/template/", data)
+            .success(function () {
             $location.path("/projects/id=" + $scope.project_id + "/");
         });
     };
