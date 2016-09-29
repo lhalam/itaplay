@@ -1,15 +1,15 @@
 <div ng-init="init()" >
 
     <div  ng-repeat="area in areas" >
-
         <div class="area"  style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">
-            <object ng-if="clip.mimetype == 'video/mp4'" ng-repeat="clip in area.clips" data="{{clip.src}}"  type="video/mp4" height="100%"  width="100%" ></object>
+            <video class='{{ clip.id }}' ng-if="clip.mimetype == 'video/mp4'" ng-repeat="clip in area.clips" ng-show="isCurrentSlideVideoIndex(area.id, $index)" ng-src="{{trustSrc(clip.src)}}"  type="video/mp4" height="100%"  width="100%" autoplay loop ></video>
         </div>
 
-        <div class="area" style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">  
+        <div class="area" style=" height: {{ area.height }}%; width:{{ area.width }}%; top:{{ area.top }}%; left: {{ area.left }}%">
             <img ng-if="clip.mimetype == 'image/jpeg'"  ng-repeat="clip in area.clips" ng-show="isCurrentSlideIndex(area.id, $index)" ng-src="{{clip.src}}" height="100%"  width="100%">
-        </div> 
+        </div>
 
-    </div>     
-    
+    </div>
+
+
 </div>

@@ -10,15 +10,3 @@ angular.module('LogoutController',['ngMaterial'])
     }
 });
 
-//function HeaderController($scope, $http, $location) {
-//  $scope.LogoutUser  = function() {
-//    console.log("logOutUser");
-//      $scope.logOut = function (){
-//        console.log("logOut");
-//            $http.get('/auth/logout').then(function(response) {
-//                $window.location.href = '/';
-//            }, function errorCallback(response) {
-//            });
-//      };
-//  }
-//};

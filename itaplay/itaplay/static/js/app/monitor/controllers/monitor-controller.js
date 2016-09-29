@@ -1,4 +1,4 @@
-function MonitorController($scope, $rootScope, $http, $routeParams,  $interval) {
+function MonitorController($scope, $sce, $rootScope, $http, $routeParams,  $interval) {
     var mac = $routeParams.mac;
     $scope.init = function( ) {
         $http.get('get_by_mac/'+ mac).then(function(response) {
@@ -26,17 +26,24 @@ function MonitorController($scope, $rootScope, $http, $routeParams,  $interval) 
                 $scope.areas[i]['clips'] = [];
                 for (var k = 0; k < DOM_clip.length; k++) {
                     $scope.areas[i]['clips'][k] = {};
+                    $scope.areas[i]['clips'][k]['id'] = 'k';
                     $scope.areas[i]['clips'][k]['src'] = DOM_clip[k].attributes.src.nodeValue;
                     $scope.areas[i]['clips'][k]['mimetype'] = DOM_clip[k].attributes.mimetype.nodeValue;
                 };
             };
-            ImageSlider($scope.areas);   
+            ImageSlider($scope.areas);
+            VideoSlider($scope.areas);
+            
           
         }, function(response) {
             console.log(response);
             $scope.data = "Something went wrong";
         });
     };
+
+    $scope.trustSrc = function(src) {
+                return $sce.trustAsResourceUrl(src);
+            }
 
 //    $scope.checkImage = function(value) {
 //        var format = value.split('.').pop();
@@ -50,9 +57,31 @@ function MonitorController($scope, $rootScope, $http, $routeParams,  $interval) 
 //    };
 
     $scope.currentIndex=[];
+    $scope.currentVideoIndex = [];
+
 
     $scope.isCurrentSlideIndex = function (id_area, index) {
         return $scope.currentIndex[id_area] === index;
+        area['clips'].forEach(function(clip) {
+            var vid = document.getElementsByClassName(clip['id']);
+                console.log(vid[0].duration=1000)
+            $interval(function())
+        })
+    };
+
+    $scope.isCurrentSlideVideoIndex = function(id_area, index) {
+        return $scope.currentVideoIndex[id_area] === index;
+
+
+
+    };
+    
+    var VideoSlider = function(areas) {
+        areas.forEach(function(area) {
+          $scope.currentVideoIndex[area['id']] = 0;
+
+          $interval(function(){$scope.currentVideoIndex[area['id']] = ($scope.currentVideoIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentVideoIndex[area['id']] : 0;}, 5000);
+        });
     };
 
     var ImageSlider = function(areas){
