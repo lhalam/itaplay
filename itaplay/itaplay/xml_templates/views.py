@@ -39,7 +39,7 @@ class TemplateView(View):
         xml_template = XmlTemplate()
         xml_template.set(template_name, xml_file)
         xml_template.save()
-        return HttpResponse(201)
+        return HttpResponse(status=201)
 
     def delete(self, request, template_id):
         """Handling DELETE method.
