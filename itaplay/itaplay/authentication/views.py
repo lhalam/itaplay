@@ -149,7 +149,7 @@ class LoginView(View):
             auth.login(request, user)
             return HttpResponse(status=200)
         else:
-            return HttpResponseBadRequest("incorrect username or password", status=401)
+            return HttpResponseBadRequest("Incorrect email or password", status=401)
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
@@ -170,7 +170,7 @@ class LogoutView(View):
     def dispatch(self, *args, **kwargs):
         return super(LogoutView, self).dispatch(*args, **kwargs)
 
-    def get(self, request, format=None):
+    def get(self, request):
         """
         logout user and redirect to login.html
         :param request:
@@ -178,4 +178,4 @@ class LogoutView(View):
         """
         auth.logout(request)
         return redirect('/')
-    
+
