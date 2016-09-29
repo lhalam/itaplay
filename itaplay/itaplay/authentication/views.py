@@ -137,8 +137,8 @@ class LoginView(View):
     def post(self, request):
         """
         Handling POST method
-        :param request to View
-        :return: HttpResponse with code 201 if user is invited or
+        :param json file with username and password
+        :return: HttpResponse with code 200 if user is invited or
                  HttpResponseBadRequest if request contain incorrect data
         """
         data = json.loads(request.body)
