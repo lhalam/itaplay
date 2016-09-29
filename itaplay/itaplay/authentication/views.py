@@ -145,7 +145,7 @@ class LoginView(View):
         username = data.get('username', None)
         password = data.get('password', None)
         user = auth.authenticate(username=username, password=password)
-        if user is not None:
+        if user:
             auth.login(request, user)
             return HttpResponse(status=200)
         else:
