@@ -16,7 +16,7 @@ angular.module('loginApp',['ngMaterial', 'ngMessages'])
                             .title('Error in form')
                             .textContent(err)
                             .ok('Ok')
-                );
+                    );
             });
     }
 
