@@ -7,11 +7,6 @@ from django.core.files import File
 
 class AmazonTestCase(TestCase):
 
-    def test_save_on_amazon_with_boto(self):
-        file = open('./static/images/Logo.png', 'rb')
-        url = save_on_amazon_with_boto(file)
-        self.assertEqual(url, 'https://itaplayadviserireland.s3.amazonaws.com/media/./static/images/Logo.png')
-
     def test_delete_from_amazon_with_boto(self):
         url = 'https://itaplayadviserireland.s3.amazonaws.com/media/Logo.png'
         delete_file = delete_from_amazon_with_boto(url)
