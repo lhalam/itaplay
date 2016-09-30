@@ -11,6 +11,13 @@ class Player(models.Model):
     status = models.BooleanField(default=False)
     project = models.ForeignKey(AdviserProject, blank = True, null = True, on_delete=models.SET_NULL)
 
+    @staticmethod
+    def send_project(player_ids, project):
+        for id in player_ids:
+            player = Player.get_by_id(id)
+            player.project = project
+            player.save()
+
     def set(self, arg):
         self = Player(**arg)
         self.save()

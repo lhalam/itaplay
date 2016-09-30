@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
-from projects.models import AdviserProject
+from player.models import Player
 from company.models import Company
+from projects.models import AdviserProject
 
 
 class AdviserProjectSerializer(serializers.Serializer):
@@ -16,8 +17,12 @@ class AdviserProjectSerializer(serializers.Serializer):
     def create(self, validated_data):
         """
         Create and return a new "AdviserProject" instance, given the validated data.
+        Also send created AdviserProject to selected players
         """
-        return AdviserProject.objects.create(**validated_data)
+        new_project = AdviserProject.objects.create(**validated_data)
+        players = self.initial_data.get("players", [])
+        Player.send_project(players, new_project)
+        return new_project
 
     def update(self, instance, validated_data):
         """

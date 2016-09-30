@@ -158,7 +158,7 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
         .then(function (response) {
             $scope.project = response.data;
         }, function errorCallback(response) {
-            $location.path('/projects/error');    // or show message with error
+            $location.path('/projects/error');
     });
 
     $http.get("api/projects_to_players/" + id)
@@ -229,7 +229,10 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDial
    };     
 
     $scope.create = function (project, players) {
-        project["players"]=players;
+        project["players"] = players.map(function (player) {
+            return player.id;
+        });
+        console.log(project["players"]);
         $http.post("api/projects/", project)
             .success(function () {
                 $location.path('/projects');
