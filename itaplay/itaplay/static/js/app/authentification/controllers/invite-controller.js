@@ -4,14 +4,23 @@ angular.module('inviteApp',['ngMessages','ngMaterial'])
 
         $scope.company = undefined;
 
-        $http.get("/company/company_list_view/").then(function (response) {
+        $http.get("/company/company_list_view/")
+            .then(function (response) {
           $scope.companies = response.data;
-         }, function(response) {
-              console.log(response);
-            $scope.data = "Something went wrong";
-        });
+         });
 
         $scope.inviteUser = function() {
+            if ($scope.company == undefined) {
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Error in form')
+                        .textContent("You need to select company first!")
+                        .ok('Ok')
+                );
+                return;
+            }
+
             var req = {
                 method: 'POST',
                 url: $location.$$absUrl,
@@ -20,6 +29,7 @@ angular.module('inviteApp',['ngMessages','ngMaterial'])
                     id_company: $scope.company.id,
                 }
             };
+
             $http(req).success(function(){
                 $window.location.href = '/';
             }).error(function(err){
