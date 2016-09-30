@@ -19,7 +19,6 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
         $http.get("/clips/allclips/").then(function (response) {
             $scope.clips = response.data;
         }, function (response) {
-            console.log(response);
             $scope.data = "Something went wrong";
         });
     };

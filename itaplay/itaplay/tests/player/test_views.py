@@ -1,11 +1,10 @@
+import json
+from django.test import Client
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 from player.models import Player
 from company.models import Company
 from projects.models import AdviserProject
-from django.test import Client
-from django.forms.models import model_to_dict
-import json
-from django.core.urlresolvers import reverse
 
 
 class PlayerViewTestCase(TestCase):

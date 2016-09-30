@@ -3,9 +3,8 @@ angular.module('LogoutController',['ngMaterial'])
 
     $scope.LogoutUser = function() {
         $http.get('/auth/logout').then(function(response) {
-            $window.location.href = '/';
-        },
-            function errorCallback(response) {
+                $window.location.href = '/';
+            }, function errorCallback(response) {
             });
     }
 });

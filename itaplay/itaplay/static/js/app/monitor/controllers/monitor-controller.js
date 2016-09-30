@@ -5,13 +5,12 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams,  $inte
             if (window.DOMParser) {
                 parser = new DOMParser();
                 xmlDoc = parser.parseFromString(response.data.template, "text/xml");
-                }
-            else { // Internet Explorer
+            } else { // Internet Explorer
 
                 xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
                 xmlDoc.async = false;
                 xmlDoc.loadXML(response.data.template);
-                }
+            }
 
             $scope.areas = [];
             DOM_areas = xmlDoc.getElementsByTagName("area");
@@ -51,12 +50,10 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams,  $inte
 
     $scope.isCurrentSlideIndex = function (id_area, index) {
         return $scope.currentIndex[id_area] === index;
-
     };
 
     $scope.isCurrentSlideVideoIndex = function(id_area, index) {
         return $scope.currentVideoIndex[id_area] === index;
-
     };
     
     var VideoSlider = function(areas) {

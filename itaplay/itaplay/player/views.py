@@ -1,16 +1,10 @@
 import json
 from models import Player
 from forms import PlayerForm
-from django.core import serializers
-from django.core.context_processors import csrf
 from projects.models import AdviserProject
-from django.forms.models import model_to_dict
-
 from django.views.generic.base import View
-from django.views.generic import DeleteView
-from django.views.decorators.csrf import csrf_protect
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse,HttpResponseBadRequest
+from django.forms.models import model_to_dict
+from django.http import HttpResponse, HttpResponseBadRequest
 
 
 class PlayerView(View):
