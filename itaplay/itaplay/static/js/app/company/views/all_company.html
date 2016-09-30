@@ -9,7 +9,7 @@
         </div>
         <div flex=20></div>
         <div>
-            <md-button flex="500"  class="md-primary md-raised" href="#company/add_new" >Add new company</md-button> 
+            <md-button flex="500"  class="md-primary md-raised" ng-click="addNewCompany()">Add new company</md-button> 
         </div>
         <div flex=20></div>
     </div>
@@ -21,15 +21,15 @@
                     <md-card-title >
                         <md-card-title-media>
                             <div class="md-media-lg">
-                                <md-button  class="md-accent" class="md-card-image" href = "#company/id={{company.pk}}">
-                                    <img src="{{company.fields.company_logo}}"  alt="{{company.fields.company_name}}" >
+                                <md-button  class="md-accent" class="md-card-image" href = "#company/id={{company.id}}">
+                                    <img src="{{company.company_logo}}"  alt="{{company.company_name}}" >
                                 </md-button >
                             </div>
                         </md-card-title-media>
                         <md-card-title-text>
-                            <span class="md-headline">{{company.fields.company_name}}</span>
-                            <span class="md-subhead">{{company.fields.company_zipcode}}</span>
-                            <span class="md-subhead">{{company.fields.company_mail}}</span>
+                            <span class="md-headline">{{company.company_name}}</span>
+                            <span class="md-subhead">{{company.company_zipcode}}</span>
+                            <span class="md-subhead">{{company.company_mail}}</span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-actions layout="row">

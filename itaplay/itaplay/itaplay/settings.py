@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'xml_templates',
     'clips',
     'projects',
+    'player',
     'tests',
 ]
 
