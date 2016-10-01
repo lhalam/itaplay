@@ -1,11 +1,8 @@
 import json
-<<<<<<< HEAD
 
 from django.test import Client
 from django.test import TestCase
 
-=======
->>>>>>> 7c93278696c58c2ae4917da2446bfdde491798f7
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
