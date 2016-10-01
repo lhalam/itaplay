@@ -121,34 +121,61 @@ class InviteView(View):
 
 class LoginView(View):
 
-    def post(self, request):
-        data = json.loads(request.body)
+    """
+    Handle dispatch method with login_required decorator.
 
+    Handle post method:
+        Takes json file from login.html,parsed it and check if user is exists
+        if it does we return status 200.
+        Else give HttpResponseBadRequest with 401 status
+
+    Handle get method:
+        which redirect to login.html
+
+    """
+
+    def post(self, request):
+        """
+        Handling POST method
+        :param json file with username and password
+        :return: HttpResponse with code 200 if user is invited or
+                 HttpResponseBadRequest if request contain incorrect data
+        """
+        data = json.loads(request.body)
         username = data.get('username', None)
         password = data.get('password', None)
-
         user = auth.authenticate(username=username, password=password)
-
-        if user is not None:
+        if user:
             auth.login(request, user)
             return HttpResponse(status=200)
-
         else:
-            return HttpResponseBadRequest("incorrect username or password", status=401)
-
-        #else:
-        return HttpResponseBadRequest(status=400)
+            return HttpResponseBadRequest("Incorrect email or password", status=401)
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'login.html')
+        if not request.user.is_authenticated():
+            return render(request, 'login.html')
+        else:
+            return redirect('/')
 
 
 class LogoutView(View):
+
+    """
+    Handle dispatch method with login_required decorator.
+    Handle get method which log us out and redirect to login.html
+
+    """
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(LogoutView, self).dispatch(*args, **kwargs)
 
-    def get(self, request, format=None):
+    def get(self, request):
+        """
+        logout user and redirect to login.html
+        :param request:
+        :return: redirect
+        """
         auth.logout(request)
         return redirect('/')
+

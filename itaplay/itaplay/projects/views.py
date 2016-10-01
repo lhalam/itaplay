@@ -48,6 +48,7 @@ class AdviserProjectList(generics.ListCreateAPIView):
     """
     List all AdviserProjects of create new AdviserProject
     """
+
     serializer_class = AdviserProjectSerializer
 
     def get_queryset(self):
