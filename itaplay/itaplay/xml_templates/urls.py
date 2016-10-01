@@ -1,5 +1,6 @@
-from . import views
 from django.conf.urls import url
+from xml_templates import views
+
 
 urlpatterns = [
     url(r'^all/', views.TemplateView.as_view(), name='templates_list'),
