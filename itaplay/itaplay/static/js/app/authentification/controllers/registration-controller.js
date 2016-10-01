@@ -12,7 +12,7 @@ registrationModule.controller("RegisterCtrl",['$scope', '$http', '$location', '$
         $scope.registerUser = function() {
             var req = {
                 method: 'POST',
-                url: $location.$$absUrl,    // can cause problems
+                url: $location.$$absUrl,
                 data: {
                     first_name: $scope.registrationInfo.firstName,
                     last_name: $scope.registrationInfo.lastName,

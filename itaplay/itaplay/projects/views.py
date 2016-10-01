@@ -62,16 +62,13 @@ class AdviserProjectList(generics.ListCreateAPIView):
         return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
     def post(self, request, *args, **kwargs):
-        if not request.user.adviseruser.id_company_id:  # special for Admins
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        """
+        Creating new AdviserProject
+        :param request: Django REST Framework request
+        :return: 201 if everything is ok and created AdviserProject, 400 in other cases
+        """
         request.data["id_company"] = request.user.adviseruser.id_company_id
-        project = AdviserProject.objects.get(id=self.create(request, *args, **kwargs).data["id"])
-        if (request.data.get("players")):
-            for obj in request.data.get("players"):
-                player = Player.get_by_id(obj["id"])
-                player.project = project 
-                player.save()  
-        return HttpResponse(status=201)
+        return self.create(request, *args, **kwargs)
 
 
 class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
