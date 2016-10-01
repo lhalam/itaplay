@@ -167,7 +167,7 @@ class AdviserProjectsTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-   def test_add_template_to_project(self):
+    def test_add_template_to_project(self):
         """
         Testing add template to project
         """
