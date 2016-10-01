@@ -48,7 +48,6 @@ class TemplateView(View):
         """Handling DELETE method.
 
         Args:
-            request: Request to View.
             template_id: id of deleted template.
         Returns:
             HttpResponse with code 201 if template is deleted.
