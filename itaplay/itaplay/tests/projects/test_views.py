@@ -1,3 +1,4 @@
+import json
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
@@ -7,6 +8,7 @@ from rest_framework.test import APITestCase, APIClient
 from projects.models import AdviserProject
 from company.models import Company
 from authentication.models import AdviserUser
+from xml_templates.models import XmlTemplate
 
 
 class AdviserProjectsTests(APITestCase):
@@ -73,6 +75,16 @@ class AdviserProjectsTests(APITestCase):
             description="Test description",
             id_company=Company.objects.get(id=2),
             id=2
+        )
+
+        XmlTemplate.objects.create(
+            id=1,
+            template_name='FirstTemplate',
+            template_content="""<?xml version="1.0" encoding="UTF-8" ?>
+                                            <project name="template1" height="100" width="100">
+        	                                    <area id="1" left="10" top="10"  width="30" height="30">
+        	                                    </area>
+                                            </project>"""
         )
 
         self.client = APIClient()
@@ -149,3 +161,24 @@ class AdviserProjectsTests(APITestCase):
         url = reverse('project', args=[2])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_add_template_to_project(self):
+        """
+        Testing add template to project
+        """
+        user_data = json.dumps(
+            {'template_id': 1,
+             'project_id': "1",
+             'areas': [{'id': 1,
+                        'clips': [{'pk': 1,
+                                   'fields': {
+                                       'url': 'https://itaplayadviserireland.s3.amazonaws.com/media/Selection_004.png',
+                                       'mimetype': 'image/jpeg',
+                                       'name': 'MyClip1'}
+                                   }]
+                        }]
+             })
+
+        response = self.client.post("/api/projects/1/template/", data=user_data,
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 201)
