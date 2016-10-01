@@ -176,7 +176,6 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     })
         .then(function (answer) {
                 $scope.new_players = answer;
-                console.log($scope.new_players);
         }, function() {
           $scope.status = 'You cancelled the dialog.';
         });
@@ -221,7 +220,6 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDial
     })
         .then(function (answer) {
                 $scope.players = answer;
-                console.log($scope.players);
         }, function() {
           $scope.status = 'You cancelled the dialog.';
         });
@@ -231,7 +229,6 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDial
         project["players"] = players.map(function (player) {
             return player.id;
         });
-        console.log(project["players"]);
         $http.post("api/projects/", project)
             .success(function () {
                 $location.path('/projects');
