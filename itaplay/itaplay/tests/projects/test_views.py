@@ -405,20 +405,7 @@ class AdviserProjectsToPlayersTests(TestCase):
         data = json.dumps({ 'id' : 2,
                             'name' : 'TestProject 2',
                             'description' : 'Test description',                             
-                            'players' : [{
-                                           'id' : 2,
-                                           'name' : 'testPlayer 2',
-                                           'description' : 'second player test description',
-                                           'mac_address' : '66:55:44:ad:fb:cc',
-                                           'status': True,
-                                        },
-                                        {
-                                           'id' : 3,
-                                           'name' : 'testPlayer 3',
-                                           'description' : 'third player test description',
-                                           'mac_address' : 'df:df:aa:aa:aa:cc',
-                                           'status': True,
-                                        }],          
+                            'players' : [ 2, 3,],          
         })
         response = self.client.post(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
