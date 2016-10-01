@@ -113,7 +113,8 @@ class InviteView(View):
             :param request: Request to View
             :return: rendered inviting page
         """
-        return render(request, "invite.html")
+
+        return render(request, "invite.html",)
 
 
 class LoginView(View):

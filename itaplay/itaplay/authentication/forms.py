@@ -1,4 +1,5 @@
 from authentication.models import AdviserInvitations
+from company.models import Company
 from django import forms
 from django.contrib.auth.models import User
 
@@ -36,7 +37,7 @@ class UserInvitationForm(forms.ModelForm):
     Form for inviting users
     """
     email = forms.EmailField(widget=forms.EmailInput)
-    id_company = forms.NumberInput()
+    id_company = forms.ModelChoiceField(queryset=Company.objects.all())
 
     class Meta:
         model = AdviserInvitations

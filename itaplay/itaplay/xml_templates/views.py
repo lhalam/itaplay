@@ -1,8 +1,11 @@
+"""Module that represents views for xml templates"""
 import json
-from .models import XmlTemplate
+
 from django.http import HttpResponse
 from django.views.generic.base import View
 from django.forms.models import model_to_dict
+
+from xml_templates.models import XmlTemplate
 
 
 class TemplateView(View):
@@ -39,7 +42,7 @@ class TemplateView(View):
         xml_template = XmlTemplate()
         xml_template.set(template_name, xml_file)
         xml_template.save()
-        return HttpResponse(201)
+        return HttpResponse(status=201)
 
     def delete(self, request, template_id):
         """Handling DELETE method.
@@ -50,6 +53,5 @@ class TemplateView(View):
         Returns:
             HttpResponse with code 201 if template is deleted.
         """
-        if request.method == 'DELETE':
-            XmlTemplate.delete(template_id)
-        return HttpResponse(201)
+        XmlTemplate.delete(template_id)
+        return HttpResponse(status=204)
