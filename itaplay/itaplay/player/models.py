@@ -19,12 +19,8 @@ class Player(models.Model):
             player.save()
 
     def set(self, arg):
-        self = Player(**arg)
-        self.save()
+        Player(**arg).save()
 
-    def delete(self):
-        self.delete()
-    
     @classmethod    
     def delete_by_id(cls, player_id):
         cls.objects.filter(pk=player_id).delete()
@@ -35,4 +31,7 @@ class Player(models.Model):
 
     @classmethod
     def get_by_id(cls, player_id):
-        return cls.objects.get(id=player_id)
+        try:
+            return cls.objects.get(id=player_id)
+        except:
+            return None

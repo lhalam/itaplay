@@ -5,14 +5,15 @@
           <!-- Custom style sheet -->
           <link rel="stylesheet" type="text/css" href="/static/styles/login.css">
 
-
+          <!-- Angular Material requires Angular.js Libraries -->
           <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
           <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.js"></script>
+          <!-- Our custom js -->
           <script src='/static/js/app/authentification/controllers/login-controller.js'></script>
           <script src='/static/js/app/app.js'></script>
 
 
-
+          <!-- Angular Material Library -->
           <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
           <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
@@ -24,13 +25,12 @@
       </head>
 
 
-      <body  ng-controller="LoginController">
+      <body  ng-controller="LoginController" background="/static/images/login.jpg">
 
-        <div layout="row" >
-            <!--div flex=30></div-->
-            <div flex-offset="35" flex-sm="90" offset-sm="15" style="background-color: #A4C6C1; border-radius: 1%; margin = 50px;" layout-padding>
+        <div layout="row">
+            <div flex-offset="35" flex-sm="90" offset-sm="15" class="formBg" layout-padding>
                 <form name = "form" layout-padding>
-                     <md-content md-theme="docs-dark" style="background-color: #FFFCF4; border-radius: 1%; margin = 50px;" layout-padding>
+                     <md-content md-theme="docs-dark" class="content" layout-padding>
                         <md-input-container class="md-icon-float md-block">
                             <input type="email" name="username" ng-model="user_login" required>
                             <label>Email</label>
@@ -44,7 +44,7 @@
                             </div>
                         </md-input-container>
 
-                        <div> <button type="submit" value="Log in" class="button buttonBlue" ng-click="LoginUser(user_login,user_password,form)"> Log in</button></div>
+                        <div> <button type="submit" value="Log in" class="button buttonBlue" ng-click="LoginUser(user_login,user_password)"> Log in</button></div>
                      </md-content>
                 </form>
 
