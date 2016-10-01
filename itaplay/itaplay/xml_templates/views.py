@@ -44,10 +44,11 @@ class TemplateView(View):
         xml_template.save()
         return HttpResponse(status=201)
 
-    def delete(self, template_id):
+    def delete(self, request, template_id):
         """Handling DELETE method.
 
         Args:
+            request: Request to View.
             template_id: id of deleted template.
         Returns:
             HttpResponse with code 201 if template is deleted.
