@@ -16,7 +16,9 @@ from projects.models import AdviserProject
 from xml_templates.models import XmlTemplate
 
 class AdviserProjectView(View):
-    """docs goes here"""
+    """
+    View for adding templates with clips to project template
+    """
 
     def post(self, request):
         """
