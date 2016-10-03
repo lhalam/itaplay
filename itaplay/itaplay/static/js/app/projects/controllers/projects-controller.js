@@ -222,9 +222,11 @@ itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDial
    };     
 
     $scope.create = function (project, players) {
-        project["players"] = players.map(function (player) {
-            return player.id;
-        });
+        if (players != undefined){
+            project["players"] = players.map(function (player) {
+                return player.id;
+            });
+        }
         $http.post("api/projects/", project)
             .success(function () {
                 $location.path('/projects');
