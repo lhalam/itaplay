@@ -141,10 +141,10 @@ class LoginView(View):
         :return: HttpResponse with code 200 if user is invited or
                  HttpResponseBadRequest if request contain incorrect data
         """
-        login_form = LoginForm(json.loads(request.body))
+        data = json.loads(request.body)
+        login_form = LoginForm(data)
         if not login_form.is_valid():
             return HttpResponseBadRequest('Invalid input data')
-        data = json.loads(request.body)
         username = data.get('username', None)
         password = data.get('password', None)
         user = auth.authenticate(username=username, password=password)
