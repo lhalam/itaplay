@@ -16,7 +16,9 @@ from projects.models import AdviserProject
 from xml_templates.models import XmlTemplate
 
 class AdviserProjectView(View):
-    """docs goes here"""
+    """
+    View for adding templates with clips to project template
+    """
 
     def post(self, request):
         """
@@ -60,16 +62,13 @@ class AdviserProjectList(generics.ListCreateAPIView):
         return AdviserProject.objects.filter(id_company=user.adviseruser.id_company)
 
     def post(self, request, *args, **kwargs):
-        if not request.user.adviseruser.id_company_id:  # special for Admins
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        """
+        Creating new AdviserProject
+        :param request: Django REST Framework request
+        :return: 201 if everything is ok and created AdviserProject, 400 in other cases
+        """
         request.data["id_company"] = request.user.adviseruser.id_company_id
-        project = AdviserProject.objects.get(id=self.create(request, *args, **kwargs).data["id"])
-        if (request.data.get("players")):
-            for obj in request.data.get("players"):
-                player = Player.get_by_id(obj["id"])
-                player.project = project 
-                player.save()  
-        return HttpResponse(status=201)
+        return self.create(request, *args, **kwargs)
 
 
 class AdviserProjectDetails(generics.RetrieveUpdateDestroyAPIView):
@@ -101,7 +100,7 @@ class AdviserProjectToPlayers(View):
         :return: Http response with list of players that have current project
         """
         project = AdviserProject.objects.get(id=project_id)
-        if project.id_company.id != request.user.adviseruser.id_company.id:
+        if (not request.user.is_superuser) and (project.id_company.id != request.user.adviseruser.id_company.id):
             return HttpResponseBadRequest("Permission denied")
         players = Player.objects.filter(project=project_id)
         data = [model_to_dict(i) for i in players]
@@ -115,9 +114,9 @@ class AdviserProjectToPlayers(View):
         """
         data = json.loads(request.body)
         if (not data.get("players")):
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return HttpResponseBadRequest("Players are not added. Please, add some players.")
         project = AdviserProject.objects.get(id = data.get("project")["id"])
-        if project.id_company.id != request.user.adviseruser.id_company.id:
+        if (not request.user.is_superuser) and (project.id_company.id != request.user.adviseruser.id_company.id):
             return HttpResponseBadRequest("Permission denied")
         for obj in data.get("players"):
             player = Player.get_by_id(obj["id"])

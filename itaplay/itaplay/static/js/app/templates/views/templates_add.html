@@ -9,7 +9,6 @@
             </md-input-container>
             <br>
             <md-input-container class="md-block" flex-gt-sm>
-                <label>Xml File:</label>
                 <input type="file" ngf-select ng-model="xmlFile" name="file" ngf-pattern="'.xml'" accept=".xml" ngf-max-size="1MB" required ngf-model-invalid="errorFile">
                 <br>
                 <i ng-show="myForm.file.$error.required">*required</i>

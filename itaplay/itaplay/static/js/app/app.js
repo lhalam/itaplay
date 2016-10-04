@@ -100,7 +100,7 @@ itaplay.config(function($routeProvider) {
             controller: CurrentTemplateController
         })
 
-        .otherwise({redirectTo: '/users'});
+        .otherwise({redirectTo: '/projects'});
 
 })
 .run(function($log) {

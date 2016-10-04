@@ -21,12 +21,11 @@ class CompanyListView(View):
         :return: HttpResponse with company fields and values by id_company of user which is logined.
         If user is superuser returns all companies with their fields and values.
         """
-        user = request.user
-        if user.is_superuser:
-            company = [model_to_dict(i) for i in Company.get_company()]
+        if request.user.is_superuser:
+            company = [model_to_dict(company) for company in Company.get_company()]
             return HttpResponse(json.dumps(company))
-        adviser_user = AdviserUser.objects.get(user=request.user.id)
-        company = [model_to_dict(i) for i in Company.objects.filter(id=adviser_user.id_company.id)]
+        adviser_user = request.user.adviseruser
+        company = [model_to_dict(company) for company in Company.objects.filter(id=adviser_user.id_company.id)]
         return HttpResponse(json.dumps(company))
 
     def post(self, request):
@@ -40,8 +39,6 @@ class CompanyListView(View):
             return HttpResponseBadRequest("Permission denied")
         company = Company()
         data = json.loads(request.body)
-        if data.get("administrator"):
-            data["administrator"]=AdviserUser.objects.get(id=data["administrator"])
         company_form = CompanyForm(data)
         if not company_form.is_valid():
             return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
@@ -64,15 +61,11 @@ class CompanyDetailsView(View):
         returns HttpResponseBadRequest with 'Permission denied' massage.
         """
         company_id = int(company_id)
-        if (not request.user.is_superuser) and (company_id != AdviserUser.objects.get(user=request.user.id).id_company.id):
+        if (not request.user.is_superuser) and (company_id != request.user.adviseruser.id_company.id):
             return HttpResponseBadRequest("Permission denied")
-        company = Company.get_company(company_id)
-        company = model_to_dict(company)
-        users = AdviserUser.objects.filter(id_company=company_id)
-        users = [model_to_dict(i) for i in users]
         data = {}
-        data["company"] = company
-        data["users"] = users
+        data["company"] = model_to_dict(Company.get_company(company_id))
+        data["users"] = [model_to_dict(user) for user in AdviserUser.objects.filter(id_company=company_id)]
         return HttpResponse(json.dumps(data))
 
     def put(self, request, company_id):
@@ -83,13 +76,11 @@ class CompanyDetailsView(View):
             company_id: id of company to be updated.
         :return: HttpResponse with code 201 if company is updated or
         HttpResponseBadRequest if request contain incorrect data also if user is not superuser .
-        """
-        if (not request.user.is_superuser) and (Company.get_company(company_id).administrator != AdviserUser.objects.get(user=request.user.id)):
+        """ 
+        if (not request.user.is_superuser) and (Company.get_company(company_id).administrator != request.user.adviseruser):
             return HttpResponseBadRequest("Permission denied")
         data = json.loads(request.body)
-        if type(data.get("administrator")) == int:
-            data["administrator"] = AdviserUser.objects.get(id=data.get("administrator"))
-        elif data.get("administrator"):
+        if data.get("administrator"):
             data["administrator"] = AdviserUser.objects.get(**data.get("administrator"))
         company = Company.get_company(data["id"]) 
         company_form = CompanyForm(data, company)
@@ -107,7 +98,6 @@ class CompanyDetailsView(View):
         :return: HttpResponse with code 201 if company is deleted.
         HttpResponseBadRequest with 'Permission denied' if user is not superuser.
         """
-
         if not request.user.is_superuser:
             return HttpResponseBadRequest("Permission denied")
         company = Company()

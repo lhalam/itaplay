@@ -16,15 +16,12 @@ def validate_verification_code(func):
     """
     Decorator that check is verification code valid, existing and open
     :param func: function, that be wrapped
-    :return: nothing
+    :return: function
     """
     def wrapper(self, request, *args, **kwargs):
         """
         Wrapper, that checks verification code
-        :param self:
-        :param request:
-        :param args:
-        :param kwargs:
+        :param request: Django request
         :return: BadRequest when verification code is incorrect or function in other case
         """
         verification_code = request.GET.get("code")
@@ -116,7 +113,8 @@ class InviteView(View):
             :param request: Request to View
             :return: rendered inviting page
         """
-        return render(request, "invite.html")
+
+        return render(request, "invite.html",)
 
 
 class LoginView(View):
