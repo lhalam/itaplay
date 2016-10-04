@@ -9,7 +9,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 
 from utils.EmailService import EmailSender
 from authentication.models import AdviserInvitations, AdviserUser
-from authentication.forms import UserRegistrationForm, UserInvitationForm
+from authentication.forms import UserRegistrationForm, UserInvitationForm, LoginForm
 
 
 def validate_verification_code(func):
@@ -140,6 +140,9 @@ class LoginView(View):
                  HttpResponseBadRequest if request contain incorrect data
         """
         data = json.loads(request.body)
+        login_form = LoginForm(data)
+        if not login_form.is_valid():
+            return HttpResponseBadRequest('Invalid input data', status=401)
         username = data.get('username', None)
         password = data.get('password', None)
         user = auth.authenticate(username=username, password=password)
