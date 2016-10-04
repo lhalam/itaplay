@@ -17,3 +17,4 @@ class UserView(View):
             users = AdviserUser.objects.all()
             data = serializers.serialize('json', users)
             return HttpResponse(data)
+

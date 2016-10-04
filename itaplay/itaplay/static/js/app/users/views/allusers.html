@@ -1,29 +1,28 @@
 <div ng-init="init()" layout="column">
-
     <div layout="row">
-        <div flex=15></div>
-        <div flex=70  layout-padding>
-            <div  layout-padding ng-cloak ng-repeat = "user in users">
-                <md-card style="background-color: #CCD9D7;"  md-theme-watch layout="row"> 
-                    <md-card-title >
+        <div flex="15">
+            <md-button class="md-accent md-raised md-hue-1" href="#/adduser" class="groupX right">Add user</md-button>
+            <md-button class="md-accent md-raised md-hue-1" href="auth/invite" class="groupX right">invite</md-button>
+        </div>
+        <div flex=70 layout-padding>
+            <div layout-padding ng-cloak ng-repeat="user in users">
+                <md-card md-theme-watch layout="row">
+                    <md-card-title>
                         <md-card-title-media>
                             <div class="md-media-lg">
-                                <md-button  class="md-accent" class="md-card-image">
-                                    <img src="{{user.fields.avatar}}"  alt="{{user.fields.avatar}}" >
-                                </md-button >
+                                <md-button class="md-accent" class="md-card-image">
+                                    <img src="{{user.fields.avatar}}" alt="{{user.fields.avatar}}">
+                                </md-button>
                             </div>
                         </md-card-title-media>
                         <md-card-title-text>
                             <span class="md-headline">company ID: {{user.fields.id_company}}</span>
                             <span class="md-subhead">user ID: {{user.fields.user}}</span>
-
                         </md-card-title-text>
                     </md-card-title>
-                </md-card >
+                </md-card>
             </div>
             <div flex=5></div>
         </div>
     </div>
 </div>
- 
-
