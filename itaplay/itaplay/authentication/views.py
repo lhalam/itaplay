@@ -142,7 +142,7 @@ class LoginView(View):
         data = json.loads(request.body)
         login_form = LoginForm(data)
         if not login_form.is_valid():
-            return HttpResponseBadRequest('Invalid input data')
+            return HttpResponseBadRequest('Invalid input data', status=401)
         username = data.get('username', None)
         password = data.get('password', None)
         user = auth.authenticate(username=username, password=password)
