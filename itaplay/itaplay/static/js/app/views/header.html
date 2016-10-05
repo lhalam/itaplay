@@ -1,4 +1,5 @@
-<header>
+<link rel="stylesheet" type="text/css" href="/static/styles/logout.css">
+<header ng-controller="LogoutController">
   <md-toolbar>
     <div class="md-toolbar-tools">
       <img src="/static/images/Logo.png" class="header_logo">
@@ -10,19 +11,20 @@
         <span class="bar"></span>
         <label class="head_label">search</label>
       </div>
-    
-    <md-button class="md-fab md-mini header_user_image" aria-label="user_image">img</md-button>
+
+        <md-button type="submit" ng-click="LogoutUser()" class="md-icon-button logo" aria-label="user_image">
+          <img class="png-icon" src="/static/images/default-user-logo.png" >
+        </md-button>
+
     </div>
+
   </md-toolbar>
 </header> 
 
 <section layout="row" layout-xs="column" layout-sm="column" layout-align="center start" layout-align-sm="center center" layout-align-xs="center center">
-  <md-button href="#users" class="groupX left">users</md-button>
   <md-button href="#projects" class="groupX middle">projects</md-button>
-  <!-- <md-button href="#clips" class="groupX middle">add clip</md-button> -->
   <md-button href="#allclips" class="groupX middle">clips</md-button>
   <md-button href="#player" class="groupX middle">players</md-button>
-  <md-button class="groupX middle">messages</md-button>
-  <md-button href="#/templates" class="groupX right">templates</md-button> 
+  <md-button href="#/templates" class="groupX right">templates</md-button>
   <md-button href="#company" class="groupX right">companies</md-button> 
 </section>

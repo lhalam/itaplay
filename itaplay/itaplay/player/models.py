@@ -11,13 +11,16 @@ class Player(models.Model):
     status = models.BooleanField(default=False)
     project = models.ForeignKey(AdviserProject, blank = True, null = True, on_delete=models.SET_NULL)
 
-    def set(self, arg):
-        self = Player(**arg)
-        self.save()
+    @staticmethod
+    def send_project(player_ids, project):
+        for id in player_ids:
+            player = Player.get_by_id(id)
+            player.project = project
+            player.save()
 
-    def delete(self):
-        self.delete()
-    
+    def set(self, arg):
+        Player(**arg).save()
+
     @classmethod    
     def delete_by_id(cls, player_id):
         cls.objects.filter(pk=player_id).delete()
@@ -28,4 +31,7 @@ class Player(models.Model):
 
     @classmethod
     def get_by_id(cls, player_id):
-        return cls.objects.get(id=player_id)
+        try:
+            return cls.objects.get(id=player_id)
+        except:
+            return None

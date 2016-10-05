@@ -49,3 +49,14 @@ form {
 .buttonBlue:hover { background: #357bd8; }
 
 
+.formBg {
+    border-radius: 1%;
+    margin = 50px;
+    background-color: rgba(164, 198, 193, 0.8);
+}
+
+.content {
+    background-color: #FFFCF4;
+    border-radius: 1%;
+    margin = 50px;
+}

@@ -58,8 +58,9 @@ INSTALLED_APPS = [
     'clips',
     'projects',
     'player',
-    'users',
+    'monitor',
     'tests',
+    'users',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -178,7 +179,7 @@ try:
 except ImportError:
     pass
 
-# configs for AWS S3    
+# configs for AWS S3
 import boto
 
 MEDIAFILES_LOCATION = 'media/'
