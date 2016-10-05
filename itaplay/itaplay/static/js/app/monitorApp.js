@@ -3,7 +3,7 @@ var monitorApp = angular.module('monitorApp', ['ngRoute', 'ngMaterial', 'ngMessa
 
 monitorApp.config(function($routeProvider) {
     $routeProvider
-        .when('/mac=:mac/', {
+        .when('/:mac/', {
             templateUrl: '../../../static/js/app/monitor/views/monitor.html',
             controller: MonitorController
         });
