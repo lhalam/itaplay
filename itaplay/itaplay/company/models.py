@@ -7,12 +7,12 @@ class Company(models.Model):
     """
     Model of company.
     """
-    company_zipcode = models.CharField(max_length=20, default="")
-    company_logo = models.URLField(default="")
-    company_name = models.CharField(max_length=200, unique=True)
-    company_mail = models.EmailField(unique=True)
-    company_phone = models.CharField(max_length=50, unique=True)
-    company_address = models.CharField(max_length=200)
+    zipcode = models.CharField(max_length=20, default="")
+    logo = models.URLField(default="")
+    name = models.CharField(max_length=200, unique=True)
+    mail = models.EmailField(unique=True)
+    phone = models.CharField(max_length=50, unique=True)
+    address = models.CharField(max_length=200)
     administrator = models.OneToOneField('authentication.AdviserUser', on_delete=models.SET_NULL, blank = True, null = True)
     
     def set_company(self, arg):
