@@ -2,3 +2,14 @@
 .errorlist li{padding: 5px 5px; border-bottom: 1px solid #ddd;}
 .errorlist li:last-child{border-bottom: none}
 .errorList{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.42857143; padding: 20px 20px 10px 15px;  min-height: 200px;}
+.admin{
+  
+  height:50px;
+  width:50px;
+  overflow: hidden;
+  border-radius: 100%;
+  margin:2px 15px 2px 0;
+
+}
+.adminImg{ height:100%; }
+.listAdmins{margin:5px 0 5px 0;}

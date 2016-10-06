@@ -7,12 +7,12 @@
             <form name="newCompanyForm"  layout-padding>
                 <md-content style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
                     <md-input-container class="md-icon-float md-block">
-                      <label>Change logo:</label>
+                      <label>Logo:</label>
                        <input  type="url" name="logo" ng-model="company.logo"  ng-required="true">
                         
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>Change zipcode:</label> 
+                        <label>Zipcode:</label> 
                          <input name="zipcode" ng-model="company.zipcode" md-maxlength="20" ng-required="true">
                          <div ng-messages="newCompanyForm.zipcode.$error" ng-show="newCompanyForm.zipcode.$error">
                                 <div ng-message="md-maxlength">Zipcode too long!</div>
@@ -20,32 +20,31 @@
                         
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>Change name:</label>
+                        <label>Name:</label>
                         <input  ng-model="company.name" ng-required="true" >
                         
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>Change e-mail:</label>
+                        <label>E-mail:</label>
                         <input type="email" name="email" ng-model="company.mail" ng-required="true" pattern="\w[\w\.-]*@[\w\.-]+\.\w{2}\w*"> 
                        
                         
                     </md-input-container>       
                     <md-input-container class="md-icon-float md-block">
-                        <label>Change address:</label>
+                        <label>Address:</label>
                         <input  ng-model="company.address" ng-required="true" >
                         
                     </md-input-container>
                     <md-input-container class="md-icon-float md-block">
-                        <label>Change phone number:</label>
+                        <label>Phone:</label>
                         <input  ng-model="company.phone" ng-required="true" >
                         
                     </md-input-container>
-
                     <md-input-container class="md-icon-float md-block">
-                        <md-select ng-model="company.administrator"> 
-                            <md-option ng-value="user" ng-repeat="user in users"><img ng-src="/static/images/{{user.avatar}}" alt="user" height ="50px">  id: {{user.id}}</md-option>
+                        <md-select ng-model="company.administrator" > 
+                            <md-option class="listAdmins" ng-value="user" ng-repeat="user in users" ><div layout="row"><div class="admin"><img class="adminImg"  ng-src="/static/images/{{user.avatar}}" alt="user" > </div> <div layout="column"><span>{{ user.first_name }} {{ user.last_name }}</span><span>{{user.username}}</span></div></div></md-option> 
                         </md-select>               
-                        <label>Choose admin:</label>
+                        <label>Administrator:</label>
                     </md-input-container>
                 </md-content>
                 <div class="bottom-sheet-demo inset" layout="row" layout-sm="column">
@@ -58,30 +57,3 @@
         <div flex=20></div>
     </div>
 </div>
-<!--<style type="text/css">
-    .errorlist{
-      border-radius: 1%;
-      list-style: square outside;  
-      list-style-type: none;
-   
-   
-       
-    }
-
-
-   .errorlist  li{
-      padding: 5px 5px;
-      border-bottom: 1px solid #ddd;
-}
-
- .errorlist li:last-child {
-    border-bottom: none
-}
-md-dialog{
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 18px;
-    line-height: 1.42857143;
-  padding: 20px 20px 10px 15px;
-  min-height: 200px;
-  }
-</style>-->

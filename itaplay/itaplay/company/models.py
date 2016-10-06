@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
+from django.forms.models import model_to_dict
 
 class Company(models.Model):
     """
@@ -31,6 +33,20 @@ class Company(models.Model):
         :return: nothing.
         """
         Company.objects.get(id = company_id).delete()
+
+    def get_users(self):
+        """
+        Method for getting users of company from database.
+        :return: list with users dictionaries.
+        """  
+        users = [user for user in User.objects.all() if not user.is_superuser]
+        company_users = [model_to_dict(user.adviseruser) for user in users if user.adviseruser.id_company==self]
+        for user_ in company_users:           
+            [user_.update({'first_name' : user.first_name, 
+                          'last_name' : user.last_name, 
+                          'username' : user.username, 
+                          'email' : user.email,}) for user in users if user.adviseruser.id==user_["id"]]
+        return company_users
 
     @classmethod
     def get_company(cls, company_id=None):
