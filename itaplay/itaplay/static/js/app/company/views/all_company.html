@@ -3,7 +3,7 @@
         <div flex=20></div>
         <div flex=40>
             <md-input-container class="md-block" flex-gt-xs >
-                <input type="text" class="md-lg" ng-model="company_name">
+                <input type="text" class="md-lg" ng-model="company">
                 <label>Search for your company:</label>
             </md-input-container >
         </div>
@@ -16,24 +16,26 @@
     <div layout="row">
         <div flex=15></div>
         <div flex=70  layout-padding>
-            <div  layout-padding ng-cloak ng-repeat = "company in companies | filter:company_name">
+            <div  layout-padding ng-cloak ng-repeat = "company in companies | filter:company">
                 <md-card style="background-color: #CCD9D7;"  md-theme-watch layout="row"> 
                     <md-card-title >
                         <md-card-title-media>
                             <div class="md-media-lg">
-                                <md-button  class="md-accent" class="md-card-image" href = "#company/id={{company.id}}">
-                                    <img src="{{company.company_logo}}"  alt="{{company.company_name}}" >
+                                <md-button  class="md-accent" class="md-card-image" href = "#company/{{company.id}}">
+                                    <img ng-src="{{company.logo}}"  alt="{{company.name}}" >
                                 </md-button >
                             </div>
                         </md-card-title-media>
                         <md-card-title-text>
-                            <span class="md-headline">{{company.company_name}}</span>
-                            <span class="md-subhead">{{company.company_zipcode}}</span>
-                            <span class="md-subhead">{{company.company_mail}}</span>
+                            <span class="md-headline">{{company.name}}</span>
+                            <span class="md-subhead">{{company.zipcode}}</span>
+                            <span class="md-subhead">{{company.mail}}</span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-actions layout="row">
-                        <md-button type="submit"  class=" md-mini md-warn" ng-click="delete(company)">Delete</md-buttom>
+                        <md-button type="submit"  class="md-small md-warn" ng-click="delete(company)">
+                             <md-icon md-svg-src="static/images/ic_delete_forever_black_24px.svg"></md-icon>
+                        </md-buttom>
                      </md-card-actions>
                 </md-card >
             </div>

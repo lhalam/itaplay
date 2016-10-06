@@ -41,7 +41,7 @@ class CompanyListView(View):
         data = json.loads(request.body)
         company_form = CompanyForm(data)
         if not company_form.is_valid():
-            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+            return HttpResponseBadRequest(str(company_form.errors))
         company.set_company(data) 
         return HttpResponse(status=201)
 
@@ -85,7 +85,7 @@ class CompanyDetailsView(View):
         company = Company.get_company(data["id"]) 
         company_form = CompanyForm(data, company)
         if not company_form.is_valid():
-            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+            return HttpResponseBadRequest(str(company_form.errors))
         company.set_company(data) 
         return HttpResponse(status=201)    
 

@@ -6,8 +6,12 @@ function AllCompanyController($scope, $http, $location, $mdDialog) {
     $http.get("company/company_list_view/").then(function (response) {
       $scope.companies = response.data;
      }, function(response) {
-          console.log(response);
-        $scope.data = "Something went wrong";
+          $mdDialog.show(
+              $mdDialog.alert()
+              .clickOutsideToClose(true)
+              .title(response.data)
+              .ok('Ok')
+              );
     });
   };
   $scope.delete = function(company){
@@ -31,14 +35,12 @@ function CompanyAddController($scope, $http, $location, $mdDialog) {
   $scope.save = function (company){
     $http.post("company/company_list_view/", company).then(function (company) {
         $location.path('/company');
-      }, function(response) {
-          $mdDialog.show(
-              $mdDialog.alert()
-              .clickOutsideToClose(true)
-              .title(response.data)
-              .ok('Ok')
-            );
-          $location.path('/company/add_new/');
+      }, function(err) {
+        $mdDialog.show({
+          template : '<div class="errorList">'+err.data+"</div>",
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+        });                    
       });
     };        
 };
@@ -61,8 +63,7 @@ function CompanyController($scope, $http, $routeParams, $location, $mdDialog) {
             .title(response.data)
             .ok('Ok')
         );
-        $location.path('/company/');
-          
+        $location.path('/company/');   
     });
   };
   $scope.deleteCurrent = function(company){
@@ -81,14 +82,12 @@ function CompanyController($scope, $http, $routeParams, $location, $mdDialog) {
   $scope.update = function(company){
     $http.put("company/company_details_view/"+id +"/", company).then(function (company) {
       $location.path('/company');
-    }, function(response) {
-        $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title(response.data)
-            .ok('Ok')
-        );
-        $location.path('/company/id='+id);
+    }, function(err) {
+        $mdDialog.show({  
+          template : '<div class="errorList">'+err.data+"</div>",
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+        });
     });
   };    
 };

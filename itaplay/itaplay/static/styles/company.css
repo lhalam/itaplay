@@ -1,0 +1,4 @@
+.errorlist{border-radius: 1%; list-style: square outside; list-style-type: none;}
+.errorlist li{padding: 5px 5px; border-bottom: 1px solid #ddd;}
+.errorlist li:last-child{border-bottom: none}
+.errorList{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.42857143; padding: 20px 20px 10px 15px;  min-height: 200px;}
