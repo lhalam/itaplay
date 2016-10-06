@@ -14,7 +14,7 @@ class UserView(View):
     def get(self, request):
         user = request.user
         if user.is_superuser:
-            users = AdviserUser.objects.all()
+            users = User.objects.filter(is_superuser=False)
             data = serializers.serialize('json', users)
             return HttpResponse(data)
 
