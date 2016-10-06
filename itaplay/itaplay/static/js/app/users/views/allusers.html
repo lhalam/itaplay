@@ -1,8 +1,8 @@
 <div ng-init="init()" layout="column">
     <div layout="row">
         <div flex="15">
-            <md-button class="md-accent md-raised md-hue-1" href="#/adduser" class="groupX right">Add user</md-button>
-            <md-button class="md-accent md-raised md-hue-1" href="auth/invite" class="groupX right">invite</md-button>
+            <md-button class="md-accent md-raised md-hue-1" href="#/invitations" class="groupX right">all invitations</md-button>
+            <md-button class="md-raised md-warn md-button md-ink-ripple md-button" href="auth/invite" class="groupX right">new invitation</md-button>
         </div>
         <div flex=70 layout-padding>
             <div layout-padding ng-cloak ng-repeat="user in users">
