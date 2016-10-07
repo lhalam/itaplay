@@ -24,8 +24,8 @@
                              <label>Project description:</label>
                          </md-input-container>
 
-                         <md-card flex layout-padding>
-                             <h4>Your players:</h4>
+                         <md-card flex layout-padding ng-click="addPlayers($event)">
+                             <h4>Add players:</h4>
                              <div ng-repeat="player in players">
                                 <md-checkbox ng-checked="true">name: {{player.name}}; mac: {{player.mac_address}}</md-checkbox>
                                 <md-divider ng-if="!$last"></md-divider>
@@ -34,7 +34,6 @@
                      </div>
                       <div layout="row">
                           <div flex offset="33"></div>
-                          <md-button class="md-primary md-raised" ng-click="addPlayers($event)">Add project to players</md-button>
                           <md-button type="submit" class="md-raised md-primary">Create</md-button>
                           <md-button type="reset" class="md-raised md-warn" >Reset</md-button>
                       </div>
