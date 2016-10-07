@@ -6,17 +6,25 @@ from django.http import HttpResponseBadRequest, HttpResponse
 from django.forms.models import model_to_dict
 import json
 from django.core import serializers
+
+from rest_framework.response import Response
+from rest_framework import status, generics
+
+from users.serializers import AdviserUsersSerializer
 # Create your views here.
 
 
-class UserView(View):
 
-    def get(self, request):
-        user = request.user
+class AdviserUsersList(generics.ListCreateAPIView):
+
+    serializer_class = AdviserUsersSerializer
+
+    def get_queryset(self):
+
+        user = self.request.user
         if user.is_superuser:
-            users = User.objects.filter(is_superuser=False)
-            data = serializers.serialize('json', users)
-            return HttpResponse(data)
+            return AdviserUser.objects.all()
+
 
 class InvitationView(View):
 
