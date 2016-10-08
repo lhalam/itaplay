@@ -19,10 +19,6 @@ class UserView(View):
 
     def get(self, request):
         user = request.user
-        if user.is_superuser:
-            users = AdviserUser.objects.all()
-            data = serializers.serialize('json', users)
-            return HttpResponse(data)
         if not user.is_superuser:
             data = {}
             data['AdviserUser'] = model_to_dict(AdviserUser.objects.get(user_id=user.id))
