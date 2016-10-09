@@ -35,3 +35,13 @@ class InvitationView(View):
             data = serializers.serialize('json', invitations)
             return HttpResponse(data)
 
+
+class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
+
+    serializer_class = AdviserUsersSerializer
+
+    def get_queryset(self):
+
+        user = self.request.user
+        if user.is_superuser:
+            return AdviserUser.objects.all()

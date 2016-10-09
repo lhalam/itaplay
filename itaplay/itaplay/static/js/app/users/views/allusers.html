@@ -23,6 +23,9 @@
                             <span class="md-subhead">last name: {{user.user.last_name}}</span>
                         </md-card-title-text>
                     </md-card-title>
+                    <md-card-actions layout="row">
+                        <md-button type="submit" class=" md-mini md-warn" ng-click="delete(user)">Delete</md-buttom>
+                    </md-card-actions>
                 </md-card>
             </div>
             <div flex=5></div>
