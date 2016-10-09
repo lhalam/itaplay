@@ -11,7 +11,10 @@
                             <span class="md-headline">email: {{invitation.email}}</span>
                             <span class="md-headline">company: {{invitation.id_company.company_name}}</span>
                             <span class="md-subhead">verification_code: {{invitation.verification_code}}</span>
-                            <span class="md-subhead">active: {{invitation.is_active}}</span>
+                            <div class="slide">
+                                <span class="md-subhead" ng-if="invitation.is_active == true">active:yes</span>
+                                <span class="md-subhead" ng-if="invitation.is_active == false" />active:no</span>
+                            </div>
                         </md-card-title-text>
                     </md-card-title>
                 </md-card>
