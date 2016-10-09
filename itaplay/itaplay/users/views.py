@@ -10,9 +10,8 @@ from django.core import serializers
 from rest_framework.response import Response
 from rest_framework import status, generics
 
-from users.serializers import AdviserUsersSerializer
+from users.serializers import AdviserUsersSerializer, AdviserInvitationsSerializer
 # Create your views here.
-
 
 
 class AdviserUsersList(generics.ListCreateAPIView):
@@ -26,16 +25,6 @@ class AdviserUsersList(generics.ListCreateAPIView):
             return AdviserUser.objects.all()
 
 
-class InvitationView(View):
-
-    def get(self, request):
-        user = request.user
-        if user.is_superuser:
-            invitations = AdviserInvitations.objects.all()
-            data = serializers.serialize('json', invitations)
-            return HttpResponse(data)
-
-
 class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = AdviserUsersSerializer
@@ -45,3 +34,14 @@ class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         if user.is_superuser:
             return AdviserUser.objects.all()
+
+
+class AdviserInvitationsList(generics.ListCreateAPIView):
+
+    serializer_class = AdviserInvitationsSerializer
+
+    def get_queryset(self):
+
+        user = self.request.user
+        if user.is_superuser:
+            return AdviserInvitations.objects.all()
