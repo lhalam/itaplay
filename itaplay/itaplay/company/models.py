@@ -39,7 +39,7 @@ class Company(models.Model):
         Method for getting users of company from database.
         :return: list with users dictionaries.
         """  
-        users = [user for user in User.objects.all() if not user.is_superuser]
+        users = [user for user in User.objects.all() if hasattr(user, 'adviseruser')]
         company_users = [model_to_dict(user.adviseruser) for user in users if user.adviseruser.id_company==self]
         for user_ in company_users:           
             [user_.update({'first_name' : user.first_name, 
