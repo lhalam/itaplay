@@ -11,9 +11,9 @@ from rest_framework import status, generics
 from projects.serializers import AdviserProjectSerializer
 
 from player.models import Player
-from company.models import Company
 from projects.models import AdviserProject
 from xml_templates.models import XmlTemplate
+
 
 class AdviserProjectView(View):
     """
@@ -30,15 +30,15 @@ class AdviserProjectView(View):
         template = XmlTemplate.get_by_id(data['template_id']).template_content
         tree = ElementTree.fromstring(template)
         for area in data['areas']:
-            template_area = tree.find(".//area[@id=\"%s\"]"%(area['id']))
+            template_area = tree.find(".//area[@id=\"%s\"]" % (area['id']))
             for clip in area['clips']:
                 clip_tag = ElementTree.SubElement(template_area, 'clip')
-                clip_tag.set('id',str(clip['pk']))
+                clip_tag.set('id', str(clip['pk']))
                 clip_tag.set('src', clip['fields']['url'])
                 clip_tag.set('mimetype', clip['fields']['mimetype'])
                 clip_tag.text = clip['fields']['name']
-        result_template = ElementTree.tostring(tree,encoding="us-ascii", method="xml")
-        project = AdviserProject.objects.filter(id = data['project_id']).first()
+        result_template = ElementTree.tostring(tree, encoding="us-ascii", method="xml")
+        project = AdviserProject.objects.filter(id=data['project_id']).first()
         project.project_template = result_template
         project.save()
         return HttpResponse(status=201)

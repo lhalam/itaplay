@@ -21,17 +21,17 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
     $scope.parseTemplate = function (selected_template) {
         if (selected_template) {
             if (window.DOMParser) {
-                parser = new DOMParser();
-                xmlDoc = parser.parseFromString(selected_template.template_content, "text/xml");
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(selected_template.template_content, "text/xml");
             }
             else // Internet Explorer
             {
-                xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
                 xmlDoc.async = false;
                 xmlDoc.loadXML(selected_template.template_content);
             }
             $scope.areas = [];
-            DOM_areas = xmlDoc.getElementsByTagName("area");
+            var DOM_areas = xmlDoc.getElementsByTagName("area");
             for (var i = 0; i < DOM_areas.length; i++) {
                 $scope.areas[i] = {};
                 $scope.areas[i]['id'] = DOM_areas[i].id;
@@ -47,7 +47,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
 
     $scope.save = function (selected_template, areas) {
         if (!validate(selected_template,areas)){ return;}
-        data = {
+        var data = {
             "project_id": $scope.project_id,
             "template_id": selected_template.id,
             "areas": areas
@@ -63,7 +63,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
             showAlert("You need to select template first!");
             return false;
         }
-        for (i = 0; i < areas.length; i+=1) {
+        for (var i = 0; i < areas.length; i+=1) {
             if (!areas[i].clips.length) {
                 showAlert("All areas must have clips!");
                 return false;
@@ -128,8 +128,8 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
         $scope.answer = function (answer) {
             $mdDialog.hide(answer);
         };
-    };
-};
+    }
+}
 
 itaplay.controller('ProjectCtrl', function($scope, $http, $route) {
     $http.get("api/projects")

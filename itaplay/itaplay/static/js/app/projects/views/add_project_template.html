@@ -2,7 +2,7 @@
     <div layout="row">
         <div flex=20></div>
         <div flex=60 style="background-color:  #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
-            <div>Add new project template:</div>
+            <div>Add project template:</div>
             <form name="newProjectTemplateForm">
                 <div style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
                     <md-content>
@@ -13,7 +13,7 @@
                               md-item-text="item.template_name"
                               md-min-length="1"
                               md-selected-item-change="parseTemplate(selected_template)"
-                              placeholder="Select project template">
+                              placeholder="Select raw project template">
                             <md-item-template>
                               <span md-highlight-text="search_text" md-highlight-flags="^i">{{item.template_name}}</span>
                             </md-item-template>
