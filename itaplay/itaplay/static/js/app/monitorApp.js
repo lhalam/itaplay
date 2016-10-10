@@ -7,4 +7,4 @@ monitorApp.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/monitor/views/monitor.html',
             controller: MonitorController
         });
-      });
+    });
