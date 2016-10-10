@@ -13,3 +13,4 @@
 .companyForm{background-color: #A4C6C1; border-radius: 1%; margin:30px 60px 0 60px;}
 .formLogo{height:55px; margin :10px 0 0 10px;}
 .companyFields{background-color: #FFFCF4; border-radius: 1%; margin:10px 5px 0 5px;}
+md-dialog{position:fixed; left: 25%; right:25%; top: 25%;}

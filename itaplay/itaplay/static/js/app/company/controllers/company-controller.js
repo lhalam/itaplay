@@ -33,7 +33,7 @@ function AllCompanyController ($scope, $http, $location, $mdDialog) {
 function CompanyAddController ($scope, $http, $location, $mdDialog) {
  
     $scope.save = function (company){
-        http.post("company/company_list_view/", company).then(function (company) {
+        $http.post("company/company_list_view/", company).then(function (company) {
             $location.path('/company');
         }, function (err) {
             $mdDialog.show({
