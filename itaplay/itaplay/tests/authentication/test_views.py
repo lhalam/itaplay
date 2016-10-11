@@ -11,7 +11,7 @@ from company.models import Company
 class LoginView(TestCase):
 
     def setUp(self):
-        user = User.objects.create(username="test@test.com")
+        user = User.objects.create(username="test@test.com", email="test@test.com")
         user.set_password("rootroot")
         user.save()
 
@@ -23,7 +23,7 @@ class LoginView(TestCase):
 
     def test_Authentication_post_login_success(self):
         user_data = json.dumps(
-            {'email': "test@test.com", 'password': "rootroot"})
+            {'username': "test@test.com", 'email': "test@test.com", 'password': "rootroot"})
 
         response = self.client.post("/auth/login", data=user_data,
                                     content_type='application/json')
@@ -31,7 +31,7 @@ class LoginView(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_Authentication_post_login_failed_username(self):
-        user_data = json.dumps({'email': "failed", 'password': "rootroot"})
+        user_data = json.dumps({'username': "failed", 'email': "test@test.com", 'password': "rootroot"})
 
         response = self.client.post("/auth/login", data=user_data,
                                     content_type='application/json')
@@ -40,7 +40,7 @@ class LoginView(TestCase):
 
     def test_Authentication_post_login_failed_password(self):
         user_data = json.dumps(
-            {'email': "test@test.com", 'password': "failed"})
+            {'username': "test@test.com", 'email': "test@test.com", 'password': "failed"})
 
         response = self.client.post("/auth/login", data=user_data,
                                     content_type='application/json')

@@ -19,20 +19,20 @@ from xml_templates.models import XmlTemplate
 class AdviserProjectsTests(APITestCase):
     def setUp(self):
         Company.objects.create(
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_phone="+380901234567",
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            phone="+380901234567",
             id=1
         )
 
         Company.objects.create(
-            company_zipcode="794508",
-            company_logo="http://test2.test",
-            company_name="testcompany2",
-            company_mail="test2@test.test",
-            company_phone="+380901234677",
+            zipcode="794508",
+            logo="http://test2.test",
+            name="testcompany2",
+            mail="test2@test.test",
+            phone="+380901234677",
             id=2
         )
 
