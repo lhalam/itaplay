@@ -1,32 +1,54 @@
 <div ng-controller="ProjectCtrl" ng-cloak  layout-gt-sm="row" flex layout-align="center">
 
     <div flex-gt-sm="70" >
-        <md-toolbar layout="row" class="teal">
+
+        <md-toolbar class="roundBar" layout="row">
             <div class="md-toolbar-tools">
                 <span>Projects</span>
+                <div flex=50></div>
+                <md-input-container class="searcher">
+                    <md-icon class="material-icons" style="color:#009688">search</md-icon>
+                    <input type="text" class="md-lg" class="searchInput" ng-model="projectSearch">
+                    <span class="bar"></span>
+                </md-input-container>
+                <div flex=10></div>
+                <div>
+                    <md-button flex="500" class="md-primary md-raised md-hue-1" style="color:white"
+                               href="#projects/new">
+                        <md-icon class="material-icons" style="color:white">add_box</md-icon>
+                        Add new
+                    </md-button>
+                </div>
             </div>
         </md-toolbar>
+
         <md-content>
-            <md-list flex ng-repeat="project in projects">
-                <md-list-item class="md-2-line">
-                    <div class="md-list-item-text">
-                        <h3>{{ project.name }}</h3>
-                        <p>{{ project.description }}</p>
-                    </div>
-                    <md-button class="md-secondary md-raised" href="#projects/id={{ project.id }}">Edit</md-button>
-                    <md-button class="md-secondary md-raised md-warn" ng-click="delete(project)">Delete</md-button>
-                </md-list-item>
-                <md-divider ></md-divider>
-            </md-list>
+            <div ng-repeat="project in projects | filter:projectSearch">
+                <md-card class="listCard" md-theme-watch layout="row">
+                    <md-card-title>
+
+                        <md-card-title-text>
+                            <span class="md-headline">{{ project.name }}</span>
+                            <span class="md-subhead">{{ project.description }}</span>
+                        </md-card-title-text>
+
+                    </md-card-title>
+                    <md-card-actions layout="column">
+
+                        <md-button flex="33" class="md-primary md-hue-2" href="#projects/id={{ project.id }}">
+                            <md-icon class="material-icons">edit</md-icon>
+                            Details
+                        </md-button>
+
+                        <md-button type="submit" flex="33" class="md-warn" ng-click="delete(project)">
+                            <md-icon class="material-icons">delete_forever</md-icon>
+                            Delete
+                        </md-button>
+
+                    </md-card-actions>
+                </md-card>
+            </div>
         </md-content>
-
-        <md-button class="md-fab md-fab-bottom-right" aria-label="FAB" href="#projects/new">
-            <md-icon md-font-set="material-icons">add</md-icon>
-        </md-button>
-
     </div>
-
-
-
 </div>
 

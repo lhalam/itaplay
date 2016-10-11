@@ -268,22 +268,22 @@ class AdviserProjectsToPlayersTests(TestCase):
 
         Company.objects.create(
             id=1,
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_address= "testaddress",
-            company_phone="+380901234567",
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            address= "testaddress",
+            phone="+380901234567",
         )
 
         Company.objects.create(
             id=2,
-            company_zipcode="794508",
-            company_logo="http://test2.test",
-            company_name="testcompany2",
-            company_mail="test2@test.test",
-            company_address="testaddress2",
-            company_phone="+380901234677",
+            zipcode="794508",
+            logo="http://test2.test",
+            name="testcompany2",
+            mail="test2@test.test",
+            address="testaddress2",
+            phone="+380901234677",
         )
 
         AdviserUser.objects.create(
@@ -443,15 +443,15 @@ class AdviserProjectsToPlayersTests(TestCase):
     def test_post_project_with_players(self):
         AdviserProject.objects.all().delete()
         url = reverse('projects-list')
-        data = json.dumps({ 'id' : 2,
-                            'name' : 'TestProject 2',
-                            'description' : 'Test description',
-                            'players' : [ 2, 3,],
+        data = json.dumps({ 'id' : 1,
+                            'name' : 'TestProject 1',
+                            'description' : 'Test description',                             
+                            'players' : [ 2, 3,],          
         })
         response = self.client.post(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(AdviserProject.objects.count(), 1)
         first_player = Player.objects.get(id=2)
-        self.assertEqual(first_player.project.id, 2)
+        self.assertEqual(first_player.project.name, 'TestProject 1')
         second_player = Player.objects.get(id=3)
-        self.assertEqual(second_player.project.id, 2)
+        self.assertEqual(second_player.project.name, 'TestProject 1')

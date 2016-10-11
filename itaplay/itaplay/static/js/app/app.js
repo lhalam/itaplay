@@ -58,7 +58,7 @@ itaplay.config(function($routeProvider) {
             controller: CompanyAddController
         })
 
-        .when('/company/id=:company_id/', {
+        .when('/company/:company_id/', {
             templateUrl: '../../../static/js/app/company/views/company.html',
             controller: CompanyController
         })
