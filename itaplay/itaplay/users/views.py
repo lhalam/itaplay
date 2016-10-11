@@ -31,6 +31,7 @@ class UserView(View):
             data['User'] = model_to_dict(User.objects.get(id=user.id))
             return HttpResponse(json.dumps(data, default=self.datetime_handler))
 
+
     def put(self, request):
         data = json.loads(request.body)
         user_form = UserForm(data['User'])
@@ -43,6 +44,7 @@ class UserView(View):
         user.first_name = data['User']['first_name']
         user.save()
         return HttpResponse(status=201)
+
 
 class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
 
@@ -75,3 +77,5 @@ class AdviserUsersList(generics.ListCreateAPIView):
         user = self.request.user
         if user.is_superuser:
             return AdviserUser.objects.all()
+        # if not user.is_superuser:
+        #     return AdviserUser.objects.filter(id_company=user.id_company)

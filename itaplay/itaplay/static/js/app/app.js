@@ -13,9 +13,6 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/users/views/user.html',
             controller: UserController
         })
-       .when('/adduser', {
-            templateUrl: '../../../static/js/app/users/views/adduser.html',
-            controller: AddUserController
        .when('/invitations', {
             templateUrl: '../../../static/js/app/users/views/allinvitations.html',
             controller: AllInvitationsController
