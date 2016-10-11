@@ -32,7 +32,7 @@ class CompanyListView(View):
             company = [model_to_dict(company) for company in Company.get_company()]
             return HttpResponse(json.dumps(company))
         adviser_user = request.user.adviseruser
-        company = [model_to_dict(company) for company in Company.objects.filter(id=adviser_user.id_company.id)]
+        company = [model_to_dict(company) for company in Company.filter_company(adviser_user.id_company.id)]
         return HttpResponse(json.dumps(company))
     
     @check_superadmin

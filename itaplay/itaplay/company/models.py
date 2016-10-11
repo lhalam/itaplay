@@ -58,3 +58,12 @@ class Company(models.Model):
         if not company_id:
             return cls.objects.all()
         return cls.objects.get(id=company_id)
+    
+    @classmethod
+    def filter_company(cls, company_id=None):
+        """
+        Classmethod for getting companies from database.
+        :param company_id: primary key for searched company.
+        :return: list of one company object filtered by company_id.
+        """
+        return cls.objects.filter(id=company_id)
