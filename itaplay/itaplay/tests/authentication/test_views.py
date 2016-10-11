@@ -164,14 +164,8 @@ class RegisterView(TestCase):
             company_phone="+380901234567",
         )
 
-        user = User.objects.create(username="test@test.com", email="test@test.com")
-        user.set_password("rootroot")
-        user.save()
 
-        adviser_user = AdviserUser.objects.create(user=user, id_company=company)
-        adviser_user.save()
-
-        adviser_invite = AdviserInvitations.objects.create(email="test3@test.com", id_company=company,
+        AdviserInvitations.objects.create(email="test3@test.com", id_company=company,
                                                            verification_code="1", is_active=True,
                                                            creation_time=datetime.datetime.now(),
                                                            id=1)
