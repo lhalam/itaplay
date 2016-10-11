@@ -6,6 +6,7 @@ from django.http import HttpResponseBadRequest, HttpResponse
 from django.forms.models import model_to_dict
 import json
 import datetime
+from users.forms import UserForm
 from django.core import serializers
 # Create your views here.
 
@@ -27,6 +28,9 @@ class UserView(View):
 
     def put(self, request):
         data = json.loads(request.body)
+        user_form = UserForm(data['User'])
+        if not user_form.is_valid():
+            return HttpResponseBadRequest('Invalid input data', status=400)
         adviser_user = AdviserUser.objects.get(id=data['AdviserUser']['id'])
         adviser_user.set_adviser_user(data['AdviserUser'])
         user = User.objects.get(id=data['User']['id'])
