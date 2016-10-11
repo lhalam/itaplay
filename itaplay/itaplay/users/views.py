@@ -23,5 +23,14 @@ class UserView(View):
             data = {}
             data['AdviserUser'] = model_to_dict(AdviserUser.objects.get(user_id=user.id))
             data['User'] = model_to_dict(User.objects.get(id=user.id))
-            print 'here ',data
             return HttpResponse(json.dumps(data, default=self.datetime_handler))
+
+    def put(self, request):
+        data = json.loads(request.body)
+        adviser_user = AdviserUser.objects.get(id=data['AdviserUser']['id'])
+        adviser_user.set_adviser_user(data['AdviserUser'])
+        user = User.objects.get(id=data['User']['id'])
+        user.last_name = data['User']['last_name']
+        user.first_name = data['User']['first_name']
+        user.save()
+        return HttpResponse(status=201)

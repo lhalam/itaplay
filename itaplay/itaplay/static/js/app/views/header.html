@@ -5,20 +5,20 @@
       <img src="/static/images/Logo.png" class="header_logo">
         <span flex></span>
 
-      <!--<div class="group">      -->
-        <!--<input class="head_input" type="text" required>-->
-        <!--<span class="head_highlight"></span>-->
-        <!--<span class="bar"></span>-->
-        <!--&lt;!&ndash;<label class="head_label">search</label>&ndash;&gt;-->
-      <!--</div>-->
+      <div class="group">
+        <input class="head_input" type="text" required>
+        <span class="head_highlight"></span>
+        <span class="bar"></span>
+        <label class="head_label">search</label>
+      </div>
       <div ng-init="init()">
-        <md-menu md-position-mode="target-right bottom">
+        <md-menu md-position-mode="target-right bottom" >
           <md-button aria-label="Open demo menu" class="md-icon-button logo" ng-click="$mdOpenMenu($event)">
             <img class="png-icon" ng-src="{{ avatar }}" >
           </md-button>
           <md-menu-content width="2">
-              <md-button href="#profile">Profile</md-button>
-            <md-button ng-click="LogoutUser()"> <span md-menu-align-target="">Log Out</md-button>
+              <md-button href="#profile" class="md-raised md-primary">Profile</md-button>
+            <md-button ng-click="LogoutUser()" class="md-raised md-warn"> <span md-menu-align-target="">Log Out</md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>

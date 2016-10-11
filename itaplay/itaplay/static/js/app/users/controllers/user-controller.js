@@ -7,5 +7,17 @@ function UserController($scope, $http) {
                 $scope.user = response.data;
                 console.log($scope.user.User.username);
             });
-    };
+   };
+    $scope.update = function(user){
+    $http.put("/users/profile/", user).then(function (user) {
+      $location.path('/profile');
+    }, function(response) {
+        $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title(response.data)
+            .ok('Ok')
+        );
+    });
+   };
 }

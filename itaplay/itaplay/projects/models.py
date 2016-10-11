@@ -13,3 +13,5 @@ class AdviserProject(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=150)
     project_template = models.TextField(blank=True, null=True)
+
+

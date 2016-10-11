@@ -35,6 +35,10 @@ class AdviserUser(models.Model):
         user.save()
         return user
 
+    def set_adviser_user(self, data):
+        self.avatar = data.get('avatar', self.avatar)
+        self.save()
+
 
 class AdviserInvitations(models.Model):
     """Stores invitation data"""
