@@ -293,3 +293,4 @@ md-whiteframe {
     position: fixed;
     bottom: 60px;
 }
+.roundToolbar{border-radius: 5px}

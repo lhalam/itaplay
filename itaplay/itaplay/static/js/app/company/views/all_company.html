@@ -2,7 +2,7 @@
 <div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
     <div flex-gt-sm="70">
 
-        <md-toolbar class="roundBar" layout="row">
+        <md-toolbar class="roundToolbar" layout="row">
             <div class="md-toolbar-tools">
                 <span>Companies</span>
                 <div flex=50></div>
@@ -21,9 +21,8 @@
 
         <div class="companyTop" layout="column">
             <div ng-repeat = "company in companies | filter:company">
-                <md-card class="companyCard" md-theme-watch layout="row"> 
+                <md-card class="listCard" layout="row"> 
                     <md-card-title>
-                        
                         <md-card-title-media>             
                             <img class="companyLogo" ng-src="{{company.logo}}" alt="{{company.name}}">
                         </md-card-title-media>
