@@ -16,11 +16,11 @@ class AdviserInvitationsTest(TestCase):
     def setUp(self):
         company = Company.objects.create(
             id = 1,
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_phone="+380901234567",
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            phone="+380901234567",
         )
         AdviserInvitations.objects.create(
             email="mail@mail.com",
@@ -85,11 +85,11 @@ class AdviserUserTest(TestCase):
 
     def setUp(self):
         Company.objects.create(
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_phone="+380901234567",
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            phone="+380901234567",
             id=1
         )
 
