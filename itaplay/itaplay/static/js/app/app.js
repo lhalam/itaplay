@@ -13,6 +13,10 @@ itaplay.config(function($routeProvider) {
             templateUrl: '../../../static/js/app/users/views/allinvitations.html',
             controller: AllInvitationsController
         })
+        .when('/newinvite', {
+            templateUrl: '../../../static/js/app/users/views/add_invite.html',
+            controller: InviteUserController
+        })
         .when('/allclips', {
             templateUrl: '../../../static/js/app/clips/views/allclips.html',
             controller: AllClipController
@@ -63,7 +67,7 @@ itaplay.config(function($routeProvider) {
             controller: CompanyAddController
         })
 
-        .when('/company/id=:company_id/', {
+        .when('/company/:company_id/', {
             templateUrl: '../../../static/js/app/company/views/company.html',
             controller: CompanyController
         })

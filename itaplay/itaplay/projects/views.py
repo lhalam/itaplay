@@ -38,9 +38,7 @@ class AdviserProjectView(View):
                 clip_tag.set('mimetype', clip['fields']['mimetype'])
                 clip_tag.text = clip['fields']['name']
         result_template = ElementTree.tostring(tree, encoding="us-ascii", method="xml")
-        project = AdviserProject.objects.filter(id=data['project_id']).first()
-        project.project_template = result_template
-        project.save()
+        AdviserProject.update(data['project_id'],project_template = result_template)
         return HttpResponse(status=201)
 
 

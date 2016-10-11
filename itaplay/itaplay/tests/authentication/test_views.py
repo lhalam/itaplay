@@ -68,11 +68,11 @@ class InviteView(TestCase):
     def setUp(self):
         company = Company.objects.create(
             id=1,
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_phone="+380901234567",
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            phone="+380901234567",
         )
 
         user = User.objects.create(username="test@test.com", email = "test@test.com")
@@ -87,15 +87,6 @@ class InviteView(TestCase):
                                                            creation_time = datetime.datetime.now())
 
         self.client = Client()
-
-    def test_get_invite_page(self):
-        self.client.login(username='test@test.com', password='rootroot')
-        response = self.client.get('/auth/invite')
-        self.assertEqual(response.status_code, 200)
-
-    def test__get_invite_page_when_not_authorized(self):
-        response = self.client.get('/auth/invite')
-        self.assertEqual(response.status_code, 302)
 
     @mock.patch('django.forms.forms.BaseForm.is_valid')
     def test_post_invite_page_succses(self, fakeresult):

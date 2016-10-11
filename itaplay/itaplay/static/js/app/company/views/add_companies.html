@@ -1,48 +1,67 @@
-<div layout="column" layout-padding ng-cloak>    
-    <md-button href="/#/company/" class="groupX right">All companies</md-button> 
-    <div layout="row">
-        <div flex=20></div>
-        <div flex=60 style="background-color:  #A4C6C1; border-radius: 1%; marging = 50px;" layout-padding>
+<div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
+    <div flex-gt-sm="70">
+        <md-toolbar class="roundBar" layout="row">
+            <div  class="md-toolbar-tools" >
+                <md-button class="md-icon-button" href="#company">
+                    <md-icon md-font-set="material-icons">arrow_back</md-icon>
+                </md-button>
+                <span>Companies</span>        
+            </div>
+        </md-toolbar>
+         
+        <div class="companyForm" layout-padding>
             <div>Add new company:</div>
-            <img src="{{company.company_logo}}"  height ="55px" alt="company logo">
-            <form name="newCompanyForm"  layout-padding>
-                <md-content md-theme="docs-dark" style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
-                    <md-input-container class="md-icon-float md-block" >                        
-                       <input ng-model="company.company_name"/>
-                       <label>Name:</label>
+            <img class="formLogo" ng-src="{{company.logo}}" alt="company.name">
+            <form name="newCompanyForm" layout-padding>
+               
+                <md-content class="companyFields" layout-padding>
+                    <md-input-container class="md-icon-float md-block">      
+                        <label>Name:</label>                  
+                        <input ng-model="company.name" ng-required="true">
                     </md-input-container>
-                    <md-input-container class="md-icon-float md-block" >
-                       <input ng-model="company.company_logo"/>
-                       <label>Logo:</label> 
-                    </md-input-container>
-                    <md-input-container class="md-icon-float md-block" >
-                       <input ng-model="company.company_zipcode"/>
-                       <label>Zipcode:</label>
-                    </md-input-container>
+
                     <md-input-container class="md-icon-float md-block">
-                       <input ng-model="company.company_mail"/> 
-                       <label>E-mail:</label> 
-                    </md-input-container>  
-                    <md-input-container class="md-icon-float md-block" >
-                       <input ng-model="company.company_address"/>
-                       <label>Address:</label>
-                    </md-input-container>  
-                    <md-input-container class="md-icon-float md-block" >
-                        <input ng-model="company.company_phone"/>
-                        <label>Phone:</label>
+                        <label>Logo:</label> 
+                        <input type="url" name="logo" ng-model="company.logo" ng-required="true">
                     </md-input-container>
+
+                    <md-input-container  class="md-icon-float md-block">
+                        <label>Zipcode:</label>
+                        <input name="zipcode" ng-model="company.zipcode" md-maxlength="20" ng-required="true">
+                        <div ng-messages="newCompanyForm.zipcode.$error" ng-show="newCompanyForm.zipcode.$error">
+                            <div ng-message="md-maxlength">Zipcode too long!</div>
+                        </div>
+                    </md-input-container>
+                                                   
+                    <md-input-container class="md-icon-float md-block">
+                        <label>E-mail:</label> 
+                        <input type="email" name="email" ng-model="company.mail" ng-required="true" pattern="\w[\w\.-]*@[\w\.-]+\.\w{2}\w*"> 
+                    </md-input-container>  
+      
                     <md-input-container class="md-icon-float md-block" >
-                        <input placeholder="Invite someone" disabled="true" ng-model="company.administrator"/>
+                        <label>Address:</label>
+                        <input ng-model="company.address" ng-required="true">              
+                    </md-input-container>  
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Phone:</label>
+                        <input ng-model="company.phone" name="phone" ng-required="true">  
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
                         <label>Admin:</label>
+                        <input placeholder="Invite someone" disabled="true" ng-model="company.administrator">
                     </md-input-container>                    
                 </md-content>
+
                 <div layout="row">
                     <div flex="100"></div>
-                    <md-button  class="md-primary md-raised"  type="submit" ng-click="save(company)">Add</md-buttom>
+                    <md-button  class="md-primary md-raised" ng-disabled="!newCompanyForm.$valid"  ng-click="save(company)">
+                        <md-icon class="material-icons">add_box</md-icon> 
+                        Add
+                    </md-buttom>
                 </div>
             </form>
         </div>
-        <div flex=20></div>
     </div>
 </div>
-
