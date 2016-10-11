@@ -11,7 +11,7 @@ from company.models import Company
 class LoginView(TestCase):
 
     def setUp(self):
-        user = User.objects.create(username="test@test.com")
+        user = User.objects.create(username="test@test.com", email="test@test.com")
         user.set_password("rootroot")
         user.save()
 
@@ -23,7 +23,7 @@ class LoginView(TestCase):
 
     def test_Authentication_post_login_success(self):
         user_data = json.dumps(
-            {'username': "test@test.com", 'password': "rootroot"})
+            {'username': "test@test.com", 'email': "test@test.com", 'password': "rootroot"})
 
         response = self.client.post("/auth/login", data=user_data,
                                     content_type='application/json')
@@ -31,7 +31,7 @@ class LoginView(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_Authentication_post_login_failed_username(self):
-        user_data = json.dumps({'username': "failed", 'password': "rootroot"})
+        user_data = json.dumps({'username': "failed", 'email': "test@test.com", 'password': "rootroot"})
 
         response = self.client.post("/auth/login", data=user_data,
                                     content_type='application/json')
@@ -40,7 +40,7 @@ class LoginView(TestCase):
 
     def test_Authentication_post_login_failed_password(self):
         user_data = json.dumps(
-            {'username': "test@test.com", 'password': "failed"})
+            {'username': "test@test.com", 'email': "test@test.com", 'password': "failed"})
 
         response = self.client.post("/auth/login", data=user_data,
                                     content_type='application/json')
@@ -148,21 +148,15 @@ class RegisterView(TestCase):
     def setUp(self):
         company = Company.objects.create(
             id=1,
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_phone="+380901234567",
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            phone="+380901234567",
         )
 
-        user = User.objects.create(username="test@test.com", email="test@test.com")
-        user.set_password("rootroot")
-        user.save()
 
-        adviser_user = AdviserUser.objects.create(user=user, id_company=company)
-        adviser_user.save()
-
-        adviser_invite = AdviserInvitations.objects.create(email="test3@test.com", id_company=company,
+        AdviserInvitations.objects.create(email="test3@test.com", id_company=company,
                                                            verification_code="1", is_active=True,
                                                            creation_time=datetime.datetime.now(),
                                                            id=1)
