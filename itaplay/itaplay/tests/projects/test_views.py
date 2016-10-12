@@ -133,7 +133,8 @@ class AdviserProjectsTests(APITestCase):
         url = reverse('projects-list')
         response = self.client.get(url)
         self.assertEqual(response.content, '{"count":1,"next":null,"previous":null,"results":[{"id":1,"id_company":1,'
-                                           '"name":"TestProject","description":"Test description"}]}')
+                                           '"name":"TestProject","description":"Test description",'
+                                           '"project_template":null}]}')
 
     def test_getting_adviser_project(self):
         """
@@ -142,7 +143,7 @@ class AdviserProjectsTests(APITestCase):
         url = reverse('project', args=[1])
         response = self.client.get(url)
         self.assertEqual(response.data, {'id': 1, 'name': 'TestProject', 'description': 'Test description',
-                                         'id_company': 1})
+                                         'id_company': 1, 'project_template': None})
 
     def test_updating_adviser_project(self):
         """
@@ -205,8 +206,9 @@ class AdviserProjectsTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.content,
                          '{"count":2,"next":null,"previous":null,"results":[{"id":1,"id_company":1,'
-                         '"name":"TestProject","description":"Test description"},{"id":2,"id_company":2,'
-                         '"name":"TestProject 2","description":"Test description"}]}')
+                         '"name":"TestProject","description":"Test description","project_template":null},'
+                         '{"id":2,"id_company":2,"name":"TestProject 2","description":"Test description",'
+                         '"project_template":null}]}')
 
     def test_add_template_to_project(self):
         """
