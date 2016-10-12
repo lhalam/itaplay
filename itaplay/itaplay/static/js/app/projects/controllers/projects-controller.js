@@ -1,6 +1,7 @@
 
 function AddProjectTemplateController ($scope,$routeParams, $http, $location, $mdDialog) {
     $scope.project_id = $routeParams.project_id;
+    $scope.areas = [];
     $scope.init = function () {
         $http.get("api/projects/" + $scope.project_id + "/")
             .then(function (response) {
@@ -30,7 +31,6 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
                 xmlDoc.async = false;
                 xmlDoc.loadXML(selected_template.template_content);
             }
-            $scope.areas = [];
             var DOM_areas = xmlDoc.getElementsByTagName("area");
             for (var i = 0; i < DOM_areas.length; i++) {
                 $scope.areas[i] = {};
@@ -46,7 +46,6 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
     };
 
     $scope.save = function (selected_template, areas) {
-        if (!validate(selected_template,areas)){ return;}
         var data = {
             "project_id": $scope.project_id,
             "template_id": selected_template.id,
@@ -58,16 +57,10 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
         });
     };
 
-    var validate = function (selected_template, areas) {
-        if (selected_template==null) {
-            showAlert("You need to select template first!");
-            return false;
-        }
+    $scope.isFormValid = function (selected_template, areas) {
+        if (selected_template==null) return false;
         for (var i = 0; i < areas.length; i+=1) {
-            if (!areas[i].clips.length) {
-                showAlert("All areas must have clips!");
-                return false;
-            }
+            if (!areas[i].clips.length) return false;
         }
         return true;
     };
