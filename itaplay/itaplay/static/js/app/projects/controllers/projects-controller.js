@@ -152,6 +152,14 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     $http.get("api/projects/" + id + "/")
         .then(function (response) {
             $scope.project = response.data;
+            if (response.data.project_template === null){
+                $scope.template_button = "Add template";
+                $scope.allow_send_project = false;
+            }
+            else{
+                $scope.template_button = "Change template";
+                $scope.allow_send_project = true;
+            }
         }, function errorCallback(response) {
             $location.path('/projects/error');
     });
@@ -202,32 +210,12 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     };
 });
 
-itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDialog) {
+itaplay.controller('AddProjectCtrl', function ($scope, $http, $location) {
 
-    $scope.addPlayers = function ($event){
-        $mdDialog.show({
-            controller: DialogController,
-            templateUrl:"static/js/app/projects/views/add_players.html",
-            parent: angular.element(document.body),
-            locals: {parent: $scope},
-            targetEvent: $event,
-            clickOutsideToClose:true,
-        }).then(function (answer) {
-            $scope.players = answer;
-        }, function () {
-            $scope.status = 'You cancelled the dialog.';
-        });
-   };     
-
-    $scope.create = function (project, players) {
-        if (players != undefined){
-            project["players"] = players.map(function (player) {
-                return player.id;
-            });
-        }
+    $scope.create = function (project) {
         $http.post("api/projects/", project)
-            .success(function () {
-                $location.path('/projects');
+            .success(function (createdProject) {
+                $location.path('/projects/id=' + createdProject.id);
             });
     };
 });
