@@ -57,7 +57,10 @@ class Company(models.Model):
         """
         if not company_id:
             return cls.objects.all()
-        return cls.objects.get(id=company_id)
+        try:
+            return cls.objects.get(id=company_id)
+        except:
+            return None
     
     @classmethod
     def filter_company(cls, company_id=None):
