@@ -10,6 +10,7 @@ class Player(models.Model):
     mac_address = models.CharField(max_length=17)
     status = models.BooleanField(default=False)
     project = models.ForeignKey(AdviserProject, blank = True, null = True, on_delete=models.SET_NULL)
+    hashsum = models.CharField(max_length=512, blank=True, null=True)
 
     @staticmethod
     def send_project(player_ids, project):
@@ -35,3 +36,5 @@ class Player(models.Model):
             return cls.objects.get(id=player_id)
         except:
             return None
+    
+
