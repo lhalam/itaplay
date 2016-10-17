@@ -40,7 +40,7 @@ class AdviserProjectView(View):
                 clip_tag.text = clip['fields']['name']
         result_template = ElementTree.tostring(tree, encoding="us-ascii", method="xml")
         project_hash = hashlib.md5(result_template)
-        AdviserProject.update(data['project_id'], project_hash=project_hash, roject_template = result_template)
+        AdviserProject.update(data['project_id'],project_hash=project_hash, project_template = result_template)
         return HttpResponse(status=201)
 
 
