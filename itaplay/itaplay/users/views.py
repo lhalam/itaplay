@@ -77,5 +77,5 @@ class AdviserUsersList(generics.ListCreateAPIView):
         user = self.request.user
         if user.is_superuser:
             return AdviserUser.objects.all()
-        # if not user.is_superuser:
-        #     return AdviserUser.objects.filter(id_company=user.id_company)
+        if not user.is_superuser:
+            return AdviserUser.objects.filter(id_company=user.adviseruser.id_company)
