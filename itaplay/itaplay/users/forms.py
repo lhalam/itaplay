@@ -1,5 +1,12 @@
 from django import forms
+from authentication.models import AdviserUser
 from django.contrib.auth.models import User
+
+class AdviserUserForm(forms.Form):
+
+    class Meta:
+            model = AdviserUser
+            fields = ('user', 'id_company', 'avatar')
 
 
 class UserForm(forms.ModelForm):
@@ -9,3 +16,4 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name')
+
