@@ -1,4 +1,4 @@
-import json
+import json, hashlib
 from xml.etree import ElementTree
 
 from django.views.generic.base import View
@@ -38,7 +38,8 @@ class AdviserProjectView(View):
                 clip_tag.set('mimetype', clip['fields']['mimetype'])
                 clip_tag.text = clip['fields']['name']
         result_template = ElementTree.tostring(tree, encoding="us-ascii", method="xml")
-        AdviserProject.update(data['project_id'],project_template = result_template)
+        project_hash = hashlib.md5(result_template)
+        AdviserProject.update(data['project_id'],project_hash=project_hash, roject_template = result_template)
         return HttpResponse(status=201)
 
 
