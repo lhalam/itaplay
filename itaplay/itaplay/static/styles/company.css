@@ -2,9 +2,9 @@
 .errorlist li{padding: 5px 5px; border-bottom: 1px solid #ddd;}
 .errorlist li:last-child{border-bottom: none}
 .errorList{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.42857143; padding: 20px 20px 10px 15px;  min-height: 200px;}
-.admin{height: 50px; width: 50px; border-radius: 50%; overflow: hidden; margin: 2px 15px 2px 0;}
+.admin{height: 60px; width: 60px; border-radius: 50%; overflow: hidden; margin: 2px 15px 2px 0;}
 .adminImg{width: 110%;}
-.listAdmins{margin:5px 0 5px 0;}
+.listAdmins{height: 60px; margin:5px 0 5px 0;}
 .searcher{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.42857143; background-color: #FFFCF4; border-radius: 5px; height: 2.5em;}
 .companyLogo{width: 150px; margin-right: 30px;}
 .companyTop{margin-top: 20px;}
