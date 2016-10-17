@@ -35,7 +35,7 @@ class MonitorView(View):
         """
         player = Player.objects.get(mac_address=mac)
         template = player.project.project_template
-        hashsum = player.hashsum
+        hashsum = player.project.project_hash
         return HttpResponse(json.dumps({"template" : template, 'hashsum': hashsum}))
     
     def head(self, request, mac):
@@ -44,13 +44,10 @@ class MonitorView(View):
         :args
             request: Request to View.
             mac: mac-address of player.
-        :return: last modified template's hashsum of player, gotten by mac-address.        
+        :return: last modified template's hash sum of player, gotten by mac-address.        
         """
         player = Player.objects.get(mac_address=mac)
-        if not player.project and player.hashsum:
-            player.hashsum = None
-            player.save()
-        hashsum = player.hashsum    
+        hashsum = player.project.project_hash    
         response = HttpResponse('')
         response['Last-Modified'] = hashsum
         return response

@@ -11,7 +11,7 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
-                <md-content style="background-color: #FFFCF4; border-radius: 1%; marging = 50px;" layout-padding>
+                <md-content layout-padding>
                     <md-select placeholder="Select clip" ng-model="selected_clips" style="min-width: 400px;" multiple>
                         <md-option ng-value="clip" ng-repeat="clip in clips">{{clip.fields.name}}</md-option>
                     </md-select>

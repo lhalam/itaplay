@@ -107,16 +107,6 @@ class InviteView(View):
         sender.send_invite(invite_form.data[u'id_company'])
         return HttpResponse(status=201)
 
-    def get(self, request):
-        """
-        Handling GET method
-            :param request: Request to View
-            :return: rendered inviting page
-        """
-
-        return render(request, "invite.html",)
-
-
 class LoginView(View):
 
     """

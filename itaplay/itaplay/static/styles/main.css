@@ -293,4 +293,9 @@ md-whiteframe {
     position: fixed;
     bottom: 60px;
 }
+
 .roundToolbar{border-radius: 5px}
+
+.listCard{
+    min-height: 150px;
+}
