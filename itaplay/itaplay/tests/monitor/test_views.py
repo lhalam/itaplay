@@ -35,8 +35,7 @@ class MonitorViewTestCase(TestCase):
             description="player description",
             mac_address="11:2a:bb:q1:ss:77",
             status=False,
-            project=project,
-            hashsum="test"        
+            project=project  
         )
 
         Player.objects.create(
@@ -44,7 +43,6 @@ class MonitorViewTestCase(TestCase):
             name="player2",
             description="player description",
             mac_address="22:21:dd:ac:ff:22",
-            hashsum="test",
             status=False
         )
 
@@ -68,4 +66,4 @@ class MonitorViewTestCase(TestCase):
     def test_head_monitor_without_project(self):
         url = reverse('monitor_view', args=["22:21:dd:ac:ff:22"])
         response = self.client.head(url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 204)
