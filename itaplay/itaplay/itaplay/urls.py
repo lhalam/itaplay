@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from .settings import MEDIA_ROOT, DEBUG
+# from .settings import MEDIA_ROOT, DEBUG
 
 urlpatterns = [
     url(r'^', include('home.urls')),
@@ -25,10 +25,16 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('authentication.urls')),
     url(r'^company/', include('company.urls')),
+    url(r'^templates/', include('xml_templates.urls')),
+    url(r'^api/', include('projects.urls')),
+    url(r'^player/', include('player.urls')),
+    url(r'^monitor/', include('monitor.urls'))
 ]
 
-if DEBUG:
-    # serve files from media folder
-    urlpatterns.append(
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-            'document_root': MEDIA_ROOT}))
+
+# if DEBUG:
+# # serve files from media folder
+#     urlpatterns += patterns('',
+#         url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+#             'document_root': MEDIA_ROOT}))
+

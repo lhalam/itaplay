@@ -21,7 +21,7 @@ class AdviserUser(models.Model):
         Function, that create new user
         :param user_registration_form: valid instance of UserRegistrationForm
         :param invitation: user invitation
-        :return: nothing
+        :return: created user
         """
         base_user = user_registration_form.save(commit=False)
         base_user.username = invitation.email
@@ -33,6 +33,7 @@ class AdviserUser(models.Model):
         user.user = base_user
         user.id_company = invitation.id_company
         user.save()
+        return user
 
 
 class AdviserInvitations(models.Model):

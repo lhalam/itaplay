@@ -17,11 +17,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Settings for sending e-mail
 EMAIL_SETTINGS = {'DEFAULT_FROM_EMAIL': 'team@blabla.com',
-                  'SERVER_EMAIL': 'someroot@localhost',
-                  'EMAIL_HOST': 'smtp.sendgrid.com',
+                  'SERVER_EMAIL': 'adviser@gmail.com',
+                  'EMAIL_HOST': 'smtp.gmail.com',
+                  'EMAIL_HOST_USER':'user@mail.com',
+                  'EMAIL_HOST_PASSWORD': 'password',
                   'EMAIL_MAIN': 'support@blabla.com',
-                  'EMAIL_HOST_USER': 'marcosss',
-                  'EMAIL_HOST_PASSWORD': 're$RA8uf',
                   'EMAIL_PORT': 587,
                   'EMAIL_USE_TLS': True,
                   'URL_REGISTRATION': "http://127.0.0.1:8000/auth/register?code="}
@@ -48,13 +48,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'itaplay',
     'authentication',
     'utils',
     'company',
     'home',
+    'xml_templates',
     'clips',
-    'tests',
+    'projects',
+    'player',
+    'monitor',
+    'tests'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -101,7 +106,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
@@ -119,6 +123,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'PAGE_SIZE': 100,
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+    ),
+}
 
 
 # Internationalization
@@ -144,17 +161,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 # E-mail settings
 
 DEFAULT_FROM_EMAIL = EMAIL_SETTINGS['DEFAULT_FROM_EMAIL']
 SERVER_EMAIL = EMAIL_SETTINGS['SERVER_EMAIL']
 EMAIL_HOST = EMAIL_SETTINGS['EMAIL_HOST']
-EMAIL_MAIN = EMAIL_SETTINGS['EMAIL_MAIN']
 EMAIL_HOST_USER = EMAIL_SETTINGS['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = EMAIL_SETTINGS['EMAIL_HOST_PASSWORD']
+EMAIL_MAIN = EMAIL_SETTINGS['EMAIL_MAIN']
 EMAIL_PORT = EMAIL_SETTINGS['EMAIL_PORT']
 EMAIL_USE_TLS = EMAIL_SETTINGS['EMAIL_USE_TLS']
 
@@ -162,3 +177,14 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+# configs for AWS S3
+import boto
+
+MEDIAFILES_LOCATION = 'media/'
+
+AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+

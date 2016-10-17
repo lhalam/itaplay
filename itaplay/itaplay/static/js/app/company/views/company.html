@@ -30,9 +30,12 @@
                         <input  ng-model="company.company_phone"/>
                         <label>Change phone number:</label>
                     </md-input-container>
+
                     <md-input-container class="md-icon-float md-block">
-                       <input  ng-model="company.administrator"/>
-                        <label>Change admin:</label>
+                        <md-select ng-model="company.administrator"> 
+                            <md-option ng-value="user" ng-repeat="user in users"><img src="/static/images/{{user.avatar}}" alt="user" height ="50px">  id: {{user.id}}</md-option>
+                        </md-select>               
+                        <label>Choose admin:</label>
                     </md-input-container>
                 </md-content>
                 <div class="bottom-sheet-demo inset" layout="row" layout-sm="column">
