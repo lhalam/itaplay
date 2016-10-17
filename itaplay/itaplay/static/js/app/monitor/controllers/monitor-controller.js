@@ -46,7 +46,7 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams, $inter
         }, function (response) {
             $interval( function (){ 
                 $http.head('get_by_mac/'+ mac).then( function (response){ 
-                    if(response.headers()['last-modified'] != 'None'){
+                    if(response.headers()['last-modified']){
                         $window.location.reload();
                     };
                 }
@@ -73,16 +73,18 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams, $inter
     var VideoSlider = function (areas) {
         areas.forEach(function(area) {
             $scope.currentVideoIndex[area['id']] = 0;
-            $interval(function(){$scope.currentVideoIndex[area['id']] = ($scope.currentVideoIndex[area['id']] < area['clips'].length - 1) ? 
-                                                                                         ++$scope.currentVideoIndex[area['id']] : 0;}, 60000);
+            $interval(function () {
+                $scope.currentVideoIndex[area['id']] = ($scope.currentVideoIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentVideoIndex[area['id']] : 0;
+            }, 60000);
         });
     };
 
     var ImageSlider = function (areas){
-        areas.forEach(function(area) {
+        areas.forEach(function (area) {
             $scope.currentIndex[area['id']] = 0;
-            $interval(function(){$scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? 
-                                                                                         ++$scope.currentIndex[area['id']] : 0;}, 5000+area['id']*400);
+            $interval(function () {
+                $scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentIndex[area['id']] : 0;
+            }, 5000+area['id']*400);
         });
     };
 };

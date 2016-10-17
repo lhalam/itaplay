@@ -46,8 +46,11 @@ class MonitorView(View):
             mac: mac-address of player.
         :return: last modified template's hash sum of player, gotten by mac-address.        
         """
+        
         player = Player.objects.get(mac_address=mac)
-        hashsum = player.project.project_hash    
-        response = HttpResponse('')
-        response['Last-Modified'] = hashsum
-        return response
+        if player.project:
+            hashsum = player.project.project_hash    
+            response = HttpResponse('')
+            response['Last-Modified'] = hashsum
+            return response
+        return HttpResponse(status=204)
