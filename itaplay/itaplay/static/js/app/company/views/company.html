@@ -57,7 +57,7 @@
                             <md-option class="listAdmins" ng-value="user" ng-repeat="user in users">
                                 <div layout="row">
                                     <div class="admin">
-                                        <img class="adminImg" ng-src="/static/images/{{user.avatar}}" alt="user">
+                                        <img class="adminImg" ng-src="{{user.avatar}}" alt="user">
                                     </div> 
                                     <div layout="column">
                                         <span>{{ user.first_name }} {{ user.last_name }}</span>
