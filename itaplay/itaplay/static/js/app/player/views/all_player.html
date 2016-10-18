@@ -1,27 +1,22 @@
-<div ng-init="init()" layout="column">
-   <div layout="row">
-        <div flex=20></div>
-        <div flex=40>
-            <md-input-container class="md-block" flex-gt-xs >
-                <input type="text" class="md-lg" ng-model="player_name">
-                <label>Search for your player:</label>
-            </md-input-container >
-        </div>
-        <div flex=20></div>
-        <div>
-            <md-button flex="500"  class="md-primary md-raised" href="#player/add_new" >Add new player</md-button> 
-        </div>	
-        <div flex=20></div>
-    </div>
-    <div layout="row">
-        <div flex=15></div>
-        <div flex=70  layout-padding>
-            <div  layout-padding ng-cloak ng-repeat = "player in players | filter:name">
-                <md-card style="background-color: #CCD9D7;"  md-theme-watch layout="row"> 
-                    <md-card-title >
-                        <md-card-title-text>
-                        <md-button  class="md-accent" class="md-card-image" href = "#player/id={{player.id}}">
-                            <span class="md-headline">{{player.name}}</span></md-button >
+<div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
+    <div flex-gt-sm="70">
+
+        <md-toolbar class="roundToolbar" layout="row">
+            <div class="md-toolbar-tools">
+                <span>Players</span>
+                <div flex=80></div>
+                <div><md-button flex="500" class="md-primary md-raised md-hue-1" style="color:white" href="/#/player/add_new/">
+                    <md-icon class="material-icons" style="color:white">add_box</md-icon> 
+                    Add new
+                </md-button></div>   
+            </div>
+        </md-toolbar>
+   
+        <div layout-padding ng-cloak ng-repeat = "player in players">
+            <md-card class="listCard" layout="row"> 
+                <md-card-title >
+                    <md-card-title-text>
+                            <p class="md-headline">{{player.name}}</p>
 						    <span class="well">
                                <span class="md-subhead" id="pl_info"><b>Description:</b> {{player.description}}</span>
                                 <div id="toggle">
@@ -33,12 +28,19 @@
 						    </span> 
                         </md-card-title-text>
                     </md-card-title>
-                    <md-card-actions layout="row">
-                        <md-button type="submit"  class=" md-mini md-warn " ng-click="delete(player)">Delete</md-buttom>
-                     </md-card-actions>
+                    <md-card-actions layout="column">
+                        <md-button flex="33" class="md-primary md-hue-2" href = "#player/id={{player.id}}">
+                        <md-icon class="material-icons">edit</md-icon>
+                            details
+                        </md-button>
+                        
+                        <md-button type="submit" flex="33" class="md-warn" ng-click="delete(player)">
+                            <md-icon class="material-icons">delete_forever</md-icon>
+                            delete
+                        </md-buttom>
+                    </md-card-actions>
                 </md-card >
             </div>
-            <div flex=5></div>
         </div>
     </div>
 </div>
