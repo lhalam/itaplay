@@ -15,7 +15,7 @@ class Company(models.Model):
     mail = models.EmailField(unique=True)
     phone = models.CharField(max_length=50, unique=True)
     address = models.CharField(max_length=200)
-    administrator = models.OneToOneField('authentication.AdviserUser', on_delete=models.SET_NULL, blank = True, null = True)
+    administrator = models.OneToOneField('authentication.AdviserUser', on_delete=models.SET_NULL, blank=True, null=True)
     
     def set_company(self, arg):
         """
