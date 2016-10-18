@@ -3,6 +3,8 @@ import json
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -126,7 +128,7 @@ class LoginView(View):
         """
         Handling POST method
         :param json file with username and password
-        :return: HttpResponse with code 200 if user is invited or
+        :return: HttpResponse with superuser status and code 200 if user is invited or
                  HttpResponseBadRequest if request contain incorrect data
         """
         data = json.loads(request.body)
@@ -137,8 +139,11 @@ class LoginView(View):
         password = data.get('password', None)
         user = auth.authenticate(username=username, password=password)
         if user:
+            role = model_to_dict(User.objects.get(username=username))
+            response = HttpResponse('is_supeuser', status=200)
+            response.set_cookie('role', value=role['is_superuser'])
             auth.login(request, user)
-            return HttpResponse(status=200)
+            return response
         else:
             return HttpResponseBadRequest("Incorrect email or password", status=401)
 

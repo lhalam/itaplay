@@ -1,6 +1,6 @@
 'use strict';
 
-var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages', 'LogoutController']);
+var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages', 'LogoutController', 'ngCookies']);
 
 
 itaplay.config(function($routeProvider) {
@@ -8,6 +8,10 @@ itaplay.config(function($routeProvider) {
        .when('/users', {
             templateUrl: '../../../static/js/app/users/views/allusers.html',
             controller: AllUsersController
+        })
+        .when('/profile', {
+            templateUrl: '../../../static/js/app/users/views/user.html',
+            controller: UserController
         })
        .when('/invitations', {
             templateUrl: '../../../static/js/app/users/views/allinvitations.html',
