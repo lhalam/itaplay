@@ -26,7 +26,7 @@ class UserView(View):
         """
 
         :param x:
-        :return: convert datetime string to ‘YYYY-MM-DD’
+        :return: convert datetime string 'YYYY-MM-DD'
         """
         if isinstance(x, datetime.datetime):
             return x.isoformat()
