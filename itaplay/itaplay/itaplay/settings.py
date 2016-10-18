@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'users',
 ]
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

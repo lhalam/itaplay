@@ -45,7 +45,7 @@ class UserInvitationForm(forms.ModelForm):
 
 
 class LoginForm(forms.ModelForm):
-    username = forms.EmailField()
+    username = forms.EmailInput()
     password = forms.CharField(min_length=6)
 
     class Meta:

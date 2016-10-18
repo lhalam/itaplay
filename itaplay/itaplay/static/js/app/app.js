@@ -1,6 +1,6 @@
 'use strict';
 
-var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages', 'LogoutController']);
+var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages', 'LogoutController', 'ngCookies']);
 
 
 itaplay.config(function($routeProvider) {
