@@ -40,8 +40,7 @@
                             <md-icon class="material-icons">edit</md-icon>
                             details
                         </md-button>
-                        
-                        <md-button type="submit" flex="33" class="md-warn" ng-click="delete(company)">
+                        <md-button type="submit" flex="33" class="md-warn" ng-disabled="!{{is_superuser}}" ng-click="delete(company)">
                             <md-icon class="material-icons">delete_forever</md-icon>
                             delete
                         </md-buttom>

@@ -53,7 +53,7 @@
 
                     <md-input-container class="md-icon-float md-block">
                         <label>Administrator:</label>
-                        <md-select ng-model="company.administrator" > 
+                        <md-select ng-model="company.administrator" ng-disabled="!{{is_superuser}}"> 
                             <md-option class="listAdmins" ng-value="user" ng-repeat="user in users">
                                 <div layout="row">
                                     <div class="admin">
@@ -75,7 +75,7 @@
                       save
                   </md-buttom></div>
                   <div flex=100></div>
-                  <div><md-button flex="100"  class="md-warn" type="submit" ng-click="deleteCurrent(company)">
+                  <div><md-button flex="100"  class="md-warn" type="submit" ng-disabled="!{{is_superuser}}" ng-click="deleteCurrent(company)">
                       <md-icon class="material-icons">delete_forever</md-icon>
                       delete
                   </md-buttom></div>
