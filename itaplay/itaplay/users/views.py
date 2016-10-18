@@ -17,13 +17,27 @@ from users.serializers import AdviserUsersSerializer, AdviserInvitationsSerializ
 
 
 class UserView(View):
+    """
+    Class for user profile,
+    handle get and post methods.
+    """
 
     def datetime_handler(self, x):
+        """
+
+        :param x:
+        :return: convert datetime string to ‘YYYY-MM-DD’
+        """
         if isinstance(x, datetime.datetime):
             return x.isoformat()
         raise TypeError("Unknown type")
 
     def get(self, request):
+        """
+
+        :param request: Request to View
+        :return: user profile page
+        """
         user = request.user
         data = {}
         if not user.is_superuser:
@@ -33,6 +47,11 @@ class UserView(View):
 
 
     def put(self, request):
+        """
+
+        :param request: Request to View
+        :return: change user info
+        """
         data = json.loads(request.body)
         user_form = UserForm(data['User'])
         if not user_form.is_valid():

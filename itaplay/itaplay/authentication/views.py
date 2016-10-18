@@ -138,7 +138,7 @@ class LoginView(View):
         """
         Handling POST method
         :param json file with username and password
-        :return: HttpResponse with code 200 if user is invited or
+        :return: HttpResponse with superuser status and code 200 if user is invited or
                  HttpResponseBadRequest if request contain incorrect data
         """
         data = json.loads(request.body)
