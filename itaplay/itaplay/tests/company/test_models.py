@@ -153,4 +153,3 @@ class CompanyTestCase(TestCase):
         self.assertEqual(company.phone, "+380951234567")
         self.assertEqual(company.zipcode, "379007")
         self.assertEqual(company.administrator, admin)
-                            

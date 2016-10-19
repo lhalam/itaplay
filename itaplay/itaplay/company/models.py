@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
-
 from django.forms.models import model_to_dict
+
 
 class Company(models.Model):
     """
