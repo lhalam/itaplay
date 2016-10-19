@@ -1,7 +1,25 @@
-<div ng-init="init()" layout="column">
+<div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
+
+
+<div flex-gt-sm="70">
+        <md-toolbar layout="row" class="teal roundBar">
+            <div class="md-toolbar-tools">
+<!--                 <md-button class="md-icon-button" href="#templates">
+                    <md-icon md-font-set="material-icons">arrow_back</md-icon>
+                </md-button> -->
+                <span>Templates</span>
+                <div flex="70"></div>
+                <md-button href="#/templates-add" class="md-accent md-raised md-hue-1">Add template</md-button>
+            </div>
+        </md-toolbar>
+
+
     <div>
-        <md-button href="#/templates-add">Add template</md-button>
+        
     </div>
+
+
+
     <div layout="row" ng-repeat="item in data" id="templates_list" layout-align="center center">
         <div flex="15">
             <a href="#/template/id={{item.id}}">{{ item.template_name }}</a>

@@ -14,7 +14,7 @@ class Clip(models.Model):
     Model of clip.
     """
 
-    name = models.CharField(max_length=128, null=True, blank=False)
+    name = models.CharField(max_length=32, null=True, blank=False)
     description = models.CharField(max_length=512, null=True, blank=False)
     url = models.CharField(max_length=256, null=True, blank=False)
     mimetype = models.CharField(max_length=64, null=True, blank=True)
@@ -35,14 +35,14 @@ class Clip(models.Model):
         """
         return Clip.objects.all()
 
-    def generate_mimetype(self, url):
+    def generate_mimetype(self, clipfile):
         """
         Method for generating clip mimetype.
         """
 
-        if url.endswith(tuple(VALID_VIDEO_EXTENSIONS)):
+        if clipfile.endswith(tuple(VALID_VIDEO_EXTENSIONS)):
             mimetype = "video/mp4"
-        elif url.endswith(tuple(VALID_IMAGE_EXTENSIONS)):
+        elif clipfile.endswith(tuple(VALID_IMAGE_EXTENSIONS)):
             mimetype = "image/jpeg"
         else:
             raise ValidationError("Please enter valid file")

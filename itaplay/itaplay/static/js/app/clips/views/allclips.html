@@ -1,11 +1,23 @@
-<div ng-init="init()">
-    <div layout="row" layout-xs="column">
+<div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
+<!--     <div layout="row" layout-xs="column">
         <div flex="15">
-            <md-button class="md-accent md-raised md-hue-1" href="#/clips" class="groupX right">Add new clip</md-button>
+            
         </div>
-    </div>
+    </div> -->
+
+    <div flex-gt-sm="70">
+        <md-toolbar layout="row" class="teal roundBar">
+            <div class="md-toolbar-tools">
+                <span>Clips</span>
+                <div flex="80"></div>
+                <md-button class="md-accent md-raised md-hue-1" href="#/clips" class="groupX right">Add clip</md-button>
+            </div>
+        </md-toolbar>
+
+
+
     <div layout="column" layout-xs="column" layout-align="center center" layout-align-xs="center center">
-        <div ng-repeat="clip in clips" class="clips_wrapper">
+        <div ng-repeat="clip in clips | orderBy:'fields.name'" class="clips_wrapper">
             <div layout="row" layout-xs="column" layout-sm="column">
                 <div flex="20" flex-gt-xm="100">
                     <p class="clip_name">{{clip.fields.name}}</p>

@@ -35,8 +35,7 @@ class UserView(View):
         """
         user = request.user
         data = {}
-        if not user.is_superuser:
-            data['AdviserUser'] = model_to_dict(AdviserUser.objects.get(user_id=user.id))
+        data['AdviserUser'] = model_to_dict(AdviserUser.objects.get(user_id=user.id))
         data['User'] = model_to_dict(User.objects.get(id=user.id))
         return HttpResponse(json.dumps(data, default=self.datetime_handler))
 
@@ -61,7 +60,9 @@ class UserView(View):
 
 
 class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
-
+    """
+    Class for AdviserUser details,
+    """
     serializer_class = AdviserUsersSerializer
 
     def get_queryset(self):
@@ -72,7 +73,9 @@ class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class AdviserInvitationsList(generics.ListCreateAPIView):
-
+    """
+    Class for AdviserInvitations list,
+    """
     serializer_class = AdviserInvitationsSerializer
 
     def get_queryset(self):
@@ -83,7 +86,9 @@ class AdviserInvitationsList(generics.ListCreateAPIView):
 
 
 class AdviserUsersList(generics.ListCreateAPIView):
-
+    """
+    Class for AdviserUsers list,
+    """
     serializer_class = AdviserUsersSerializer
 
     def get_queryset(self):
