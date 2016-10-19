@@ -33,6 +33,10 @@ class AdviserUser(models.Model):
 
         return user
 
+    def set_adviser_user(self, data):
+        self.avatar = data.get('avatar', self.avatar)
+        self.save()
+
     @staticmethod
     def create(*args, **kwargs):
         """
