@@ -5,13 +5,17 @@ from company.models import Company
 from authentication.models import AdviserUser, AdviserInvitations
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-
+    """
+    Serializer for User
+    """
     class Meta:
         model = User
         fields = ('id', 'username','email', 'last_name', 'first_name')
 
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
-
+    """
+    Serializer for Company
+    """
     class Meta:
         model = Company
         fields = ('id', 'name')

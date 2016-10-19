@@ -61,7 +61,9 @@ class UserView(View):
 
 
 class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
-
+    """
+    Class for AdviserUser details,
+    """
     serializer_class = AdviserUsersSerializer
 
     def get_queryset(self):
@@ -72,7 +74,9 @@ class AdviserUserDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class AdviserInvitationsList(generics.ListCreateAPIView):
-
+    """
+    Class for AdviserInvitations list,
+    """
     serializer_class = AdviserInvitationsSerializer
 
     def get_queryset(self):
@@ -83,7 +87,9 @@ class AdviserInvitationsList(generics.ListCreateAPIView):
 
 
 class AdviserUsersList(generics.ListCreateAPIView):
-
+    """
+    Class for AdviserUsers list,
+    """
     serializer_class = AdviserUsersSerializer
 
     def get_queryset(self):

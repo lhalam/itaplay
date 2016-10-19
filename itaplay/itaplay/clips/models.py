@@ -35,7 +35,7 @@ class Clip(models.Model):
         """
         return Clip.objects.all()
 
-    def generate_mimetype(self, url):
+    def generate_mimetype(self, clipfile):
         """
         Method for generating clip mimetype.
         """
