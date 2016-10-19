@@ -1,34 +1,35 @@
-<div ng-init="init()" layout="column">
-    <div layout="row">
-        <div flex="15" flex-xs="15" >
-            <md-button ng-show="{{is_superuser}}" class="md-accent md-raised md-hue-1" href="#/invitations" class="groupX right">all invitations</md-button>
-            <md-button ng-show="{{is_superuser}}" class="md-raised md-warn md-button md-ink-ripple md-button" href="#/newinvite" class="groupX right">new invitation</md-button>
-        </div>
-        <div flex=70 layout-padding>
-            <div layout-padding ng-cloak ng-repeat="user in users.results">
-                <md-card md-theme-watch layout="row">
-                    <md-card-title>
-                        <md-card-title-media>
-                            <div class="md-media-lg">
-                                <md-button class="md-accent" class="md-card-image">
-                                    <img ng-src="{{user.avatar}}" alt="{{user.avatar}}">
-                                </md-button>
-                            </div>
-                        </md-card-title-media>
-                        <md-card-title-text>
-                            <span class="md-headline">username: {{user.user.username}}</span>
-                            <span class="md-headline">compamy: {{user.id_company.name}}</span>
-                            <span class="md-subhead">email: {{user.user.email}}</span>
-                            <span class="md-subhead">first name: {{user.user.first_name}}</span>
-                            <span class="md-subhead">last name: {{user.user.last_name}}</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-actions layout="row">
-                        <md-button ng-show="{{is_superuser}}" type="submit" class=" md-mini md-warn" ng-click="delete(user)">Delete</md-buttom>
-                    </md-card-actions>
-                </md-card>
+<div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
+    <div flex-gt-sm="70">
+        <md-toolbar layout="row" class="teal roundBar">
+            <div class="md-toolbar-tools">
+                <span>Users</span>
+                <div flex="65"></div>
+                <md-button ng-show="{{is_superuser}}" class="md-accent md-raised md-hue-1" href="#/invitations" class="groupX right">all invitations</md-button>
+                <md-button ng-show="{{is_superuser}}" class="md-raised md-warn md-button md-ink-ripple md-button" href="#/newinvite" class="groupX right">new invitation</md-button>
             </div>
-            <div flex=5></div>
+        </md-toolbar>
+        <div layout-padding ng-cloak ng-repeat="user in users.results">
+            <md-card md-theme-watch layout="row">
+                <md-card-title>
+                    <md-card-title-media>
+                        <div class="md-media-lg">
+                            <md-button class="md-accent" class="md-card-image">
+                                <img ng-src="{{user.avatar}}" alt="{{user.avatar}}">
+                            </md-button>
+                        </div>
+                    </md-card-title-media>
+                    <md-card-title-text>
+                        <span class="md-headline">username: {{user.user.username}}</span>
+                        <span class="md-headline">compamy: {{user.id_company.name}}</span>
+                        <span class="md-subhead">email: {{user.user.email}}</span>
+                        <span class="md-subhead">first name: {{user.user.first_name}}</span>
+                        <span class="md-subhead">last name: {{user.user.last_name}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row">
+                    <md-button ng-show="{{is_superuser}}" type="submit" class=" md-mini md-warn" ng-click="delete(user)">Delete</md-buttom>
+                </md-card-actions>
+            </md-card>
         </div>
     </div>
 </div>
