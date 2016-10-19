@@ -35,8 +35,7 @@ class UserView(View):
         """
         user = request.user
         data = {}
-        if not user.is_superuser:
-            data['AdviserUser'] = model_to_dict(AdviserUser.objects.get(user_id=user.id))
+        data['AdviserUser'] = model_to_dict(AdviserUser.objects.get(user_id=user.id))
         data['User'] = model_to_dict(User.objects.get(id=user.id))
         return HttpResponse(json.dumps(data, default=self.datetime_handler))
 
