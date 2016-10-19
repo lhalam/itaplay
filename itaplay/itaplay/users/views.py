@@ -1,19 +1,14 @@
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from authentication.models import AdviserUser, AdviserInvitations
-from django.views.generic import View
-from django.http import HttpResponseBadRequest, HttpResponse
-from django.forms.models import model_to_dict
 import json
 import datetime
+
 from users.forms import UserForm
-from django.core import serializers
-
-from rest_framework.response import Response
-from rest_framework import status, generics
-
+from rest_framework import generics
+from django.views.generic import View
+from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
+from django.http import HttpResponseBadRequest, HttpResponse
+from authentication.models import AdviserUser, AdviserInvitations
 from users.serializers import AdviserUsersSerializer, AdviserInvitationsSerializer
-# Create your views here.
 
 
 class UserView(View):

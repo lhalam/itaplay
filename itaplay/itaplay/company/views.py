@@ -107,4 +107,3 @@ class CompanyDetailsView(View):
         """
         Company().delete_company(company_id)
         return HttpResponse(status=201)
-    
