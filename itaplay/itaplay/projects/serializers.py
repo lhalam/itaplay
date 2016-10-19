@@ -13,6 +13,7 @@ class AdviserProjectSerializer(serializers.Serializer):
     id_company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all())
     name = serializers.CharField(max_length=30)
     description = serializers.CharField(max_length=150)
+    project_template = serializers.CharField(allow_blank=True, allow_null=True, required=False)
 
     def create(self, validated_data):
         """

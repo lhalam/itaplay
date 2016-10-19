@@ -9,19 +9,22 @@
             </div>
         </md-toolbar>
         <md-content>
+            <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
             <span flex>
                 <div layout="column">
                   <form name="projectForm" ng-submit="update(project)">
                      <div layout="column">
 
                          <md-input-container class="md-block">
-                             <input aria-label="Project name:" ng-model="project.name" required md-maxlength="30"/>
                              <label>Project name:</label>
+                             <input aria-label="Project name:" ng-model="project.name" md-maxlength="30" required/>
+
                          </md-input-container>
 
                          <md-input-container class="md-block">
-                             <input ng-model="project.description" required md-maxlength="150"/>
                              <label>Project description:</label>
+                             <input ng-model="project.description" md-maxlength="150" required/>
+
                          </md-input-container>
 
                          <md-card flex layout-padding>
@@ -43,14 +46,15 @@
                      </div>
                       <div layout="row">
                           <div flex offset="33"></div>
-                          <md-button class="md-primary md-raised" href="#projects/add_project_template/id={{ project.id }}">Change template</md-button>
-                          <md-button class="md-primary md-raised" ng-click="addProjectToPlayers(project, new_players)">Add project to chosen players</md-button>
-                          <md-button type="submit" class="md-raised md-primary">Save</md-button>
+                          <md-button class="md-primary md-raised" href="#projects/add_project_template/id={{ project.id }}">{{ template_button }}</md-button>
+                          <md-button class="md-primary md-raised" ng-disabled="!allow_send_project" ng-click="addProjectToPlayers(project, new_players)">Add project to chosen players</md-button>
+                          <md-button type="submit" ng-disabled="projectForm.$invalid" class="md-raised md-primary">Save</md-button>
                           <md-button class="md-raised md-warn" ng-click="delete(project)">Delete</md-button>
                       </div>
                   </form>
                 </div>
             </span>
+            </md-whiteframe>
         </md-content>
     </div>
 </div>

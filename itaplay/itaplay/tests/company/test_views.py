@@ -61,22 +61,22 @@ class CompanyViewTestCase(TestCase):
         
         Company.objects.create(
             id=1,
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_address= "testaddress",
-            company_phone="+380901234567",      
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            address= "testaddress",
+            phone="+380901234567",      
         )
 
         Company.objects.create(
             id=2,
-            company_zipcode="794508",
-            company_logo="http://test2.test",
-            company_name="testcompany2",
-            company_mail="test2@test.test",
-            company_address= "testaddress2",
-            company_phone="+380901234677",
+            zipcode="794508",
+            logo="http://test2.test",
+            name="testcompany2",
+            mail="test2@test.test",
+            address= "testaddress2",
+            phone="+380901234677",
         )
 
         AdviserUser.objects.create(
@@ -147,13 +147,13 @@ class CompanyViewTestCase(TestCase):
 
     def test_post_superadmin(self):
         data = json.dumps({
-                   "id" : 3,
-                    "company_zipcode" : "12344441",
-                    "company_logo" : "http://test.tst",
-                    "company_name" : "testcompany3",
-                    "company_mail" : "test@test.com",
-                    "company_address" : "test address",
-                    "company_phone" : "25252525",  
+                    "id" : 3,
+                    "zipcode" : "12344441",
+                    "logo" : "http://test.tst",
+                    "name" : "testcompany3",
+                    "mail" : "test@test.com",
+                    "address" : "test address",
+                    "phone" : "25252525",  
                 })
         url = reverse('company_list_view')
         response = self.client.post(url, data=data, content_type='application/json')
@@ -161,30 +161,28 @@ class CompanyViewTestCase(TestCase):
     
     def test_post_invalid_data(self):   
         invalid_data = json.dumps({
-                   "id" : 4,
-                    "company_zipcode" : "12345678901234567890",
-                    "company_mail" : "testtestes",
-                    "company_phone" : "151551515",  
+                    "id" : 4,
+                    "zipcode" : "12345678901234567890",
+                    "mail" : "testtestes",
+                    "phone" : "151551515",  
 
                 })
         url = reverse('company_list_view')
         response = self.client.post(url, data=invalid_data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
-        massage = response._container[0]
-        self.assertEqual(massage, 'Invalid input data. Please edit and try again.')
     
     def test_post_company_user(self):
         self.client = Client()
         self.client.login(username="test@test.com", password="password")
         url = reverse('company_list_view')
         data = json.dumps({
-                   "id" : 4,
-                    "company_zipcode" : "123444414",
-                    "company_logo" : "http://testtest.tst",
-                    "company_name" : "testcompany4",
-                    "company_mail" : "test4@test.com",
-                    "company_address" : "test 4address",
-                    "company_phone" : "252525254",   
+                    "id" : 4,
+                    "zipcode" : "123444414",
+                    "logo" : "http://testtest.tst",
+                    "name" : "testcompany4",
+                    "mail" : "test4@test.com",
+                    "address" : "test 4address",
+                    "phone" : "252525254",   
                 })
         response = self.client.post(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
@@ -195,12 +193,12 @@ class CompanyViewTestCase(TestCase):
     def test_put_superadmin(self):
         data = json.dumps({
                    "id" : 2,
-                    "company_zipcode" : "12344441",
-                    "company_logo" : "http://teest.tst",
-                    "company_name" : "testcompany dict",
-                    "company_mail" : "test@mail.com",
-                    "company_address" : "test address dict",
-                    "company_phone" : "2525255525",   
+                    "zipcode" : "12344441",
+                    "logo" : "http://teest.tst",
+                    "name" : "testcompany dict",
+                    "mail" : "test@mail.com",
+                    "address" : "test address dict",
+                    "phone" : "2525255525",   
                     "administrator" : {"id" : 3, "id_company" : 2, "user" : 4},
                 })
 
@@ -211,31 +209,29 @@ class CompanyViewTestCase(TestCase):
     def test_put_invalid_data(self):
         invalid_data = json.dumps({
                    "id" : 1,
-                    "company_zipcode" : "123456789012345678900",
-                    "company_logo" : "http://test.tst",
-                    "company_name" : "testcompany3",
-                    "company_mail" : "testtestes",
-                    "company_address" : "test address",
-                    "company_phone" : "151551515",    
+                    "zipcode" : "123456789012345678900",
+                    "logo" : "http://test.tst",
+                    "name" : "testcompany3",
+                    "mail" : "testtestes",
+                    "address" : "test address",
+                    "phone" : "151551515",    
                     "administrator" : {"id" : 1, "id_company" : 1, "user" : 2},
                 })
         url = reverse('company_details_view', args=[1])
         response = self.client.put(url, data=invalid_data, content_type='application/json')
         self.assertEqual(response.status_code, 400)
-        massage = response._container[0]
-        self.assertEqual(massage, 'Invalid input data. Please edit and try again.')
 
     def test_put_comapny_admin(self):
         self.client = Client()
         self.client.login(username="test@test.com", password="password")
         data = json.dumps({
-                   "id" : 1,
-                    "company_zipcode" : "123444411",
-                    "company_logo" : "http://test.tst",
-                    "company_name" : "testcompany1",
-                    "company_mail" : "test@test.com",
-                    "company_address" : "test address",
-                    "company_phone" : "25252525",   
+                    "id" : 1,
+                    "zipcode" : "123444411",
+                    "logo" : "http://test.tst",
+                    "name" : "testcompany1",
+                    "mail" : "test@test.com",
+                    "address" : "test address",
+                    "phone" : "25252525",   
                     "administrator" : {"id" : 1, "id_company" : 1, "user" : 2},
                 })
         url = reverse('company_details_view', args=[1])
@@ -246,13 +242,13 @@ class CompanyViewTestCase(TestCase):
         self.client = Client()
         self.client.login(username="test@test.com", password="password")   
         data = json.dumps({
-                   "id" : 2,
-                    "company_zipcode" : "123444411",
-                    "company_logo" : "http://teeest.tst",
-                    "company_name" : "testcompany 2",
-                    "company_mail" : "test@mail.test",
-                    "company_address" : "test address 2",
-                    "company_phone" : "252525552522",   
+                    "id" : 2,
+                    "zipcode" : "123444411",
+                    "logo" : "http://teeest.tst",
+                    "name" : "testcompany 2",
+                    "mail" : "test@mail.test",
+                    "address" : "test address 2",
+                    "phone" : "252525552522",   
                     "administrator" : {"id" : 3, "id_company" : 2, "user" : 4},
                 })
         url = reverse('company_details_view', args=[2])
@@ -265,13 +261,13 @@ class CompanyViewTestCase(TestCase):
         self.client = Client()
         self.client.login(username="test3@test.com", password="password")
         data_regular_user = json.dumps({
-                   "id" : 1,
-                    "company_zipcode" : "123444411",
-                    "company_logo" : "http://teeest.tst",
-                    "company_name" : "testcompany 2",
-                    "company_mail" : "test@mail.test",
-                    "company_address" : "test address 2",
-                    "company_phone" : "252525552522",   
+                    "id" : 1,
+                    "zipcode" : "123444411",
+                    "logo" : "http://teeest.tst",
+                    "name" : "testcompany 2",
+                    "mail" : "test@mail.test",
+                    "address" : "test address 2",
+                    "phone" : "252525552522",   
                     "administrator" : {"id" : 1, "id_company" : 1, "user" : 2},
                 })
         url = reverse('company_details_view', args=[1])

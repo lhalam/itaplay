@@ -33,39 +33,37 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams,  $inte
             ImageSlider($scope.areas);
             VideoSlider($scope.areas);
 
-        }, function(response) {
-            console.log(response);
+        }, function (response) {
             $scope.data = "Something went wrong";
         });
     };
 
-    $scope.trustSrc = function(src) {
-                return $sce.trustAsResourceUrl(src);
-            }
+    $scope.trustSrc = function (src) {
+        return $sce.trustAsResourceUrl(src);
+    }
 
     $scope.currentIndex=[];
     $scope.currentVideoIndex = [];
-
 
     $scope.isCurrentSlideIndex = function (id_area, index) {
         return $scope.currentIndex[id_area] === index;
     };
 
-    $scope.isCurrentSlideVideoIndex = function(id_area, index) {
+    $scope.isCurrentSlideVideoIndex = function (id_area, index) {
         return $scope.currentVideoIndex[id_area] === index;
     };
     
-    var VideoSlider = function(areas) {
+    var VideoSlider = function (areas) {
         areas.forEach(function(area) {
-          $scope.currentVideoIndex[area['id']] = 0;
-          $interval(function(){$scope.currentVideoIndex[area['id']] = ($scope.currentVideoIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentVideoIndex[area['id']] : 0;}, 60000);
+            $scope.currentVideoIndex[area['id']] = 0;
+            $interval(function(){$scope.currentVideoIndex[area['id']] = ($scope.currentVideoIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentVideoIndex[area['id']] : 0;}, 60000);
         });
     };
 
-    var ImageSlider = function(areas){
+    var ImageSlider = function (areas){
         areas.forEach(function(area) {
-          $scope.currentIndex[area['id']] = 0;
-          $interval(function(){$scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentIndex[area['id']] : 0;}, 5000+area['id']*400);
+            $scope.currentIndex[area['id']] = 0;
+            $interval(function(){$scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentIndex[area['id']] : 0;}, 5000+area['id']*400);
         });
     };
 };

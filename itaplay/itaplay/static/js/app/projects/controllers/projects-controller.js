@@ -1,6 +1,7 @@
 
 function AddProjectTemplateController ($scope,$routeParams, $http, $location, $mdDialog) {
     $scope.project_id = $routeParams.project_id;
+    $scope.areas = [];
     $scope.init = function () {
         $http.get("api/projects/" + $scope.project_id + "/")
             .then(function (response) {
@@ -21,17 +22,16 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
     $scope.parseTemplate = function (selected_template) {
         if (selected_template) {
             if (window.DOMParser) {
-                parser = new DOMParser();
-                xmlDoc = parser.parseFromString(selected_template.template_content, "text/xml");
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(selected_template.template_content, "text/xml");
             }
             else // Internet Explorer
             {
-                xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
                 xmlDoc.async = false;
                 xmlDoc.loadXML(selected_template.template_content);
             }
-            $scope.areas = [];
-            DOM_areas = xmlDoc.getElementsByTagName("area");
+            var DOM_areas = xmlDoc.getElementsByTagName("area");
             for (var i = 0; i < DOM_areas.length; i++) {
                 $scope.areas[i] = {};
                 $scope.areas[i]['id'] = DOM_areas[i].id;
@@ -46,8 +46,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
     };
 
     $scope.save = function (selected_template, areas) {
-        if (!validate(selected_template,areas)){ return;}
-        data = {
+        var data = {
             "project_id": $scope.project_id,
             "template_id": selected_template.id,
             "areas": areas
@@ -58,16 +57,10 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
         });
     };
 
-    var validate = function (selected_template, areas) {
-        if (selected_template==null) {
-            showAlert("You need to select template first!");
-            return false;
-        }
-        for (i = 0; i < areas.length; i+=1) {
-            if (!areas[i].clips.length) {
-                showAlert("All areas must have clips!");
-                return false;
-            }
+    $scope.isFormValid = function (selected_template, areas) {
+        if (selected_template==null) return false;
+        for (var i = 0; i < areas.length; i+=1) {
+            if (!areas[i].clips.length) return false;
         }
         return true;
     };
@@ -128,8 +121,8 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
         $scope.answer = function (answer) {
             $mdDialog.hide(answer);
         };
-    };
-};
+    }
+}
 
 itaplay.controller('ProjectCtrl', function($scope, $http, $route) {
     $http.get("api/projects")
@@ -152,28 +145,35 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     $http.get("api/projects/" + id + "/")
         .then(function (response) {
             $scope.project = response.data;
+            if (response.data.project_template === null){
+                $scope.template_button = "Add template";
+                $scope.allow_send_project = false;
+            }
+            else{
+                $scope.template_button = "Change template";
+                $scope.allow_send_project = true;
+            }
         }, function errorCallback(response) {
             $location.path('/projects/error');
     });
 
-    $http.get("api/projects_to_players/" + id)
+    $http.get("api/projects_to_players/" + id + "/")
         .then(function (response) {
             $scope.data = response.data;
-     });
+        });
 
     $scope.addPlayers = function ($event){
         $mdDialog.show({
-        controller: DialogController,
-        templateUrl:"static/js/app/projects/views/add_players.html",
-        parent: angular.element(document.body),
-        locals: {parent: $scope},
-        targetEvent: $event,
-        clickOutsideToClose:true,
-    })
-        .then(function (answer) {
-                $scope.new_players = answer;
-        }, function() {
-          $scope.status = 'You cancelled the dialog.';
+            controller: DialogController,
+            templateUrl:"static/js/app/projects/views/add_players.html",
+            parent: angular.element(document.body),
+            locals: {parent: $scope},
+            targetEvent: $event,
+            clickOutsideToClose:true,
+        }).then(function (answer) {
+            $scope.new_players = answer;
+        }, function () {
+            $scope.status = 'You cancelled the dialog.';
         });
     };  
 
@@ -203,33 +203,12 @@ itaplay.controller('EditProjectCtrl', function ($scope, $http, $routeParams, $lo
     };
 });
 
-itaplay.controller('AddProjectCtrl', function ($scope, $http, $location, $mdDialog) {
+itaplay.controller('AddProjectCtrl', function ($scope, $http, $location) {
 
-    $scope.addPlayers = function ($event){
-        $mdDialog.show({
-        controller: DialogController,
-        templateUrl:"static/js/app/projects/views/add_players.html",
-        parent: angular.element(document.body),
-        locals: {parent: $scope},
-        targetEvent: $event,
-        clickOutsideToClose:true,
-    })
-        .then(function (answer) {
-                $scope.players = answer;
-        }, function() {
-          $scope.status = 'You cancelled the dialog.';
-        });
-   };     
-
-    $scope.create = function (project, players) {
-        if (players != undefined){
-            project["players"] = players.map(function (player) {
-                return player.id;
-            });
-        }
+    $scope.create = function (project) {
         $http.post("api/projects/", project)
-            .success(function () {
-                $location.path('/projects');
+            .success(function (createdProject) {
+                $location.path('/projects/id=' + createdProject.id);
             });
     };
 });

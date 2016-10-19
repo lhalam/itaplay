@@ -19,20 +19,20 @@ from xml_templates.models import XmlTemplate
 class AdviserProjectsTests(APITestCase):
     def setUp(self):
         Company.objects.create(
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_phone="+380901234567",
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            phone="+380901234567",
             id=1
         )
 
         Company.objects.create(
-            company_zipcode="794508",
-            company_logo="http://test2.test",
-            company_name="testcompany2",
-            company_mail="test2@test.test",
-            company_phone="+380901234677",
+            zipcode="794508",
+            logo="http://test2.test",
+            name="testcompany2",
+            mail="test2@test.test",
+            phone="+380901234677",
             id=2
         )
 
@@ -48,11 +48,22 @@ class AdviserProjectsTests(APITestCase):
             id=2
         )
 
+        User.objects.create(
+            username="test3@test.com",
+            is_superuser=True,
+            email="test3@test.com",
+            id=3
+        )
+
         user = User.objects.get(id=1)
         user.set_password("password")
         user.save()
 
         user = User.objects.get(id=2)
+        user.set_password("password")
+        user.save()
+
+        user = User.objects.get(id=3)
         user.set_password("password")
         user.save()
 
@@ -66,6 +77,12 @@ class AdviserProjectsTests(APITestCase):
             user=User.objects.get(id=2),
             id_company=Company.objects.get(id=1),
             id=2
+        )
+
+        AdviserUser.objects.create(
+            user=User.objects.get(id=3),
+            id_company=Company.objects.get(id=1),
+            id=3
         )
 
         AdviserProject.objects.create(
@@ -87,8 +104,8 @@ class AdviserProjectsTests(APITestCase):
             template_name='FirstTemplate',
             template_content="""<?xml version="1.0" encoding="UTF-8" ?>
                                             <project name="template1" height="100" width="100">
-        	                                    <area id="1" left="10" top="10"  width="30" height="30">
-        	                                    </area>
+                                                <area id="1" left="10" top="10"  width="30" height="30">
+                                                </area>
                                             </project>"""
         )
 
@@ -116,7 +133,8 @@ class AdviserProjectsTests(APITestCase):
         url = reverse('projects-list')
         response = self.client.get(url)
         self.assertEqual(response.content, '{"count":1,"next":null,"previous":null,"results":[{"id":1,"id_company":1,'
-                                           '"name":"TestProject","description":"Test description"}]}')
+                                           '"name":"TestProject","description":"Test description",'
+                                           '"project_template":null}]}')
 
     def test_getting_adviser_project(self):
         """
@@ -125,7 +143,7 @@ class AdviserProjectsTests(APITestCase):
         url = reverse('project', args=[1])
         response = self.client.get(url)
         self.assertEqual(response.data, {'id': 1, 'name': 'TestProject', 'description': 'Test description',
-                                         'id_company': 1})
+                                         'id_company': 1, 'project_template': None})
 
     def test_updating_adviser_project(self):
         """
@@ -166,6 +184,31 @@ class AdviserProjectsTests(APITestCase):
         url = reverse('project', args=[2])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_access_to_adviser_project_for_admin(self):
+        """
+        Ensure that admin has access to any AdviserProject
+        :return:
+        """
+        url = reverse('project', args=[2])
+        self.client.logout()
+        self.client.login(username="test3@test.com", password="password")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_access_to_adviser_project_list_for_admin(self):
+        """
+        Ensure that admin can get list of all AdviserProject
+        """
+        url = reverse('projects-list')
+        self.client.logout()
+        self.client.login(username="test3@test.com", password="password")
+        response = self.client.get(url)
+        self.assertEqual(response.content,
+                         '{"count":2,"next":null,"previous":null,"results":[{"id":1,"id_company":1,'
+                         '"name":"TestProject","description":"Test description","project_template":null},'
+                         '{"id":2,"id_company":2,"name":"TestProject 2","description":"Test description",'
+                         '"project_template":null}]}')
 
     def test_add_template_to_project(self):
         """
@@ -224,25 +267,25 @@ class AdviserProjectsToPlayersTests(TestCase):
         user = User.objects.get(id=3)
         user.set_password("password")
         user.save()
-        
+
         Company.objects.create(
             id=1,
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_address= "testaddress",
-            company_phone="+380901234567",      
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            address= "testaddress",
+            phone="+380901234567",
         )
 
         Company.objects.create(
             id=2,
-            company_zipcode="794508",
-            company_logo="http://test2.test",
-            company_name="testcompany2",
-            company_mail="test2@test.test",
-            company_address="testaddress2",
-            company_phone="+380901234677",
+            zipcode="794508",
+            logo="http://test2.test",
+            name="testcompany2",
+            mail="test2@test.test",
+            address="testaddress2",
+            phone="+380901234677",
         )
 
         AdviserUser.objects.create(
@@ -250,13 +293,13 @@ class AdviserProjectsToPlayersTests(TestCase):
             id_company=Company.objects.get(id=1),
             id=1
         )
-        
+
         AdviserUser.objects.create(
             user=User.objects.get(id=3),
             id_company=Company.objects.get(id=2),
             id=2
-        )     
-        
+        )
+
         AdviserProject.objects.create(
             name="TestProject",
             description="Test description",
@@ -316,7 +359,7 @@ class AdviserProjectsToPlayersTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(players[0].get("id"), 2)
         self.assertEqual(players[1].get("id"), 1)
-    
+
     def test_get_try_foreign_project(self):
         url = reverse('get_players_for_project', args=[2])
         response = self.client.get(url)
@@ -330,7 +373,7 @@ class AdviserProjectsToPlayersTests(TestCase):
                                           'id' : 2,
                                           'name' : 'TestProject 2',
                                           'description' : 'Test description',
-                                          'id_company' : 2                                 
+                                          'id_company' : 2
                                         },
                             'players' : [{
                                            'id' : 1,
@@ -345,7 +388,7 @@ class AdviserProjectsToPlayersTests(TestCase):
                                            'description' : 'player test description',
                                            'mac_address' : 'fd:fd:cc:aa:32:cc',
                                            'status': True,
-                                        }],          
+                                        }],
 
         })
         self.client = Client()
@@ -356,13 +399,13 @@ class AdviserProjectsToPlayersTests(TestCase):
         self.assertEqual(first_player.project.id, 2)
         second_player = Player.objects.get(id=4)
         self.assertEqual(second_player.project.id, 2)
-        
+
     def test_put_try_foreign_project(self):
         data = json.dumps({ 'project' : {
                                           'id' : 2,
                                           'name' : 'TestProject 2',
                                           'description' : 'Test description',
-                                          'id_company' : 2                                 
+                                          'id_company' : 2
                                         },
                             'players' : [{
                                            'id' : 1,
@@ -377,7 +420,7 @@ class AdviserProjectsToPlayersTests(TestCase):
                                            'description' : 'player test description',
                                            'mac_address' : 'fd:fd:cc:aa:32:cc',
                                            'status': True,
-                                        }],          
+                                        }],
 
         })
         url = reverse('put_projects_to_players')
@@ -391,7 +434,7 @@ class AdviserProjectsToPlayersTests(TestCase):
                                           'id' : 1,
                                           'name' : 'TestProject 1',
                                           'description' : 'Test description',
-                                          'id_company' : 1                                 
+                                          'id_company' : 1
                                         }})
         url = reverse('put_projects_to_players')
         response = self.client.put(url, data=invalid_data, content_type='application/json')
@@ -402,8 +445,8 @@ class AdviserProjectsToPlayersTests(TestCase):
     def test_post_project_with_players(self):
         AdviserProject.objects.all().delete()
         url = reverse('projects-list')
-        data = json.dumps({ 'id' : 2,
-                            'name' : 'TestProject 2',
+        data = json.dumps({ 'id' : 1,
+                            'name' : 'TestProject 1',
                             'description' : 'Test description',                             
                             'players' : [ 2, 3,],          
         })
@@ -411,6 +454,6 @@ class AdviserProjectsToPlayersTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(AdviserProject.objects.count(), 1)
         first_player = Player.objects.get(id=2)
-        self.assertEqual(first_player.project.id, 2)
+        self.assertEqual(first_player.project.name, 'TestProject 1')
         second_player = Player.objects.get(id=3)
-        self.assertEqual(second_player.project.id, 2)
+        self.assertEqual(second_player.project.name, 'TestProject 1')
