@@ -93,6 +93,10 @@ class CompanyTestCase(TestCase):
         company = Company.get_company(1)
         company_id_1 = Company.objects.get(id=1)
         self.assertEqual(company, company_id_1)
+
+    def test_get_company_by_wromg_id(self):
+        company = Company.get_company(4)
+        self.assertEqual(company, None)    
     
     def test_delete_company(self):
         Company.objects.create(

@@ -1,4 +1,5 @@
 import json, hashlib
+
 from xml.etree import ElementTree
 
 from django.views.generic.base import View
@@ -117,8 +118,8 @@ class AdviserProjectToPlayers(View):
         project = AdviserProject.objects.get(id = data.get("project")["id"])
         if (not request.user.is_superuser) and (project.id_company.id != request.user.adviseruser.id_company.id):
             return HttpResponseBadRequest("Permission denied")
-        for obj in data.get("players"):
-            player = Player.get_by_id(obj["id"])
-            player.project = project 
+        for player in data.get("players"):
+            player = Player.get_by_id(player["id"])
+            player.project = project
             player.save()  
         return HttpResponse(status=201)

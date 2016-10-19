@@ -65,3 +65,4 @@ class AdviserProject(models.Model):
         adviser_project.project_hash = kwargs.get("project_hash", adviser_project.project_hash)
         adviser_project.save()
         return adviser_project
+

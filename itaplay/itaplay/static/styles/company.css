@@ -2,15 +2,14 @@
 .errorlist li{padding: 5px 5px; border-bottom: 1px solid #ddd;}
 .errorlist li:last-child{border-bottom: none}
 .errorList{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.42857143; padding: 20px 20px 10px 15px;  min-height: 200px;}
-.admin{height:50px; width:50px; overflow: hidden; border-radius: 100%; margin:2px 15px 2px 0;}
-.adminImg{height:100%;}
-.listAdmins{margin:5px 0 5px 0;}
-.roundBar{border-radius: 5px}
+.admin{height: 60px; width: 60px; border-radius: 50%; overflow: hidden; margin: 2px 15px 2px 0;}
+.adminImg{width: 100%; }
+.listAdmins{height: 60px; margin:5px 0 5px 0;}
 .searcher{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.42857143; background-color: #FFFCF4; border-radius: 5px; height: 2.5em;}
-.companyCard{background-color: #CCD9D7; min-height:150px;}
 .companyLogo{width: 150px; margin-right: 30px;}
 .companyTop{margin-top: 20px;}
-.companyForm{background-color: #A4C6C1; border-radius: 1%; margin:30px 60px 0 60px;}
-.formLogo{height:55px; margin :10px 0 0 10px;}
-.companyFields{background-color: #FFFCF4; border-radius: 1%; margin:10px 5px 0 5px;}
+.formLogo{height:90px; margin :10px 0 0 10px;}
 md-dialog{position:fixed; left: 25%; right:25%; top: 25%;}
+.whiteColor{color: white !important;}
+.searchColor{color: #009688 !important;}
+.buttonPading{padding-top: 5.5px;}

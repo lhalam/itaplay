@@ -10,7 +10,17 @@ from django.http import HttpResponseBadRequest, HttpResponse
 
 
 def check_superadmin(func):
+    """
+    Decorator that check if authenticated user is a superadmin.
+    :param func: function, that be wrapped
+    :return: function
+    """
     def wrapper(self, request, *args, **kwargs):
+        """
+        Wrapper, that checks authenticated user
+        :param request: Django request
+        :return: BadRequest when authenticated user is not a superadmin or function in other case
+        """
         if not request.user.is_superuser:
             return HttpResponseBadRequest("Permission denied")
         return func(self, request, *args, **kwargs)             
@@ -24,7 +34,7 @@ class CompanyListView(View):
     def get(self, request):
         """
         Handling GET method.
-        :param request:
+        :param request: Request to View.
         :return: HttpResponse with company fields and values by id_company of user which is logined.
         If user is superuser returns all companies with their fields and values.
         """
@@ -32,7 +42,7 @@ class CompanyListView(View):
             company = [model_to_dict(company) for company in Company.get_company()]
             return HttpResponse(json.dumps(company))
         adviser_user = request.user.adviseruser
-        company = [model_to_dict(company) for company in Company.objects.filter(id=adviser_user.id_company.id)]
+        company = [model_to_dict(company) for company in Company.filter_company(adviser_user.id_company.id)]
         return HttpResponse(json.dumps(company))
     
     @check_superadmin

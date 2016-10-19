@@ -35,3 +35,5 @@ class Player(models.Model):
             return cls.objects.get(id=player_id)
         except:
             return None
+    
+

@@ -2,7 +2,7 @@
 <div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
     <div flex-gt-sm="70">
       
-        <md-toolbar class="roundBar" layout="row">
+        <md-toolbar class="roundToolbar" layout="row">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" href="#company">
                     <md-icon md-font-set="material-icons">arrow_back</md-icon>
@@ -11,10 +11,13 @@
             </div>
         </md-toolbar>  
 
-        <div class="companyForm">
-            <img class="formLogo" ng-src="{{company.logo}}">
+        <md-whiteframe class="md-whiteframe-z4" layout="column">
+            <div layout="row">
+                <img class="formLogo" ng-src="{{company.logo}}" alt="{{company.name}}"> 
+            </div>
             <form name="newCompanyForm" layout-padding>
-                <md-content class="companyFields" layout-padding>
+                
+                <md-content layout-padding>
                     <md-input-container class="md-icon-float md-block">
                         <label>Logo:</label>
                         <input type="url" name="logo" ng-model="company.logo"  ng-required="true">
@@ -50,11 +53,11 @@
 
                     <md-input-container class="md-icon-float md-block">
                         <label>Administrator:</label>
-                        <md-select ng-model="company.administrator" > 
+                        <md-select ng-model="company.administrator" ng-disabled="!{{is_superuser}}"> 
                             <md-option class="listAdmins" ng-value="user" ng-repeat="user in users">
                                 <div layout="row">
                                     <div class="admin">
-                                        <img class="adminImg" ng-src="/static/images/{{user.avatar}}" alt="user">
+                                        <img class="adminImg" ng-src="{{user.avatar}}" alt="user">
                                     </div> 
                                     <div layout="column">
                                         <span>{{ user.first_name }} {{ user.last_name }}</span>
@@ -72,12 +75,12 @@
                       save
                   </md-buttom></div>
                   <div flex=100></div>
-                  <div><md-button flex="100"  class="md-warn" type="submit" ng-click="deleteCurrent(company)">
+                  <div><md-button flex="100"  class="md-warn" type="submit" ng-disabled="!{{is_superuser}}" ng-click="deleteCurrent(company)">
                       <md-icon class="material-icons">delete_forever</md-icon>
                       delete
                   </md-buttom></div>
                 </div>
             </form>
-        </div>
+        </md-whiteframe>
     </div>
 </div>

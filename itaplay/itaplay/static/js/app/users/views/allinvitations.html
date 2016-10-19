@@ -13,7 +13,7 @@
                 <md-list-item class="md-2-line">
                     <div class="md-list-item-text">
                         <h3>email: {{invitation.email}}</h3>
-                        <p>company: {{invitation.id_company.company_name}}</p>
+                        <p>company: {{invitation.id_company.name}}</p>
                         <p>verification code: {{invitation.verification_code}}</p>
                     </div>
                     <md-button class="md-secondary md-raised md-warn" ng-if="invitation.is_active == true">active</md-button>

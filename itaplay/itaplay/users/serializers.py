@@ -14,7 +14,7 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Company
-        fields = ('id', 'company_name')
+        fields = ('id', 'name')
 
 class AdviserUsersSerializer(serializers.HyperlinkedModelSerializer):
     """
