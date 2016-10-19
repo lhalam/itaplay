@@ -26,7 +26,6 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams, $inter
                 $scope.areas[i]['clips'] = [];
                 for (var k = 0; k < DOM_clip.length; k++) {
                     $scope.areas[i]['clips'][k] = {};
-                    $scope.areas[i]['clips'][k]['id'] = 'k';
                     $scope.areas[i]['clips'][k]['src'] = DOM_clip[k].attributes.src.nodeValue;
                     $scope.areas[i]['clips'][k]['mimetype'] = DOM_clip[k].attributes.mimetype.nodeValue;
                 };

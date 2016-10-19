@@ -1,12 +1,13 @@
 <link rel="stylesheet" type="text/css" href="/static/styles/logout.css">
 <header ng-controller="LogoutController">
   <md-toolbar>
-    <div class="md-toolbar-tools" >
+    <div class="md-toolbar-tools">
       <img src="/static/images/Logo.png" class="header_logo">
         <span flex></span>
 
       <div ng-init="init()">
-        <md-menu md-position-mode="target-right bottom" >
+         {{user}}
+        <md-menu md-position-mode="target-right bottom">
           <md-button aria-label="Open demo menu" class="md-icon-button logo" ng-click="$mdOpenMenu($event)">
             <img class="png-icon" ng-src="{{ avatar }}">
           </md-button>

@@ -1,6 +1,6 @@
 from django import forms
-from authentication.models import AdviserUser
 from django.contrib.auth.models import User
+from authentication.models import AdviserUser
 
 class AdviserUserForm(forms.Form):
 

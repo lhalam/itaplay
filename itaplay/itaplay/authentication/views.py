@@ -1,12 +1,13 @@
 import json
 
 from django.contrib import auth
-from django.shortcuts import render, redirect
-from django.views.generic import View
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
+from django.views.generic import View
+from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from utils.EmailService import EmailSender
