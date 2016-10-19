@@ -12,7 +12,9 @@ from django.core.exceptions import ValidationError
 
 def save_on_amazon_with_boto(clipfile):
 
-    if clipfile:
+    if clipfile.size > 200000000:
+        raise ValidationError("Your file is too large. Please enter valid file")
+    else:
         conn = S3Connection(local_settings.AWS_ACCESS_KEY_ID,
                             local_settings.AWS_SECRET_ACCESS_KEY)
         bucket = conn.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
@@ -34,7 +36,6 @@ def delete_from_amazon_with_boto(url):
     bucket = conn.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
     k = boto.s3.key.Key(bucket)
     filename_from_url = url.split('/')[-1]
-    # print filename_from_url
     k.key = settings.MEDIAFILES_LOCATION + filename_from_url
     bucket.delete_key(k)
     return True

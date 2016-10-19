@@ -5,7 +5,7 @@
         </div>
     </div>
     <div layout="column" layout-xs="column" layout-align="center center" layout-align-xs="center center">
-        <div ng-repeat="clip in clips" class="clips_wrapper">
+        <div ng-repeat="clip in clips | orderBy:'fields.name'" class="clips_wrapper">
             <div layout="row" layout-xs="column" layout-sm="column">
                 <div flex="20" flex-gt-xm="100">
                     <p class="clip_name">{{clip.fields.name}}</p>
