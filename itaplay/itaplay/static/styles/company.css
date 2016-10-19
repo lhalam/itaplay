@@ -10,3 +10,6 @@
 .companyTop{margin-top: 20px;}
 .formLogo{height:90px; margin :10px 0 0 10px;}
 md-dialog{position:fixed; left: 25%; right:25%; top: 25%;}
+.whiteColor{color: white !important;}
+.searchColor{color: #009688 !important;}
+.buttonPading{padding-top: 5.5px;}

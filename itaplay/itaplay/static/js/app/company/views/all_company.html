@@ -5,17 +5,18 @@
         <md-toolbar class="roundToolbar" layout="row">
             <div class="md-toolbar-tools">
                 <span>Companies</span>
-                <div flex=50></div>
+                <div flex=70></div>
                 <md-input-container class="searcher">
-                    <md-icon class="material-icons" style="color:#009688">search</md-icon> 
+                    <md-icon class="searchColor material-icons">search</md-icon> 
                     <input type="text" class="md-lg"  class="searchInput"  ng-model="company">
                     <span class="bar"></span>
                 </md-input-container>
-                <div flex=10></div>
-                <div><md-button flex="500" class="md-primary md-raised md-hue-1" style="color:white" href="/#/company/add_new/">
-                    <md-icon class="material-icons" style="color:white">add_box</md-icon> 
-                    Add new
-                </md-button></div>   
+                <div class="buttonPading">
+                    <md-button flex="500" class="whiteColor md-primary md-raised md-hue-1" ng-hide="!{{is_superuser}}" href="/#/company/add_new/">
+                        <md-icon class="whiteColor material-icons">add_box</md-icon> 
+                        Add new
+                    </md-button>
+               </div>   
             </div>
         </md-toolbar>
 
