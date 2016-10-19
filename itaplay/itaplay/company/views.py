@@ -9,6 +9,13 @@ from django.forms.models import model_to_dict
 from django.http import HttpResponseBadRequest, HttpResponse
 
 
+def check_superadmin(func):
+    def wrapper(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            return HttpResponseBadRequest("Permission denied")
+        return func(self, request, *args, **kwargs)             
+    return wrapper        
+
 class CompanyListView(View):
     """
     View used for handling company account.
@@ -27,7 +34,8 @@ class CompanyListView(View):
         adviser_user = request.user.adviseruser
         company = [model_to_dict(company) for company in Company.objects.filter(id=adviser_user.id_company.id)]
         return HttpResponse(json.dumps(company))
-
+    
+    @check_superadmin
     def post(self, request):
         """
         Handling POST method.
@@ -35,13 +43,11 @@ class CompanyListView(View):
         :return: HttpResponse with code 201 if company is added or
         HttpResponseBadRequest if request contain incorrect data or user is not superuser.
         """
-        if not request.user.is_superuser:
-            return HttpResponseBadRequest("Permission denied")
         company = Company()
         data = json.loads(request.body)
         company_form = CompanyForm(data)
         if not company_form.is_valid():
-            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+            return HttpResponseBadRequest(str(company_form.errors))
         company.set_company(data) 
         return HttpResponse(status=201)
 
@@ -50,6 +56,7 @@ class CompanyDetailsView(View):
     """
     View used for handling company account.
     """
+   
     def get(self, request, company_id):
         """
         Handling GET method.
@@ -63,11 +70,10 @@ class CompanyDetailsView(View):
         company_id = int(company_id)
         if (not request.user.is_superuser) and (company_id != request.user.adviseruser.id_company.id):
             return HttpResponseBadRequest("Permission denied")
-        data = {}
-        data["company"] = model_to_dict(Company.get_company(company_id))
-        data["users"] = [model_to_dict(user) for user in AdviserUser.objects.filter(id_company=company_id)]
+        data = { "company" : model_to_dict(Company.get_company(company_id)),
+                  "users"  : Company.get_company(company_id).get_users()}
         return HttpResponse(json.dumps(data))
-
+    
     def put(self, request, company_id):
         """
         Handling put method.
@@ -81,14 +87,15 @@ class CompanyDetailsView(View):
             return HttpResponseBadRequest("Permission denied")
         data = json.loads(request.body)
         if data.get("administrator"):
-            data["administrator"] = AdviserUser.objects.get(**data.get("administrator"))
+            data["administrator"] = AdviserUser.objects.get(id=data.get("administrator").get("id"))
         company = Company.get_company(data["id"]) 
         company_form = CompanyForm(data, company)
         if not company_form.is_valid():
-            return HttpResponseBadRequest("Invalid input data. Please edit and try again.")
+            return HttpResponseBadRequest(str(company_form.errors))
         company.set_company(data) 
         return HttpResponse(status=201)    
 
+    @check_superadmin
     def delete(self, request, company_id):
         """
         Handling DELETE method.
@@ -98,8 +105,5 @@ class CompanyDetailsView(View):
         :return: HttpResponse with code 201 if company is deleted.
         HttpResponseBadRequest with 'Permission denied' if user is not superuser.
         """
-        if not request.user.is_superuser:
-            return HttpResponseBadRequest("Permission denied")
-        company = Company()
-        company.delete_company(company_id)
+        Company().delete_company(company_id)
         return HttpResponse(status=201)

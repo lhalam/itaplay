@@ -9,38 +9,32 @@
             </div>
         </md-toolbar>
         <md-content>
+            <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
             <span flex>
                 <div layout="column">
-                  <form name="projectForm" ng-submit="create(project, players)">
+                  <form name="projectForm" ng-submit="create(project)">
                      <div layout="column">
 
                          <md-input-container class="md-block">
-                             <input aria-label="Project name:" ng-model="project.name" required md-maxlength="30"/>
                              <label>Project name:</label>
+                             <input aria-label="Project name:" ng-model="project.name" md-maxlength="30" required/>
                          </md-input-container>
 
                          <md-input-container class="md-block">
-                             <input ng-model="project.description" required md-maxlength="150"/>
                              <label>Project description:</label>
+                             <input ng-model="project.description" md-maxlength="150" required/>
                          </md-input-container>
 
-                         <md-card flex layout-padding>
-                             <h4>Your players:</h4>
-                             <div ng-repeat="player in players">
-                                <md-checkbox ng-checked="true">name: {{player.name}}; mac: {{player.mac_address}}</md-checkbox>
-                                <md-divider ng-if="!$last"></md-divider>
-                             </div>
-                         </md-card>
                      </div>
                       <div layout="row">
                           <div flex offset="33"></div>
-                          <md-button class="md-primary md-raised" ng-click="addPlayers($event)">Add project to players</md-button>
-                          <md-button type="submit" class="md-raised md-primary">Create</md-button>
+                          <md-button type="submit" ng-disabled="projectForm.$invalid" class="md-raised md-primary">Create</md-button>
                           <md-button type="reset" class="md-raised md-warn" >Reset</md-button>
                       </div>
                   </form>
                 </div>
             </span>
+            </md-whiteframe>
         </md-content>
     </div>
 </div>

@@ -30,12 +30,12 @@ class CompanyTestCase(TestCase):
         
         Company.objects.create(
             id=1,
-            company_zipcode="79008",
-            company_logo="http://test.test",
-            company_name="testcompany",
-            company_mail="test@test.test",
-            company_address= "testaddress",
-            company_phone="+380901234567",      
+            zipcode="79008",
+            logo="http://test.test",
+            name="testcompany",
+            mail="test@test.test",
+            address="testaddress",
+            phone="+380901234567",      
         )
 
         AdviserUser.objects.create(
@@ -52,35 +52,35 @@ class CompanyTestCase(TestCase):
 
         Company.objects.create(
             id=2,
-            company_zipcode="794508",
-            company_logo="http://test2.test",
-            company_name="testcompany2",
-            company_mail="test2@test.test",
-            company_address= "testaddress2",
-            company_phone="+380901234677",
+            zipcode="794508",
+            logo="http://test2.test",
+            name="testcompany2",
+            mail="test2@test.test",
+            address="testaddress2",
+            phone="+380901234677",
             administrator=AdviserUser.objects.get(id=2)
         )
 
 
     def test_company_get_by_name(self):
         """"""
-        company = Company.objects.get(company_name="testcompany")
-        self.assertEqual(company.company_name, "testcompany")
-        self.assertEqual(company.company_phone, "+380901234567")
+        company = Company.objects.get(name="testcompany")
+        self.assertEqual(company.name, "testcompany")
+        self.assertEqual(company.phone, "+380901234567")
 
     def test_company_get_by_zipcode_local(self):
         Company.objects.create(
             id=3,
-            company_zipcode="79007",
-            company_logo="2132",
-            company_name="testcompany1",
-            company_mail="test@test.test1",
-            company_address= "testaddress3",
-            company_phone="+3809012345671",
+            zipcode="79007",
+            logo="2132",
+            name="testcompany1",
+            mail="test@test.test1",
+            address="testaddress3",
+            phone="+3809012345671",
         )
 
-        company = Company.objects.get(company_zipcode="79007")
-        self.assertEqual(company.company_logo, "2132")
+        company = Company.objects.get(zipcode="79007")
+        self.assertEqual(company.logo, "2132")
     
     def test_get_company(self):
         companies = Company.get_company()
@@ -97,12 +97,12 @@ class CompanyTestCase(TestCase):
     def test_delete_company(self):
         Company.objects.create(
             id=3,
-            company_zipcode="379007",
-            company_logo="332132",
-            company_name="testcompany3",
-            company_mail="test@test.test3",
-            company_address= "testaddress3",
-            company_phone="+3809012345673",
+            zipcode="379007",
+            logo="332132",
+            name="testcompany3",
+            mail="test@test.test3",
+            address= "testaddress3",
+            phone="+3809012345673",
         )
         
         self.assertEqual(len(Company.get_company()), 3)
@@ -113,40 +113,39 @@ class CompanyTestCase(TestCase):
         admin = AdviserUser.objects.get(id=1)
         data = {
                    "id" : 3,
-                    "company_zipcode" : "379007",
-                    "company_logo" : "32132",
-                    "company_name" : "testcompany3",
-                    "company_mail" : "test@test.test3",
-                    "company_address" : "testaddress3",
-                    "company_phone" : "+380951234567",   
+                    "zipcode" : "379007",
+                    "logo" : "32132",
+                    "name" : "testcompany3",
+                    "mail" : "test@test.test3",
+                    "address" : "testaddress3",
+                    "phone" : "+380951234567",   
                     "administrator" : admin,
                 }
         Company().set_company(data)
         company = Company.get_company(3)
-        self.assertEqual(company.company_name, "testcompany3")
-        self.assertEqual(company.company_mail, "test@test.test3")
-        self.assertEqual(company.company_phone, "+380951234567")
-        self.assertEqual(company.company_zipcode, "379007")
+        self.assertEqual(company.name, "testcompany3")
+        self.assertEqual(company.mail, "test@test.test3")
+        self.assertEqual(company.phone, "+380951234567")
+        self.assertEqual(company.zipcode, "379007")
                 
     def test_set_company_update(self):
         admin = AdviserUser.objects.get(id=1)
         data = {
                    "id" : 1,
-                    "company_zipcode" : "379007",
-                    "company_logo" : "32132",
-                    "company_name" : "testcompany1",
-                    "company_mail" : "test@test.test1",
-                    "company_address" : "testaddress1",
-                    "company_phone" : "+380951234567",   
+                    "zipcode" : "379007",
+                    "logo" : "32132",
+                    "name" : "testcompany1",
+                    "mail" : "test@test.test1",
+                    "address" : "testaddress1",
+                    "phone" : "+380951234567",   
                     "administrator" : admin,
                 }
         
         company = Company.get_company(1)
         company.set_company(data)
         company = Company.get_company(1)
-        self.assertEqual(company.company_name, "testcompany1")
-        self.assertEqual(company.company_mail, "test@test.test1")
-        self.assertEqual(company.company_phone, "+380951234567")
-        self.assertEqual(company.company_zipcode, "379007")
+        self.assertEqual(company.name, "testcompany1")
+        self.assertEqual(company.mail, "test@test.test1")
+        self.assertEqual(company.phone, "+380951234567")
+        self.assertEqual(company.zipcode, "379007")
         self.assertEqual(company.administrator, admin)
-                            

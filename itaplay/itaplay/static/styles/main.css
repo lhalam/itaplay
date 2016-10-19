@@ -293,3 +293,7 @@ md-whiteframe {
     position: fixed;
     bottom: 60px;
 }
+
+.listCard{
+    min-height: 150px;
+}
