@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'projects',
     'player',
     'monitor',
-    'tests'
+    'tests',
+    'users',
 ]
 
 MIDDLEWARE_CLASSES = [

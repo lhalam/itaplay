@@ -13,6 +13,7 @@ class AdviserProject(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=150)
     project_template = models.TextField(blank=True, null=True)
+    project_hash = models.TextField(blank=True, null=True)
 
     @staticmethod
     def create(*args, **kwargs):
@@ -61,5 +62,6 @@ class AdviserProject(models.Model):
         adviser_project.name = kwargs.get("name", adviser_project.name)
         adviser_project.description = kwargs.get("description", adviser_project.description)
         adviser_project.project_template = kwargs.get("project_template", adviser_project.project_template)
+        adviser_project.project_hash = kwargs.get("project_hash", adviser_project.project_hash)
         adviser_project.save()
         return adviser_project

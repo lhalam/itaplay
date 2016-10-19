@@ -103,6 +103,18 @@ class AdviserInvitations(models.Model):
         self.save()
 
     @staticmethod
+    def create(*args, **kwargs):
+        """
+        Create new invite
+        :param args:
+        :param kwargs:
+        :return: new invite instance
+        """
+        invite = AdviserInvitations.objects.create(*args, **kwargs)
+        invite.save()
+        return invite
+
+    @staticmethod
     def get_invitation(verification_code):
         """
         Function for finding invitation by verification code

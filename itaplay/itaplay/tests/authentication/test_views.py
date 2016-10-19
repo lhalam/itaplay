@@ -88,15 +88,6 @@ class InviteView(TestCase):
 
         self.client = Client()
 
-    def test_get_invite_page(self):
-        self.client.login(username='test@test.com', password='rootroot')
-        response = self.client.get('/auth/invite')
-        self.assertEqual(response.status_code, 200)
-
-    def test__get_invite_page_when_not_authorized(self):
-        response = self.client.get('/auth/invite')
-        self.assertEqual(response.status_code, 302)
-
     @mock.patch('django.forms.forms.BaseForm.is_valid')
     def test_post_invite_page_succses(self, fakeresult):
         fakeresult.return_value = True
