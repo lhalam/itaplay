@@ -1,6 +1,10 @@
+"""
+Forms for user's profile
+"""
 from django import forms
 from django.contrib.auth.models import User
 from authentication.models import AdviserUser
+
 
 class AdviserUserForm(forms.Form):
 
@@ -10,10 +14,12 @@ class AdviserUserForm(forms.Form):
 
 
 class UserForm(forms.ModelForm):
+    """
+    Class for checking input in user profile
+    """
     first_name = forms.CharField(min_length=2, max_length=255, required=True)
     last_name = forms.CharField(min_length=2, max_length=255, required=True)
 
     class Meta:
         model = User
         fields = ('first_name', 'last_name')
-

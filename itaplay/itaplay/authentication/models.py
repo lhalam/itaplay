@@ -88,6 +88,10 @@ class AdviserUser(models.Model):
         return adviser_user
 
     def set_adviser_user(self, data):
+        """
+        :param data:
+        :return: set avatar from AdviserUser and save it in database
+        """
         self.avatar = data.get('avatar', self.avatar)
         self.save()
         
