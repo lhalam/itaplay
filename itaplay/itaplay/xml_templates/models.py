@@ -1,10 +1,10 @@
-"""Module that represents xml template model"""
+"""Module that represents xml template model."""
 from __future__ import unicode_literals
 from django.db import models
 
 
 class XmlTemplate(models.Model):
-    """Xml Template Model"""
+    """Xml Template Model."""
 
     class Meta(object):
         verbose_name = "Xml Template"
@@ -49,7 +49,7 @@ class XmlTemplate(models.Model):
         return cls.objects.get(id=template_id)
 
     @classmethod
-    def delete(cls, template_id):
+    def delete_by_id(cls, template_id):
         """Deletes single template by given id.
 
         Args:
