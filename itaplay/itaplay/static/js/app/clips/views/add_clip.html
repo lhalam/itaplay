@@ -27,8 +27,8 @@
           <div style="width:{{picFile.progress}}%" 
             ng-bind="picFile.progress + '%'"></div>
         </span>
-                <span ng-show="picFile.result">Upload Successful</span>
-                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                <p ng-show="statusMsg">{{statusMsg}}</p>
+                <p class="err" ng-show="errorMsg">{{errorMsg}}</p>
                 <br>
                 <p ng-show="myForm.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max 200M</p>
                 <p ng-show="myForm.file.$error.pattern">Allowed image/video formats only</p>
