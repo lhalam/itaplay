@@ -295,4 +295,6 @@ md-whiteframe {
     bottom: 60px;
 }
 
-.roundBar{border-radius: 5px}
+.roundBar{
+    border-radius: 5px
+}
