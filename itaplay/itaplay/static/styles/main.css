@@ -269,6 +269,7 @@ form .progress {
     border-radius: 2px;
     padding: 5px;
     margin: 5px;
+    width: 100%;
 }
 
 .clips_wrapper:hover {
