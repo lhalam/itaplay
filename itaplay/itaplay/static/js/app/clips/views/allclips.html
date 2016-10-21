@@ -3,8 +3,13 @@
         <md-toolbar layout="row" class="teal roundBar">
             <div class="md-toolbar-tools">
                 <span>Clips</span>
-                <div flex="80"></div>
-                <div>
+                <div flex="70"></div>
+                <md-input-container class="searcher">
+                    <md-icon class="searchColor material-icons">search</md-icon>
+                    <input type="text" class="md-lg" class="searchInput" ng-model="clip">
+                    <span class="bar"></span>
+                </md-input-container>
+                <div class="buttonPading">
                     <md-button flex="500" class="md-primary md-raised md-hue-1" style="color:white; " href="#/clips">
                         <md-icon class="material-icons" style="color:white">add_box</md-icon>
                         Add new
@@ -13,7 +18,7 @@
             </div>
         </md-toolbar>
         <div layout="column" layout-xs="column" layout-align="center center" layout-align-xs="center center">
-            <div layout-padding ng-cloak ng-repeat="clip in clips | orderBy:'fields.name'" class="clips_wrapper">
+            <div layout-padding ng-cloak ng-repeat="clip in clips | filter:clip" class="clips_wrapper">
                 <div layout="row" layout-xs="column" layout-sm="column" layout-align-xs="center center" layout-align-sm="center center">
                     <div flex="20" flex-gt-xm="100">
                         <p class="clip_name">{{clip.fields.name}}</p>
