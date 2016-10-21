@@ -10,14 +10,10 @@
                 </md-input-container>
                 <br>
             </md-content>
-            <md-button class="md-primary" type="file" ngf-select ng-model="xmlFile" name="file" ngf-pattern="'.xml'" accept=".xml" ngf-max-size="1MB" required ngf-model-invalid="errorFile">select
+            <md-button class="md-raised md-primary" type="file" ngf-select ng-model="xmlFile" name="file" ngf-pattern="'.xml'" accept=".xml" ngf-max-size="1MB" required ngf-model-invalid="errorFile">select
                 <br>
-                <i ng-show="myForm.file.$error.maxSize"><p>File too large 
-          {{errorFile.size / 1000000|number:1}}MB: max 1M</p></i>
-                <i ng-show="myForm.file.$error.pattern">Only allowed formats is .xml</i>
             </md-button>
-            <md-button class="md-raised md-primary" ng-click="xmlFile = null" ng-show="xmlFile">Remove File</md-button>
-            <!-- <md-button class="md-raised" ng-click="xmlFile = null; templateName = null">Clear All Fields</md-button> -->
+            <md-button class="md-raised" ng-click="xmlFile = null" ng-show="xmlFile">Remove File</md-button>
             <md-button class="md-raised md-warn" ng-disabled="!myForm.$valid" ng-click="uploadXml(xmlFile)">Submit</md-button>
             <span class="progress" ng-show="xmlFile.progress >= 0">
           <div style="width:{{xmlFile.progress}}%" 
@@ -26,6 +22,8 @@
             <span ng-show="xmlFile.result">Upload Successful</span>
             <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
             <br>
+            <p ng-show="myForm.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max 1M</p>
+            <p ng-show="myForm.file.$error.pattern">Only allowed formats is .xml</p>
         </form>
     </div>
 </div>
