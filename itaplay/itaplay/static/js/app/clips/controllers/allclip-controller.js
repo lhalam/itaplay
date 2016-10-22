@@ -15,7 +15,6 @@ function AllClipController($scope, $http) {
         .then(function(res) {
             var index = $scope.clips.indexOf(object);
             $scope.clips.splice(index, 1);
-            //$scope.data.splice(object,1);
             console.log(res.clips);
         }, function(error) {
             console.log(error);

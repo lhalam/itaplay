@@ -1,7 +1,8 @@
-function MonitorController($scope, $sce, $rootScope, $http, $routeParams,  $interval) {
+function MonitorController($scope, $sce, $rootScope, $http, $routeParams, $interval, $window) {
     var mac = $routeParams.mac;
     $scope.init = function( ) {
         $http.get('get_by_mac/'+ mac).then(function(response) {
+            $scope.project=response.data.hashsum
             if (window.DOMParser) {
                 parser = new DOMParser();
                 xmlDoc = parser.parseFromString(response.data.template, "text/xml");
@@ -25,7 +26,6 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams,  $inte
                 $scope.areas[i]['clips'] = [];
                 for (var k = 0; k < DOM_clip.length; k++) {
                     $scope.areas[i]['clips'][k] = {};
-                    $scope.areas[i]['clips'][k]['id'] = 'k';
                     $scope.areas[i]['clips'][k]['src'] = DOM_clip[k].attributes.src.nodeValue;
                     $scope.areas[i]['clips'][k]['mimetype'] = DOM_clip[k].attributes.mimetype.nodeValue;
                 };
@@ -33,40 +33,57 @@ function MonitorController($scope, $sce, $rootScope, $http, $routeParams,  $inte
 
             ImageSlider($scope.areas);
             VideoSlider($scope.areas);
+            
+            $interval( function (){ 
+                $http.head('get_by_mac/'+ mac).then( function (response){ 
+                    if(response.headers()['last-modified'] != $scope.project){
+                        $window.location.reload();
+                    };
+                }
+            )} , 5000);
 
-        }, function(response) {
-            console.log(response);
-            $scope.data = "Something went wrong";
+        }, function (response) {
+            $interval( function (){ 
+                $http.head('get_by_mac/'+ mac).then( function (response){ 
+                    if(response.headers()['last-modified']){
+                        $window.location.reload();
+                    };
+                }
+            )} , 5000);
         });
+   
     };
 
-    $scope.trustSrc = function(src) {
-                return $sce.trustAsResourceUrl(src);
-            }
+    $scope.trustSrc = function (src) {
+        return $sce.trustAsResourceUrl(src);
+    }
 
-    $scope.currentIndex=[];
+    $scope.currentIndex = [];
     $scope.currentVideoIndex = [];
-
 
     $scope.isCurrentSlideIndex = function (id_area, index) {
         return $scope.currentIndex[id_area] === index;
     };
 
-    $scope.isCurrentSlideVideoIndex = function(id_area, index) {
+    $scope.isCurrentSlideVideoIndex = function (id_area, index) {
         return $scope.currentVideoIndex[id_area] === index;
     };
     
-    var VideoSlider = function(areas) {
+    var VideoSlider = function (areas) {
         areas.forEach(function(area) {
-          $scope.currentVideoIndex[area['id']] = 0;
-          $interval(function(){$scope.currentVideoIndex[area['id']] = ($scope.currentVideoIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentVideoIndex[area['id']] : 0;}, 60000);
+            $scope.currentVideoIndex[area['id']] = 0;
+            $interval(function () {
+                $scope.currentVideoIndex[area['id']] = ($scope.currentVideoIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentVideoIndex[area['id']] : 0;
+            }, 60000);
         });
     };
 
-    var ImageSlider = function(areas){
-        areas.forEach(function(area) {
-          $scope.currentIndex[area['id']] = 0;
-          $interval(function(){$scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentIndex[area['id']] : 0;}, 5000+area['id']*400);
+    var ImageSlider = function (areas){
+        areas.forEach(function (area) {
+            $scope.currentIndex[area['id']] = 0;
+            $interval(function () {
+                $scope.currentIndex[area['id']] = ($scope.currentIndex[area['id']] < area['clips'].length - 1) ? ++$scope.currentIndex[area['id']] : 0;
+            }, 5000+area['id']*400);
         });
     };
 };

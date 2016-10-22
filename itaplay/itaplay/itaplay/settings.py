@@ -59,8 +59,11 @@ INSTALLED_APPS = [
     'projects',
     'player',
     'monitor',
-    'tests'
+    'tests',
+    'users',
 ]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -188,3 +191,4 @@ AWS_STORAGE_BUCKET_NAME = 'itaplayadviserireland'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
+MAX_CLIP_SIZE = 200*1024*1024

@@ -7,12 +7,19 @@ import boto
 from boto.s3.connection import S3Connection
 from django.conf import settings
 from itaplay import local_settings
+from itaplay.settings import MAX_CLIP_SIZE
 from django.core.exceptions import ValidationError
 
 
 def save_on_amazon_with_boto(clipfile):
+    """Function that uploads clip on amazon
 
-    if clipfile:
+        Returns :
+            str : url
+    """
+    if clipfile.size > MAX_CLIP_SIZE:
+        raise ValidationError("Your file is too large. Please enter valid file")
+    else:
         conn = S3Connection(local_settings.AWS_ACCESS_KEY_ID,
                             local_settings.AWS_SECRET_ACCESS_KEY)
         bucket = conn.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
@@ -28,13 +35,15 @@ def save_on_amazon_with_boto(clipfile):
 
 
 def delete_from_amazon_with_boto(url):
+    """Function that delete clip from amazon
 
+        Returns : True
+    """
     conn = S3Connection(local_settings.AWS_ACCESS_KEY_ID,
                         local_settings.AWS_SECRET_ACCESS_KEY)
     bucket = conn.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
     k = boto.s3.key.Key(bucket)
     filename_from_url = url.split('/')[-1]
-    # print filename_from_url
     k.key = settings.MEDIAFILES_LOCATION + filename_from_url
     bucket.delete_key(k)
     return True

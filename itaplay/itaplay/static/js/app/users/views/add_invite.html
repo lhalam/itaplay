@@ -1,0 +1,38 @@
+<div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
+    <div flex-gt-sm="70">
+        <md-toolbar layout="row" class="teal roundBar">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" href="#users">
+                    <md-icon md-font-set="material-icons">arrow_back</md-icon>
+                </md-button>
+                <span>New invitation</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-whiteframe class="md-whiteframe-z4" layout layout-align="center center">
+                <span flex>
+                    <div layout="column">
+                        <form name="inviteForm" ng-submit="inviteUser()">
+                         <div layout="column">
+                            <md-input-container>
+                               <label>E-mail</label>
+                               <input type="email" ng-model="inviteInfo.email" name="email" required>
+                            </md-input-container>
+                            <md-input-container>
+                               <label>Company</label>
+                                <md-select ng-model="company" required>
+                                  <md-option ng-repeat="company in companies" ng-value="company" ng-bind="company.name"></md-option>
+                                </md-select>
+                            </md-input-container>
+                         </div>
+                         <div layout="row">
+                             <div flex="70"></div>
+                             <md-button type="submit" ng-disabled="inviteForm.$invalid" flex class="md-raised md-primary">Invite</md-button>
+                         </div>
+                      </form>
+                    </div>
+                </span>
+            </md-whiteframe>
+        </md-content>
+    </div>
+</div>

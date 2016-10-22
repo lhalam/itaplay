@@ -1,4 +1,5 @@
-import json
+import json, hashlib
+
 from xml.etree import ElementTree
 
 from django.views.generic.base import View
@@ -11,9 +12,9 @@ from rest_framework import status, generics
 from projects.serializers import AdviserProjectSerializer
 
 from player.models import Player
-from company.models import Company
 from projects.models import AdviserProject
 from xml_templates.models import XmlTemplate
+
 
 class AdviserProjectView(View):
     """
@@ -30,17 +31,16 @@ class AdviserProjectView(View):
         template = XmlTemplate.get_by_id(data['template_id']).template_content
         tree = ElementTree.fromstring(template)
         for area in data['areas']:
-            template_area = tree.find(".//area[@id=\"%s\"]"%(area['id']))
+            template_area = tree.find(".//area[@id=\"%s\"]" % (area['id']))
             for clip in area['clips']:
                 clip_tag = ElementTree.SubElement(template_area, 'clip')
-                clip_tag.set('id',str(clip['pk']))
+                clip_tag.set('id', str(clip['pk']))
                 clip_tag.set('src', clip['fields']['url'])
                 clip_tag.set('mimetype', clip['fields']['mimetype'])
                 clip_tag.text = clip['fields']['name']
-        result_template = ElementTree.tostring(tree,encoding="us-ascii", method="xml")
-        project = AdviserProject.objects.filter(id = data['project_id']).first()
-        project.project_template = result_template
-        project.save()
+        result_template = ElementTree.tostring(tree, encoding="us-ascii", method="xml")
+        project_hash = hashlib.md5(result_template)
+        AdviserProject.update(data['project_id'],project_hash=project_hash, project_template = result_template)
         return HttpResponse(status=201)
 
 
@@ -100,12 +100,13 @@ class AdviserProjectToPlayers(View):
         :return: Http response with list of players that have current project
         """
         project = AdviserProject.objects.get(id=project_id)
-        if (not request.user.is_superuser) and (project.id_company.id != request.user.adviseruser.id_company.id):
+        if (not request.user.is_superuser) and (project.id_company.id != 
+                                                request.user.adviseruser.id_company.id):
             return HttpResponseBadRequest("Permission denied")
         players = Player.objects.filter(project=project_id)
         data = [model_to_dict(i) for i in players]
         return HttpResponse(json.dumps(data))
-        
+
     def put(self, request):
         """
         Handling PUT method. Send project to chosen players.
@@ -113,13 +114,14 @@ class AdviserProjectToPlayers(View):
         :return: Http response with status code 400 if players weren`t added. Http response with status code 201 if project is sended.
         """
         data = json.loads(request.body)
-        if (not data.get("players")):
+        if not data.get("players"):
             return HttpResponseBadRequest("Players are not added. Please, add some players.")
-        project = AdviserProject.objects.get(id = data.get("project")["id"])
-        if (not request.user.is_superuser) and (project.id_company.id != request.user.adviseruser.id_company.id):
+        project = AdviserProject.objects.get(id=data.get("project")["id"])
+        if (not request.user.is_superuser) and (project.id_company.id != 
+                                                request.user.adviseruser.id_company.id):
             return HttpResponseBadRequest("Permission denied")
-        for obj in data.get("players"):
-            player = Player.get_by_id(obj["id"])
-            player.project = project 
-            player.save()  
+        for player in data.get("players"):
+            player = Player.get_by_id(player["id"])
+            player.project = project
+            player.save()
         return HttpResponse(status=201)

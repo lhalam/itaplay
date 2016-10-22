@@ -5,16 +5,20 @@
       <img src="/static/images/Logo.png" class="header_logo">
         <span flex></span>
 
-      <div class="group">      
-        <input class="head_input" type="text" required>
-        <span class="head_highlight"></span>
-        <span class="bar"></span>
-        <label class="head_label">search</label>
+      <div ng-init="init()">
+         {{user}}
+        <md-menu md-position-mode="target-right bottom">
+          <md-button aria-label="Open demo menu" class="md-icon-button logo" ng-click="$mdOpenMenu($event)">
+            <img class="png-icon" ng-src="{{ avatar }}">
+          </md-button>
+          <md-menu-content width="2">
+              <md-button href="#profile" class="md-raised md-primary">Profile</md-button>
+            <md-button ng-click="LogoutUser()" class="md-raised md-warn"> <span md-menu-align-target="">Log Out</md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
       </div>
-
-        <md-button type="submit" ng-click="LogoutUser()" class="md-icon-button logo" aria-label="user_image">
-          <img class="png-icon" src="/static/images/default-user-logo.png" >
-        </md-button>
+      </div>
 
     </div>
 
@@ -22,6 +26,7 @@
 </header> 
 
 <section layout="row" layout-xs="column" layout-sm="column" layout-align="center start" layout-align-sm="center center" layout-align-xs="center center">
+  <md-button href="#users" class="groupX right">users</md-button>
   <md-button href="#projects" class="groupX middle">projects</md-button>
   <md-button href="#allclips" class="groupX middle">clips</md-button>
   <md-button href="#player" class="groupX middle">players</md-button>

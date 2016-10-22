@@ -1,4 +1,4 @@
-"""Module that represents views for xml templates"""
+"""Module that represents views for xml templates."""
 import json
 
 from django.http import HttpResponse
@@ -51,7 +51,7 @@ class TemplateView(View):
             request: Request to View.
             template_id: id of deleted template.
         Returns:
-            HttpResponse with code 201 if template is deleted.
+            HttpResponse with code 204 if template is deleted.
         """
-        XmlTemplate.delete(template_id)
+        XmlTemplate.delete_by_id(template_id)
         return HttpResponse(status=204)

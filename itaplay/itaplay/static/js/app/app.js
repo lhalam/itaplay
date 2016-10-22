@@ -1,12 +1,25 @@
 'use strict';
 
-var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages', 'LogoutController']);
+var itaplay = angular.module('itaplay', ['ngRoute', 'ngMaterial', 'ngFileUpload', 'ngMessages', 'LogoutController', 'ngCookies']);
 
 
 itaplay.config(function($routeProvider) {
     $routeProvider
        .when('/users', {
-            templateUrl: '../../../static/js/app/main/views/users.html',
+            templateUrl: '../../../static/js/app/users/views/allusers.html',
+            controller: AllUsersController
+        })
+        .when('/profile', {
+            templateUrl: '../../../static/js/app/users/views/user.html',
+            controller: UserController
+        })
+       .when('/invitations', {
+            templateUrl: '../../../static/js/app/users/views/allinvitations.html',
+            controller: AllInvitationsController
+        })
+        .when('/newinvite', {
+            templateUrl: '../../../static/js/app/users/views/add_invite.html',
+            controller: InviteUserController
         })
         .when('/allclips', {
             templateUrl: '../../../static/js/app/clips/views/allclips.html',
@@ -58,7 +71,7 @@ itaplay.config(function($routeProvider) {
             controller: CompanyAddController
         })
 
-        .when('/company/id=:company_id/', {
+        .when('/company/:company_id/', {
             templateUrl: '../../../static/js/app/company/views/company.html',
             controller: CompanyController
         })

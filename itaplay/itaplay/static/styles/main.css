@@ -269,6 +269,7 @@ form .progress {
     border-radius: 2px;
     padding: 5px;
     margin: 5px;
+    width: 100%;
 }
 
 .clips_wrapper:hover {
@@ -292,4 +293,8 @@ md-whiteframe {
 .md-button.md-fab.md-fab-bottom-right{
     position: fixed;
     bottom: 60px;
+}
+
+.roundBar{
+    border-radius: 5px
 }

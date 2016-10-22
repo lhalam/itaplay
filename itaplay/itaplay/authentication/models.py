@@ -29,12 +29,72 @@ class AdviserUser(models.Model):
         base_user.set_password(user_registration_form.data['password'])
         base_user.save()
 
-        user = AdviserUser()
-        user.user = base_user
-        user.id_company = invitation.id_company
-        user.save()
+        user = AdviserUser.create(user=base_user, id_company=invitation.id_company)
+
         return user
 
+    def set_adviser_user(self, data):
+        self.avatar = data.get('avatar', self.avatar)
+        self.save()
+
+    @staticmethod
+    def create(*args, **kwargs):
+        """
+        Create new AdviserUser
+        :return: AdviserUser instance
+        """
+        adviser_user = AdviserUser.objects.create(*args, **kwargs)
+        adviser_user.save()
+        return adviser_user
+
+    @staticmethod
+    def get(id):
+        """
+        Get AdviserUser by id
+        :param id: id of AdviserUser
+        :return: AdviserUser instance
+        """
+        adviser_user = AdviserUser.objects.get(id=id)
+        return adviser_user
+
+    @staticmethod
+    def filter(*args, **kwargs):
+        """
+        Get several AdviserUser
+        :return: list of AdviserUsers
+        """
+        adviser_users = AdviserUser.objects.filter(*args, **kwargs)
+        return adviser_users
+
+    def delete(self, *args, **kwargs):
+        """
+        Delete base Django user and AdviserUser connected with it
+        """
+        base_user = self.user
+        super(AdviserUser, self).delete()
+        super(User, base_user).delete()
+
+    @staticmethod
+    def update(id, **kwargs):
+        """
+        Update fields of AdviserUser
+        :param id: id of AdviserUser
+        :return: updated AdviserUser
+        """
+        adviser_user = AdviserUser.get(id)
+        adviser_user.user = kwargs.get("user", adviser_user.user)
+        adviser_user.avatar = kwargs.get("avatar", adviser_user.avatar)
+        adviser_user.save()
+        return adviser_user
+
+    def set_adviser_user(self, data):
+        """
+        :param data:
+        :return: set avatar from AdviserUser and save it in database
+        """
+        self.avatar = data.get('avatar', self.avatar)
+        self.save()
+        
 
 class AdviserInvitations(models.Model):
     """Stores invitation data"""
@@ -53,6 +113,18 @@ class AdviserInvitations(models.Model):
         self.is_active = False
         self.used_time = timezone.now()
         self.save()
+
+    @staticmethod
+    def create(*args, **kwargs):
+        """
+        Create new invite
+        :param args:
+        :param kwargs:
+        :return: new invite instance
+        """
+        invite = AdviserInvitations.objects.create(*args, **kwargs)
+        invite.save()
+        return invite
 
     @staticmethod
     def get_invitation(verification_code):

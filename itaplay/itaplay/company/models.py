@@ -1,20 +1,28 @@
+"""
+Models for company.
+"""
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
 
 
 class Company(models.Model):
     """
     Model of company.
     """
-    company_zipcode = models.CharField(max_length=20, default="")
-    company_logo = models.URLField(default="")
-    company_name = models.CharField(max_length=200, unique=True)
-    company_mail = models.EmailField(unique=True)
-    company_phone = models.CharField(max_length=50, unique=True)
-    company_address = models.CharField(max_length=200)
-    administrator = models.OneToOneField('authentication.AdviserUser', on_delete=models.SET_NULL, blank = True, null = True)
-    
+    zipcode = models.CharField(max_length=20, default="")
+    logo = models.URLField(default="")
+    name = models.CharField(max_length=200, unique=True)
+    mail = models.EmailField(unique=True)
+    phone = models.CharField(max_length=50, unique=True)
+    address = models.CharField(max_length=200)
+    administrator = models.OneToOneField('authentication.AdviserUser',
+                                          on_delete=models.SET_NULL,
+                                          blank=True, 
+                                          null=True)
+
     def set_company(self, arg):
         """
         Method for seting company from database.
@@ -30,7 +38,23 @@ class Company(models.Model):
         :param company_id: primary key for searched company.
         :return: nothing.
         """
-        Company.objects.get(id = company_id).delete()
+        Company.objects.get(id=company_id).delete()
+
+    def get_users(self):
+        """
+        Method for getting users of company from database.
+        :return: list with users dictionaries.
+        """
+        users = [user for user in User.objects.all() if hasattr(user, 'adviseruser')]
+        company_users = [model_to_dict(user.adviseruser) for user in users 
+                            if user.adviseruser.id_company == self]
+        for user_ in company_users:
+            [user_.update({'first_name' : user.first_name,
+                           'last_name' : user.last_name,
+                           'username' : user.username,
+                           'email' : user.email,}) 
+                            for user in users if user.adviseruser.id == user_["id"]]
+        return company_users
 
     @classmethod
     def get_company(cls, company_id=None):
@@ -41,4 +65,16 @@ class Company(models.Model):
         """
         if not company_id:
             return cls.objects.all()
-        return cls.objects.get(id=company_id)
+        try:
+            return cls.objects.get(id=company_id)
+        except:
+            return None
+
+    @classmethod
+    def filter_company(cls, company_id=None):
+        """
+        Classmethod for getting companies from database.
+        :param company_id: primary key for searched company.
+        :return: list of one company object filtered by company_id.
+        """
+        return cls.objects.filter(id=company_id)

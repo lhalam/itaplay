@@ -1,3 +1,4 @@
+"""Module for creating invite links and sending e-mails"""
 import uuid
 from django.utils import timezone
 from django.template import Context
@@ -15,6 +16,7 @@ class InviteLinkGenerator(object):
         company_id (int): ID for company, who invite user
         email (str): user email, that would be stored in database
     """
+
     def __init__(self, company_id, email):
         self.company_id = company_id
         self.email = email
@@ -25,12 +27,11 @@ class InviteLinkGenerator(object):
         Returns :
             str :user invitation link
         """
-        u_id = uuid.uuid4().hex     # u_id stores random generated hash
-        new_user = AdviserInvitations(email=self.email,
-                                      id_company=Company.get_company(self.company_id),
-                                      verification_code=u_id,
-                                      creation_time=timezone.now())
-        new_user.save()
+        u_id = uuid.uuid4().hex  # u_id stores random generated hash
+        AdviserInvitations.create(email=self.email,
+                                  id_company=Company.get_company(self.company_id),
+                                  verification_code=u_id,
+                                  creation_time=timezone.now())
         return EMAIL_SETTINGS['URL_REGISTRATION'] + u_id
 
 
@@ -40,6 +41,7 @@ class EmailSender(object):
     Attributes :
         email (str): email which will be sent a letter
     """
+
     def __init__(self, email):
         self.email = email
 
@@ -54,6 +56,6 @@ class EmailSender(object):
         plaintext = get_template('email_template.txt')
         invite_link = InviteLinkGenerator(company_id, self.email).generate_link()
         subject = "Invite to our service"
-        body = plaintext.render(Context({'inviteLink': invite_link}))  # rendering our template with data
+        body = plaintext.render(Context({'inviteLink': invite_link}))  # render template with data
         email = EmailMessage(subject, body, to=[self.email])
-        return True if(email.send()==1) else False
+        return email.send() == 1

@@ -52,6 +52,6 @@ class XmlTemplateModelTests(TestCase):
 
     def test_xml_template_delete(self):
         """Tests deleting xml template"""
-        XmlTemplate.delete(1)
+        XmlTemplate.delete_by_id(1)
         self.assertEqual(XmlTemplate.objects.count(), 1)
         self.assertFalse(XmlTemplate.objects.filter(pk=1).exists())
