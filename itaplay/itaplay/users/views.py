@@ -1,3 +1,7 @@
+"""
+User's profile views.
+Handle user and superuser cases
+"""
 import json
 import datetime
 
