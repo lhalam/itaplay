@@ -8,7 +8,7 @@ function AddTemplateController($scope, Upload, $timeout, $location) {
                 file: file
             }
         }).then(function success(response) {
-            $location.path('/#/templates');
+            $location.path('/templates');
         });
 
         file.upload.then(function(response) {
