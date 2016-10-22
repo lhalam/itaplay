@@ -1,34 +1,28 @@
 <div ng-init="init()" ng-cloak layout-gt-sm="row" flex layout-align="center">
-
-
-<div flex-gt-sm="70">
+    <div flex-gt-sm="70">
         <md-toolbar layout="row" class="teal roundBar">
             <div class="md-toolbar-tools">
-<!--                 <md-button class="md-icon-button" href="#templates">
-                    <md-icon md-font-set="material-icons">arrow_back</md-icon>
-                </md-button> -->
                 <span>Templates</span>
-                <div flex="70"></div>
-                <md-button href="#/templates-add" class="md-accent md-raised md-hue-1">Add template</md-button>
+                <div flex="80"></div>
+                <div>
+                    <md-button flex="500" class="md-primary md-raised md-hue-1" style="color:white; " href="#/templates-add">
+                        <md-icon class="material-icons" style="color:white">add_box</md-icon>
+                        Add new
+                    </md-button>
+                </div>
             </div>
         </md-toolbar>
-
-
-    <div>
-        
-    </div>
-
-
-
-    <div layout="row" ng-repeat="item in data" id="templates_list" layout-align="center center">
-        <div flex="15">
-            <a href="#/template/id={{item.id}}">{{ item.template_name }}</a>
+        <div>
         </div>
-        <div flex>
-            <pre lang="xml">{{ item.template_content}}</pre>
-        </div>
-        <div flex="10">
-            <md-button ng-click="delete(item)">Delete</md-button>
+        <div layout="row" ng-repeat="item in data" id="templates_list" layout-align="center center">
+            <div flex="15">
+                <a href="#/template/id={{item.id}}">{{ item.template_name }}</a>
+            </div>
+            <div flex>
+                <pre lang="xml">{{ item.template_content}}</pre>
+            </div>
+            <div flex="10">
+                <md-button ng-click="delete(item)">Delete</md-button>
+            </div>
         </div>
     </div>
-</div>

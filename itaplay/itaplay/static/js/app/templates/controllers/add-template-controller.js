@@ -20,6 +20,7 @@ function AddTemplateController($scope, Upload, $timeout, $location) {
                 $scope.errorMsg = response.status + ': ' + response.data;
         }, function(evt) {
             file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            $scope.statusMsg = "The upload successful!";
         });
     };
 };

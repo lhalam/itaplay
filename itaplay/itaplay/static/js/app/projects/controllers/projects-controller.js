@@ -1,7 +1,6 @@
 
 function AddProjectTemplateController ($scope,$routeParams, $http, $location, $mdDialog) {
     $scope.project_id = $routeParams.project_id;
-    $scope.areas = [];
     $scope.init = function () {
         $http.get("api/projects/" + $scope.project_id + "/")
             .then(function (response) {
@@ -21,6 +20,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
 
     $scope.parseTemplate = function (selected_template) {
         if (selected_template) {
+            $scope.areas=[];
             if (window.DOMParser) {
                 var parser = new DOMParser();
                 var xmlDoc = parser.parseFromString(selected_template.template_content, "text/xml");
@@ -59,6 +59,7 @@ function AddProjectTemplateController ($scope,$routeParams, $http, $location, $m
 
     $scope.isFormValid = function (selected_template, areas) {
         if (selected_template==null) return false;
+        if(areas==undefined) return false;
         for (var i = 0; i < areas.length; i+=1) {
             if (!areas[i].clips.length) return false;
         }
